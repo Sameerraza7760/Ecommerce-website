@@ -1,0 +1,90 @@
+
+.heading{
+text-align: center;
+margin: auto;
+font-family: 'Playfair Display', serif;font-size: 20px;
+width: 100%;
+font-size: 17px;
+padding-top: 1%;
+
+}
+.inputDiv{
+    width: 90%;
+    margin: auto;
+    margin-top: 6%;
+}
+@media(max-width:600px){
+    .sigupformcontainer{
+        width:90%;
+    }
+}
+.sigupformcontainer button{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.452);
+    outline: none;
+}
+.sigupformcontainer button:hover{
+    background-color: black;
+}
+@media(max-width:445px){
+    .sigupformcontainer{
+        width:90%;
+    }
+}
+@media(max-width:400px){
+    .sigupformcontainer{
+        width:90%;
+    }
+
+}
+
+.sigupformcontainer{
+    height: 400px;
+    width: 500px;
+    margin: auto;
+
+    margin-top: 3%;
+    box-shadow: 0 0.2rem 1rem rgb(0 0 0 / 19%);
+    border-radius: 10px;
+}
+
+.heading{
+text-align: center;
+margin: auto;
+font-family: 'Playfair Display', serif;font-size: 20px;
+width: 100%;
+font-size: 17px;
+padding-top: 1%;
+
+}
+.inputDiv{
+    width: 90%;
+    margin: auto;
+}
+
+
+@media(max-width:500px){
+    .sigupformcontainer{
+        width:400px;
+    }
+}
+.sigupformcontainer button{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.452);
+    outline: none;
+}
+.sigupformcontainer button:hover{
+    background-color: black;
+}
+@media(max-width:445px){
+    .sigupformcontainer{
+        width:370px;
+    }
+
+}
+@media(max-width:400px){
+    .sigupformcontainer{
+        width:90%;
+    }
+
+}

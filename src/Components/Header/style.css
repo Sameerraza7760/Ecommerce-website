@@ -1,0 +1,38 @@
+.ecommercy-heading {
+  font-family: monospace;
+  font-weight: 700;
+  letter-spacing: 0.3rem;
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.ecommercy-heading:hover {
+  color: skyblue;
+  transform: translateY(-3px);  /* Adjust the translation amount to your preference */
+}
+@media(max-width:410px){
+  .responsiveheading {
+ margin-right: 3%;
+  }
+}
+
+
+
+.dropdown-menu {
+  display: none;
+}
+
+/* Show the dropdown menu on smaller screens */
+@media(max-width:410px){
+  .dropdown-menu {
+    display: block;
+  }
+}
+
+/* Style for each button in the dropdown */
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
