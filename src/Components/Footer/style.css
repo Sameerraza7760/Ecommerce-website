@@ -1,0 +1,27 @@
+/* .footer-heading{
+ font-weight: 700;
+} */
+.innerFooterDiv h1 {
+  font-weight: 700;
+}
+.innerFooterDiv p {
+  font-size: 14px;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+@media (max-width: 660px) {
+  .footer1Container {
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+  }
+  .footer1Container div {
+    width: 100%;
+    text-align: center;
+  }
+  .footer1Container div input {
+    width: 300px;
+  }
+}

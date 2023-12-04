@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { setUser } from "./../../features/User/userSlice";
+// import { Dispatch } from "react";
 
 import { Iauth } from "types/types";
 
@@ -28,6 +30,7 @@ import {
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Message } from "@mui/icons-material";
+// import { useDispatch } from "react-redux";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAKK4oiI5nqlMPij0sRTiDU4xdh9eEVR_c",
@@ -53,16 +56,19 @@ async function SignupFirebase(userInfo: Iauth) {
       email,
       password
     );
+
     await addUserToDB(userInfo, userCredential.user.uid);
+
+    return userCredential;
   } catch (error: any) {
     console.log(error.message);
   }
 }
 
-function signinFirebase(userInfo:Iauth) {
-  const {email,password}=userInfo
+function signinFirebase(userInfo: Iauth) {
+  const { email, password } = userInfo;
   // const userData={email,password}
-  return signInWithEmailAndPassword(auth, email,password);
+  return signInWithEmailAndPassword(auth, email, password);
 }
 
 const addUserToDB = async (userProfile: Iauth, uid: string) => {
@@ -74,5 +80,6 @@ const addUserToDB = async (userProfile: Iauth, uid: string) => {
 export default {
   createUserWithEmailAndPassword,
   SignupFirebase,
-  signinFirebase
+  signinFirebase,
+  auth,
 };

@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import './../style.css'
+import "./../style.css";
 
 import TextField from "@mui/material/TextField";
-import {useNavigate} from 'react-router-dom'
-import Header  from '../../../Components/Header/Header'
+import { useNavigate } from "react-router-dom";
+import Header from "../../../Components/Header/Header";
 import useAuth from "../../../hooks/useAuth";
 
-  const Signin : React.FC=()=> {
-    const navigate=useNavigate()
+const Signin: React.FC = () => {
+  const navigate = useNavigate();
   const { signin } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
 
   const handleLogin = async () => {
-   
     await signin({ email, password });
   };
 
@@ -63,7 +62,7 @@ import useAuth from "../../../hooks/useAuth";
           </button>
           <p>New to website ?</p>
           <button
-          onClick={()=>navigate('/')}
+            onClick={() => navigate("/")}
             style={{
               width: "100%",
               height: "60px",
@@ -82,7 +81,6 @@ import useAuth from "../../../hooks/useAuth";
       </div>
     </>
   );
-}
+};
 
-
-export default Signin
+export default Signin;

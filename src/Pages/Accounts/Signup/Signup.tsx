@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "./../style.css";
 import TextField from "@mui/material/TextField";
 import useAuth from "../../../hooks/useAuth";
-import Header from './../../../Components/Header/Header'
+import Header from "./../../../Components/Header/Header";
 import { useNavigate } from "react-router-dom";
 
-const Siginup : React.FC=()=> {
-  const navigate=useNavigate()
+const Siginup: React.FC = () => {
+  const navigate = useNavigate();
   const { signup } = useAuth();
 
   const [email, setEmail] = useState("");
@@ -18,8 +18,8 @@ const Siginup : React.FC=()=> {
   };
   return (
     <>
-    <Header/>
-      <div className="sigupformcontainer" style={{height:'470px'}}>
+      <Header />
+      <div className="sigupformcontainer" style={{ height: "470px" }}>
         <div className="m-auto text-center font-serif font-bold text-3xl mb-4 pt-2">
           <h1>Signup</h1>
         </div>
@@ -65,13 +65,13 @@ const Siginup : React.FC=()=> {
               fontSize: "18px",
               fontFamily: "sans-serif",
               letterSpacing: ".1rem",
-              marginBottom:'4%'
+              marginBottom: "4%",
             }}
           >
             Register
           </button>
           <button
-          onClick={()=>navigate('/Signin')}
+            onClick={() => navigate("/Signin")}
             style={{
               width: "100%",
               height: "60px",
@@ -90,6 +90,6 @@ const Siginup : React.FC=()=> {
       </div>
     </>
   );
-}
+};
 
-export default Siginup
+export default Siginup;

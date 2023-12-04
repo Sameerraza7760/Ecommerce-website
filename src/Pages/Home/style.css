@@ -1,164 +1,184 @@
 #imageContainer {
-    height: 70vh;
-    display: flex;
-    align-items: center;
-    background:url(../../assets/ecommerce.jpg.jpg) no-repeat;
-    background-size: cover;
-    background-position: center;
-    width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  background: url(../../assets/ecommerce.jpg.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
 }
-
 
 /* @media(max-width:'')
 .container */
 
+@media (max-width: 900px) {
+  #container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 170vh;
+  }
 
-
-@media(max-width:900px){
-
-        #container {
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          height: 170vh;
-        }
-    
-        #container div {
-          width: 60%;
-          /* height: auto; Set to auto to allow content to determine height */
-        }
-        #image4{
-            margin-top: 4%;
-        }
-
-     
-      }
-
-
-#image1{
-    background-image: url(../../assets/hoodie.jpg);
-    cursor: pointer;
-    /* height: 300px; */
-    /* margin-bottom: 100px; */
-    transition: opacity 0.3s ease-in-out;
+  #container div {
+    width: 60%;
+    /* height: auto; Set to auto to allow content to determine height */
+  }
+  #image4 {
+    margin-top: 4%;
+  }
 }
 
-#image2{
-    background-image: url(./../../assets/jackets.jpg);
-    cursor: pointer;
-    transition: opacity 0.3s ease-in-out;
-    /* height: 300px; */
+#image1 {
+  background-image: url(../../assets/hoodie.jpg);
+  cursor: pointer;
+  /* height: 300px; */
+  /* margin-bottom: 100px; */
+  transition: opacity 0.3s ease-in-out;
 }
 
-#image3{
-    background-image: url(./../../assets/paints.jpg);
-    cursor: pointer;
-    transition: opacity 0.3s ease-in-out;
-    /* height: 1px; */
+#image2 {
+  background-image: url(./../../assets/jackets.jpg);
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  /* height: 300px; */
 }
 
+#image3 {
+  background-image: url(./../../assets/paints.jpg);
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  /* height: 1px; */
+}
 
 #image4 {
-    position: relative;
-    background-image: url(././../../assets/hoodie1.jpg);
-    background-size: cover; /* Change from 'cover' to 'contain' */
-    background-position: center center; 
-    cursor: pointer;
-    transition: opacity 0.3s ease-in-out;
-    position: relative;
+  position: relative;
+  background-image: url(././../../assets/hoodie1.jpg);
+  background-size: cover; /* Change from 'cover' to 'contain' */
+  background-position: center center;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  position: relative;
 }
 
 #image4::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: black;
-    opacity: 0; /* Initial opacity */
-    transition: opacity 0.3s ease-in-out;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 0; /* Initial opacity */
+  transition: opacity 0.3s ease-in-out;
 }
 
 #image4:hover::before {
-    opacity: 0.5; /* Adjust the opacity to darken or lighten the image on hover */
+  opacity: 0.5; /* Adjust the opacity to darken or lighten the image on hover */
 }
-
-
 
 #image1:hover,
-
 #image2:hover,
 #image3:hover {
-    transform: scale(1.1); /* Adjust the scale factor as needed */
+  transform: scale(1.1); /* Adjust the scale factor as needed */
 }
 
+@media (max-width: 800px) {
+  .images-container {
+    flex-direction: column;
+    justify-content: center;
+    /* margin: auto;/ */
+    height: 100vh;
+  }
 
-@media(max-width:800px){
-    .images-container{
-        flex-direction: column;
-        justify-content: center;
-        /* margin: auto;/ */
-        height: 100vh;
+  @media (max-width: 608px) {
+    .innerDiv2 p {
+      font-size: 15px !important;
     }
+  }
+  @media (max-width: 365px) {
+    .innerDiv2 p {
+      font-size: 13px !important;
+    }
+  }
 
-    @media(max-width:608px){
-        .innerDiv2 p{
-font-size: 15px !important;
-        }
-    }
-    @media(max-width:365px){
-        .innerDiv2 p{
-font-size: 13px !important;
-        }
-    }
-
-
-    .images-container .firstDiv{
-   height: 60vh;
-   width: 90%;
-    }
-    .images-container .secondDiv{
-        width: 90%;
-        height: 30vh;
-    }
-    .innerDiv2{
-        padding: 1px !important;
-    }
-
+  .images-container .firstDiv {
+    height: 60vh;
+    width: 90%;
+  }
+  .images-container .secondDiv {
+    width: 90%;
+    height: 30vh;
+  }
+  .innerDiv2 {
+    padding: 1px !important;
+  }
 }
 
-
-
-
-
-
-.innerDiv2 h1{
-  
-    font-size:20px;
+.innerDiv2 h1 {
+  font-size: 20px;
 }
 
-.innerDiv2 p{
-  
-    font-size:20px;
-    margin-top: 2%;
+.innerDiv2 p {
+  font-size: 20px;
+  margin-top: 2%;
 }
 
-
-
-.firstDiv{
-    background-image: url(./../../assets/shoes.jpg) ;
-    background-size: cover; /* Change from 'cover' to 'contain' */
-    background-position: center center  ; 
-    cursor: pointer;
-    transition: opacity 0.3s ease-in-out;
-    position: relative;
-    /* border:none */
+.firstDiv {
+  background-image: url(./../../assets/shoes.jpg);
+  background-size: cover; /* Change from 'cover' to 'contain' */
+  background-position: center center;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  position: relative;
+  /* border:none */
 }
 
-.firstDiv:hover{
-    opacity: 0.6; /* Adjust the opacity to darken or lighten the image on hover */
+.firstDiv:hover {
+  opacity: 0.6; /* Adjust the opacity to darken or lighten the image on hover */
 }
-.innerHeading h1{
-    font-size: 30px;
+.innerHeading h1 {
+  font-size: 30px;
+}
+
+#card1 {
+  content: url("./../../assets/card1.jpg");
+  /* Additional styling for the pseudo-element */
+}
+
+#card2 {
+  content: url("./../../assets/card2.jpg");
+  /* Additional styling for the pseudo-element */
+}
+
+#card3 {
+  content: url("./../../assets/card3.jpg");
+  /* Additional styling for the pseudo-element */
+}
+
+#card4 {
+  content: url("././../../assets/card4.jpg");
+}
+
+/* @media(max-width:830px){
+    .cardContainer{
+        height: 150vh !important;
+    }
+}
+
+@media(max-width:430px){
+    .cardContainer{
+        height: 100vh !important;
+    }
+} */
+
+@media (max-width: 900px) {
+  .innerCardDiv {
+    width: 90% !important;
+  }
+}
+#instaID {
+  content: url(./../../assets/insta.png);
+  margin: auto;
+  height: 30px;
+  margin-top: 5%;
 }

@@ -1,19 +1,18 @@
+// App.tsx
 import React from "react";
+import { Provider } from "react-redux";
 
-import Signup from "./Pages/Accounts/Signup/Signup";
-import { Routes, Route } from "react-router-dom";
-import Signin from "./Pages/Accounts/Signin/Signin";
-import Home from "./Pages/Home/Home";
+import AppRouter from "./Config/Router/Router";
+import ErrorBoundary from "./Errorboundry/ErrorBoundary";
+import { store } from "./store/store";
 
-function App() {
+function App(): JSX.Element {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Signup />}></Route>
-        <Route path="/Signin" element={<Signin />}></Route>
-        <Route path="/Home" element={<Home />}></Route>
-      </Routes>
-    </>
+    <Provider store={store}>
+      <ErrorBoundary>
+        <AppRouter />
+      </ErrorBoundary>
+    </Provider>
   );
 }
 
