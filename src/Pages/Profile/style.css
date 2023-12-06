@@ -1,0 +1,88 @@
+.costumerName {
+  font-weight: 600;
+  font-size: 25px;
+
+}
+.costumerDetail h3 {
+  font-size: 18px;
+ 
+
+  font-weight: 600;
+  color: rgb(190, 172, 172);
+  line-height: 50px;
+}
+
+.profileimage {
+  /* content: url(./../../assets/profile.webp); */
+  margin-left: 9%;
+  height: 50px;
+  margin-top: 5%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid orange;
+}
+.profileName {
+  margin-left: 9%;
+  font-weight: 600;
+  margin-top: 10%;
+  font-family: sans-serif;
+}
+
+.Drawer{
+  display: none;
+}
+.Profileimage {
+  height: 150px;
+  /* content: url(./../../assets/profile.webp); */
+  overflow: hidden;
+  border: 2px solid orange;
+}
+@media (max-width: 1000px) {
+  .innerMiniContainer {
+    display: none !important;
+
+  }
+  .Drawer{
+    display: block !important;
+  
+   
+  }
+  .innerMiniContainer2{
+    width: 90% !important;
+    margin: auto;
+ 
+
+  }
+  .mainProfileContainer{
+    padding-left: 0% !important;
+
+  }
+  .Profileimage{
+    width: 200px !important;
+  }
+}
+
+@media(max-width:677px){
+  .Profileimage{
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .profileimagediv{
+    width: 30% !important;
+  }
+}
+
+@media (max-width:550px){
+ 
+  .costumerText h3 {
+    font-size: 15px;
+  }
+
+  .costumerName{
+    font-size: 17px;
+  }
+  .Drawer{
+    font-size: medium !important;
+  }
+
+}

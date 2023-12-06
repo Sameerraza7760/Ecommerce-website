@@ -1,16 +1,15 @@
+import { SettingOutlined } from "@ant-design/icons";
+import { Input } from "antd";
 import React, { useState } from "react";
+import Footer from "./../../Components/Footer/Footer";
 import Header from "./../../Components/Header/Header";
 import "./style.css";
-import { Input } from "antd";
-import { SettingOutlined } from "@ant-design/icons";
-import Footer from "./../../Components/Footer/Footer";
 const { TextArea } = Input;
 
-import { Card } from "antd";
+import type { CollapseProps } from "antd";
+import { Card, Collapse, Select } from "antd";
 
 const { Meta } = Card;
-import type { CollapseProps } from "antd";
-import { Collapse, Select } from "antd";
 
 const { Option } = Select;
 

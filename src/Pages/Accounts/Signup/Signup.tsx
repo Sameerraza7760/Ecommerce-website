@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./../style.css";
 import TextField from "@mui/material/TextField";
 import useAuth from "../../../hooks/useAuth";
 import Header from "./../../../Components/Header/Header";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Siginup: React.FC = () => {
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { signup, successMessage } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
@@ -16,6 +20,15 @@ const Siginup: React.FC = () => {
   const handleSignup = async () => {
     await signup({ email, password, username });
   };
+  useEffect(() => {
+    if (successMessage) {
+      toast.success("Signup successful!");
+
+      setTimeout(() => {
+        navigate("/Signin");
+      }, 2000);
+    }
+  }, [successMessage]);
   return (
     <>
       <Header />
@@ -23,6 +36,7 @@ const Siginup: React.FC = () => {
         <div className="m-auto text-center font-serif font-bold text-3xl mb-4 pt-2">
           <h1>Signup</h1>
         </div>
+
         <div className="inputDiv">
           <TextField
             placeholder="Username"
@@ -87,6 +101,7 @@ const Siginup: React.FC = () => {
             Login
           </button>
         </div>
+        <ToastContainer/>
       </div>
     </>
   );

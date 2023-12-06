@@ -1,24 +1,24 @@
-import * as React from "react";
+import AdbIcon from "@mui/icons-material/Adb";
+import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import Fontawesome from "@fortawesome/fontawesome-svg-core";
-import { useNavigate } from "react-router-dom";
-import { User } from "./../../types/types";
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import useAuth from "./../../hooks/useAuth";
-// import { RootState } from 'store/store';
 
 import "./style.css";
 const pages = ["Products", "Pricing", "Blog"];
@@ -27,14 +27,13 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 function ResponsiveAppBar() {
   const { logout } = useAuth();
   const email = useSelector((state?: any) => state?.user?.user?.email);
-  console.log(email);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClose = (Route: string) => {
+    navigate(Route);
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -47,7 +46,8 @@ function ResponsiveAppBar() {
 
   const handleLogout = async () => {
     try {
-      logout();
+      toast.success("Logout successful!");
+      setTimeout(() => logout(), 2000);
     } catch (error) {
       console.log(error);
     }
@@ -233,7 +233,6 @@ function ResponsiveAppBar() {
               SHOP
             </Button>
             <Button
-              onClick={handleCloseNavMenu}
               sx={{
                 my: 2,
                 color: "black",
@@ -241,6 +240,7 @@ function ResponsiveAppBar() {
                 fontFamily: "sans-serif",
                 fontWeight: "300",
               }}
+              onClick={() => navigate("/Blog")}
             >
               BLOG
             </Button>
@@ -292,8 +292,12 @@ function ResponsiveAppBar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>Account</MenuItem>
+                  <MenuItem onClick={() => handleClose("/Profile")}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={() => handleClose("/Account")}>
+                    Account
+                  </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               ) : null}
@@ -301,6 +305,7 @@ function ResponsiveAppBar() {
           </Box>
         </Toolbar>
       </Container>
+      <ToastContainer />
     </AppBar>
   );
 }

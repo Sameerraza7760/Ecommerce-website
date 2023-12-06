@@ -8,3 +8,10 @@ export interface User {
   id: string | null;
   email: string | null;
 }
+
+export interface UserProfile {
+  email?: string;
+  userName?: string;
+  photurl?: string  | null | undefined;
+  id?: string;
+}

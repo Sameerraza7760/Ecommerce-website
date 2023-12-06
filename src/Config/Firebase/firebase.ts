@@ -25,6 +25,7 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
   serverTimestamp,
 } from "firebase/firestore";
 
@@ -73,13 +74,21 @@ function signinFirebase(userInfo: Iauth) {
 
 const addUserToDB = async (userProfile: Iauth, uid: string) => {
   let { email, username } = userProfile;
-  let userData = { email, username };
+  let userData = { email, username, uid };
   return setDoc(doc(db, "users", uid), userData);
-};
+}
 
 export default {
   createUserWithEmailAndPassword,
   SignupFirebase,
   signinFirebase,
   auth,
+  getDoc,
+  collection,
+  db,
+  doc,
+  updateDoc,
+  ref,
+  uploadBytes,getDownloadURL,
+  storage
 };

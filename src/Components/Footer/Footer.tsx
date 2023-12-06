@@ -1,67 +1,97 @@
 import React, { useState } from "react";
 
 import "./style.css";
-import { Input } from "antd";
+import { Input, Button } from "antd";
+
+// import 'antd/dist/antd.css'
+import {
+  faFacebook,
+  faTwitter,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 function Footer() {
   const [value, setValue] = useState("");
 
   return (
-    <footer className="bg-gray-800 text-white p-4 h-auto">
-      <div className="container mx-auto">
-        <div className="footer1Container flex flex-wrap gap-5 justify-center">
-          <div className="innerFooterDiv mt-[10%] w-[30%]">
-            <h3 className="footer-heading text-lg font-bold mb-2">About Us</h3>
-            <p className="text-bold font-serif text-sm">
-              GROOVY has set out to Infuse art, culture & purpose-driven
-              clothing in each of its collectives. With a mission to diminish
-              the line between high-end fashion & streetwear, to create a more
-              unified & affordable clothing line.
-            </p>
-            <br />
-            <br />
+    <footer className="bg-black text-white py-12">
+      <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between">
+        <div className="mb-8 lg:mb-0 lg:mr-12 lg:w-1/3">
+          <h2 className="text-4xl font-bold mb-4">Shop Now</h2>
+          <p>Your one-stop shop for all your needs.</p>
+        </div>
 
-            <p>Join the mission today. #groovy</p>
-            <span>email groovypakistan@gmail.com</span>
+        <div className="mb-8 lg:mb-0 lg:w-1/3">
+          <h2 className="text-4xl font-bold mb-4">Quick Links</h2>
+          <ul className="list-none p-0">
+            <li className="mb-3">
+              <a
+                href="/"
+                className="hover:text-gray-400 transition duration-300"
+              >
+                Home
+              </a>
+            </li>
+            <li className="mb-3">
+              <a
+                href="/shop"
+                className="hover:text-gray-400 transition duration-300"
+              >
+                Shop
+              </a>
+            </li>
+            <li className="mb-3">
+              <a
+                href="/about"
+                className="hover:text-gray-400 transition duration-300"
+              >
+                About Us
+              </a>
+            </li>
+            <li className="mb-3">
+              <a
+                href="/contact"
+                className="hover:text-gray-400 transition duration-300"
+              >
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div className="mb-8 lg:mb-0 lg:w-1/3">
+          <h2 className="text-4xl font-bold mb-4">Connect With Us</h2>
+          <div className="flex items-center">
+            <a href="#" className="mr-4">
+              <FontAwesomeIcon icon={faFacebook} size="2x" />
+            </a>
+            <a href="#" className="mr-4">
+              <FontAwesomeIcon icon={faTwitter} size="2x" />
+            </a>
+            <a href="#">
+              <FontAwesomeIcon icon={faInstagram} size="2x" />
+            </a>
           </div>
+        </div>
 
-          {/* Footer Column 2 */}
-          <div className="innerFooterDiv mt-[10%] w-[30%]">
-            <h1 className="text-lg font-semibold mb-2">
-              Subscribe to our newsletter
-            </h1>
-            <p>Exclusive deals, coupon codes & much more</p>
-            <br />
-            <Input placeholder="Your Name" />
-            <br />
-            <br />
-            <Input placeholder="Your Email" />
-            <p>Email me with news and offers</p>
-            <button className="h-[50px] w-[200px] text-grey-900 font-bold mt-2 text-black bg-slate-50 rounded-md shadow-md">
-              SUBSCRIBE
-            </button>
-          </div>
-
-          {/* Footer Column 3 */}
-          <div className="innerFooterDiv mt-[10%] w-[30%]">
-            <h1 className="text-lg font-semibold mb-2">Customer Support</h1>
-            <ul>
-              <li>
-                <p>Contact Information</p>
-              </li>
-              <li>
-                <p>Exchange/Return Policy</p>
-              </li>
-              <li>
-                <p>Shipping Policy</p>
-              </li>
-              <li>
-                <p>Privacy Policy</p>
-              </li>
-              <li>
-                <p>Terms of Service</p>
-              </li>
-              {/* Add more links as needed */}
-            </ul>
+        <div className="text-center">
+          <p className="text-lg mb-4">
+            &copy; {new Date().getFullYear()} Shop Now. All rights reserved.
+          </p>
+          <div className="flex items-center">
+            <Input
+              placeholder="Subscribe to newsletter"
+              style={{ width: "200px", padding: "8px" }}
+            />
+            <Button
+              type="primary"
+              className="bg-blue-900"
+              style={{ marginLeft: "8px" }}
+            >
+              Subscribe
+            </Button>
           </div>
         </div>
       </div>

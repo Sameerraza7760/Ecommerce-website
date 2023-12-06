@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./../style.css";
 
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../Components/Header/Header";
 import useAuth from "../../../hooks/useAuth";
+import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signin: React.FC = () => {
   const navigate = useNavigate();
-  const { signin } = useAuth();
+  const { signin, successMessage } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
-
+  useEffect(() => {
+    if (successMessage) {
+      toast.success("Signin successful!");
+      
+      setTimeout(() => {
+        navigate("/Home");
+      }, 2000);
+    }
+  }, [successMessage]);
   const handleLogin = async () => {
     await signin({ email, password });
   };
@@ -23,6 +35,7 @@ const Signin: React.FC = () => {
         <div className="mx-auto text-center font-serif text-xl mb-2 pt-4 bold font-bold">
           <h1>Login</h1>
         </div>
+
         <div className="inputDiv">
           <TextField
             placeholder="Email"
@@ -78,6 +91,7 @@ const Signin: React.FC = () => {
             Register
           </button>
         </div>
+        <ToastContainer />
       </div>
     </>
   );
