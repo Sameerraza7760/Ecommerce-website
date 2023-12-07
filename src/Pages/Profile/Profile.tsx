@@ -61,7 +61,6 @@ function Profile() {
   };
   const updateProfile = async () => {
     let userData: UserProfile = {
-     
       id: id,
     };
 
@@ -71,16 +70,16 @@ function Profile() {
         userName: UpdateName,
       };
     }
-  
+
     if (updatePhoto) {
       const url = await uploadImage(updatePhoto);
       userData.photurl = url;
     }
-  
+
     if (Object.keys(userData).length > 1) {
       ubdateUserName(userData);
     }
-  }
+  };
 
   useEffect(() => {
     const displayCurrentUser = async () => {
@@ -221,7 +220,11 @@ function Profile() {
             <div className="profileimagediv w-[30%]  border-gray-300 ">
               <img
                 className="Profileimage w-[60%] cursor-pointer"
-                src={validUserPhoto ? `${validUserPhoto}` : './../../assets/profile.webp'}
+                src={
+                  validUserPhoto
+                    ? `${validUserPhoto}`
+                    : "./../../assets/profile.webp"
+                }
                 alt=""
               />
             </div>

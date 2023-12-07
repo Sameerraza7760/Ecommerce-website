@@ -12,6 +12,7 @@ import Setting from "./../../Pages/Setting/Setting";
 import Notification from "./../../Pages/Notification/Notification";
 import Order from "./../../Pages/Order/Order";
 import WhishList from "./../../Pages/WhishList/WhishList";
+import AdminDashboard from "./../../Pages/Admininterface/AdminDashboard/AdminDashboard";
 const AppRouter: React.FC = () => {
   return (
     <Routes>
@@ -26,6 +27,7 @@ const AppRouter: React.FC = () => {
       <Route path='/Notification'  element={< Notification/>} ></Route>
       <Route path='/Order' element={<Order/>} ></Route>
       <Route path='WhishList' element={<WhishList/>} ></Route>
+      <Route path='/AdminDashboard' element={<AdminDashboard/>} ></Route>
     </Routes>
   );
 };
