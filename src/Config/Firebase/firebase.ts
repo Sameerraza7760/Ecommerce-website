@@ -84,6 +84,7 @@ export default {
   signinFirebase,
   auth,
   getDoc,
+  getDocs,
   collection,
   db,
   doc,

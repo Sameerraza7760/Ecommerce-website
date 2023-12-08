@@ -53,24 +53,23 @@ function AdminDashboard() {
           <div className="w-[80%] h-full ">
             <div className="flex w-full justify-between p-5 h-[15%]">
               <div>
-                <TextField
-                  placeholder="Enter a Product"
-                  id="outlined-password-input"
-                  type="text"
-                  autoComplete="off"
-                  style={{
-                    width: "100%",
-                    marginBottom: "27px",
-                    padding: "10px",
-                    fontSize: "12px",
-                  }}
-                />
+              <TextField
+            placeholder="Product Name"
+            id="outlined-basic-product"
+            label="Product Name"
+            variant="outlined"
+            autoComplete="off"
+            style={{ width: "100%", marginBottom: "10px" }}
+            focused
+            color="secondary"
+          />
               </div>
               <div className="flex gap-4">
                 <FontAwesomeIcon
                   className="Drawer text-xl "
                   icon={faCommentDots}
-                  style={{ fontSize: "2rem", cursor: "pointer" }} // Adjust the size as needed
+                  style={{ fontSize: "2rem", cursor: "pointer" }}
+                   // Adjust the size as needed
                 />
                 <FontAwesomeIcon
                   className="Drawer text-xl "

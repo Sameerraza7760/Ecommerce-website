@@ -1,33 +1,41 @@
-import React, { useState, useEffect } from "react";
-import "./../style.css";
-
 import TextField from "@mui/material/TextField";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Header from "../../../Components/Header/Header";
 import useAuth from "../../../hooks/useAuth";
-import { toast } from "react-toastify";
+import "./../style.css";
 // import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Signin: React.FC = () => {
+  const AdminEmail = useSelector((state?: any) => state.admin.admin[0].email);
+  console.log("hi==>", AdminEmail);
+
   const navigate = useNavigate();
   const { signin, successMessage } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setpassword] = useState("");
-  useEffect(() => {
-    if (successMessage) {
-      toast.success("Signin successful!");
-      
-      setTimeout(() => {
-        navigate("/Home");
-      }, 2000);
-    }
-  }, [successMessage]);
+  const [email, setEmail] = useState<string>("");
+  const [password, setpassword] = useState<string>("");
+  const [whereToNavigate, setWhereToNavigate] = useState<string>("/Home");
+
   const handleLogin = async () => {
+    if (email === AdminEmail) {
+      setWhereToNavigate("/AdminDashboard");
+    }
     await signin({ email, password });
   };
 
+  useEffect(() => {
+    if (successMessage) {
+      toast.success("Signin successful!");
+
+      setTimeout(() => {
+        navigate(whereToNavigate);
+      }, 2000);
+    }
+  }, [successMessage,whereToNavigate]);
   return (
     <>
       <Header />

@@ -5,11 +5,15 @@ import useAuth from "../../../hooks/useAuth";
 import Header from "./../../../Components/Header/Header";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import firebase from "./../../../Config/Firebase/firebase";
+import { useDispatch } from "react-redux";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const Siginup: React.FC = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { signup, successMessage } = useAuth();
 
@@ -29,6 +33,8 @@ const Siginup: React.FC = () => {
       }, 2000);
     }
   }, [successMessage]);
+
+
   return (
     <>
       <Header />
@@ -101,7 +107,7 @@ const Siginup: React.FC = () => {
             Login
           </button>
         </div>
-        <ToastContainer/>
+        <ToastContainer />
       </div>
     </>
   );

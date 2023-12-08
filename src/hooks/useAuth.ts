@@ -5,9 +5,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { setUser } from "../../src/features/User/userSlice";
 import { Iauth, UserProfile } from "../types/types";
 import firebase from "./../Config/Firebase/firebase";
-import { User } from "./../types/types";
+import { User, Adminauth } from "./../types/types";
+
+import { setAdmin } from "./../features/Admin/adminSlice";
 const useAuth = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
   const dispatch = useDispatch();
 
   const {
@@ -23,9 +26,10 @@ const useAuth = () => {
     ref,
     uploadBytes,
     storage,
+    getDocs,
   } = firebase;
   const navigate = useNavigate();
-//SIGNUP THE USER 
+  //SIGNUP THE USER
   const signup = async (userinfo: Iauth) => {
     try {
       const userCredential = await SignupFirebase(userinfo);
@@ -115,7 +119,6 @@ const useAuth = () => {
     return () => unsubscribe();
   }, [auth, dispatch]);
 
-
   //UPLOAD IMAGE AND TAKE URL
   const uploadImage = async (image: File | null) => {
     if (image) {
@@ -132,6 +135,48 @@ const useAuth = () => {
     navigate("/");
   }
 
+  useEffect(() => {
+    const getAdmin = async () => {
+      const querySnapshot = await getDocs(collection(db, "Admin"));
+      const adminArray: Adminauth[] = [];
+      querySnapshot.forEach((doc) => {
+        const { id, ...data } = doc.data() as Adminauth;
+
+        adminArray.push({ id: doc.id, ...data });
+
+        // console.log(adminArray);
+      });
+      dispatch(setAdmin(adminArray));
+    };
+    getAdmin();
+  }, []);
+
+
+
+
+  const ubdateAdminProfile = async (userInfo: UserProfile) => {
+    const { id, userName, photurl } = userInfo;
+
+    try {
+      const userDocRef = doc(collection(db, "users"), id);
+
+      const updateData: any = {};
+
+      if (userName !== undefined) {
+        updateData.username = userName;
+      }
+
+      if (photurl !== undefined) {
+        updateData.image = photurl;
+      }
+
+      await updateDoc(userDocRef, updateData);
+
+      console.log("User updated successfully");
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
   return {
     signup,
     signin,
@@ -140,6 +185,7 @@ const useAuth = () => {
     getUser,
     ubdateUserName,
     uploadImage,
+    ubdateAdminProfile
   };
 };
 

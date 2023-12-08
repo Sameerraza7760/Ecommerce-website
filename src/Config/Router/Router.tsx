@@ -13,6 +13,10 @@ import Notification from "./../../Pages/Notification/Notification";
 import Order from "./../../Pages/Order/Order";
 import WhishList from "./../../Pages/WhishList/WhishList";
 import AdminDashboard from "./../../Pages/Admininterface/AdminDashboard/AdminDashboard";
+import ManegeOrder from "./../../Pages/Admininterface/MenegeOrder/ManegeOrder";
+import CreateOrder from "./../../Pages/Admininterface/CreateOrder/CreateOrder";
+import Adminprofile from "./../../Pages/Admininterface/Adminprofile/Adminprofile";
+
 const AppRouter: React.FC = () => {
   return (
     <Routes>
@@ -28,6 +32,9 @@ const AppRouter: React.FC = () => {
       <Route path='/Order' element={<Order/>} ></Route>
       <Route path='WhishList' element={<WhishList/>} ></Route>
       <Route path='/AdminDashboard' element={<AdminDashboard/>} ></Route>
+      <Route path='/ManegeOrder' element={<ManegeOrder/>} ></Route>
+      <Route path="/CreateOrder" element={<CreateOrder/>} ></Route>
+      <Route path="/AdminProfile" element={<Adminprofile/>} > </Route>
     </Routes>
   );
 };

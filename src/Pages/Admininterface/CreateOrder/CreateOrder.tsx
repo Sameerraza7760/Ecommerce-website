@@ -2,19 +2,23 @@ import TextField from "@mui/material/TextField";
 import { Typography } from "antd";
 import React from "react";
 import AppMenu from "../Adminmenu/Menu";
-// import 'antd/dist/antd.css'; // Import Ant Design styles
+import Header from "./../../../Components/Header/Header";
+
+
+
 
 const { Title } = Typography;
 
 function CreateOrder() {
   return (
     <>
+      <Header />
       <div className="min-h-screen w-full flex bg-gradient-to-r from-blue-500 to-purple-500 ">
         <div className="h-auto w-[16%]">
           <AppMenu />
         </div>
-        <div className="bg-white shadow-md rounded-lg p-8 m-4 w-[80%] mx-auto h-auto ">
-          <h2 className="text-3xl mb-6 text-center text-gray-800 font-semibold">
+        <div className="bg-white shadow-md rounded-lg p-8 m-4 w-[60%] mx-auto h-auto ">
+          <h2 className="text-3xl mb-6 text-center text-gray-800 font-semibold font-serif">
             Add Product
           </h2>
           <TextField
@@ -24,6 +28,8 @@ function CreateOrder() {
             variant="outlined"
             autoComplete="off"
             style={{ width: "100%", marginBottom: "10px" }}
+            focused
+            color="secondary"
           />
 
           <TextField
@@ -34,6 +40,8 @@ function CreateOrder() {
             autoComplete="off"
             style={{ width: "100%", marginBottom: "10px" }}
             type="number"
+            focused
+            color="secondary"
             // min="0"
             // step="0.01"
           />
@@ -46,7 +54,9 @@ function CreateOrder() {
             autoComplete="off"
             style={{ width: "100%", marginBottom: "10px" }}
             multiline
-            rows={4}
+            rows={2}
+            focused
+            color="secondary"
           />
 
           <TextField
@@ -56,6 +66,8 @@ function CreateOrder() {
             variant="outlined"
             autoComplete="off"
             style={{ width: "100%", marginBottom: "10px" }}
+            focused
+            color="secondary"
           />
 
           <TextField
@@ -66,6 +78,8 @@ function CreateOrder() {
             autoComplete="off"
             style={{ width: "100%", marginBottom: "10px" }}
             type="url"
+            focused
+            color="secondary"
           />
 
           <TextField
@@ -76,6 +90,8 @@ function CreateOrder() {
             autoComplete="off"
             style={{ width: "100%", marginBottom: "10px" }}
             type="number"
+            focused
+            color="secondary"
             // min="1"/
           />
 
@@ -87,6 +103,8 @@ function CreateOrder() {
             autoComplete="off"
             style={{ width: "100%", marginBottom: "10px" }}
             type="email"
+            focused
+            color="secondary"
           />
           <button
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"

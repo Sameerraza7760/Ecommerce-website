@@ -1,46 +1,71 @@
-import { AppstoreOutlined, LogoutOutlined, SettingOutlined, ShopOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
-
-import React, { useState } from 'react';
-import './../style.css';
+// eslint-disable-next-line
+import React, { useState } from "react";
+import { Menu } from "antd";
+import {
+  AppstoreOutlined,
+  LogoutOutlined,
+  ShopOutlined,
+} from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import "./../style.css";
 
 const AppMenu: React.FC = () => {
-  
+  const navigate = useNavigate();
+
   const { SubMenu } = Menu;
 
   const [collapsed, setCollapsed] = useState(false);
+  const [defaultSelectedKey, setDefaultSelectedKey] = useState<string | null>(
+    null
+  );
 
- 
+  const Route = (key: string) => {
+    setDefaultSelectedKey(key);
+    navigate(`/${key}`);
+  };
+
   return (
+    <Menu
+      selectedKeys={defaultSelectedKey ? [defaultSelectedKey] : []}
+      defaultOpenKeys={defaultSelectedKey ? [defaultSelectedKey] : []}
+      mode="inline"
+      theme="dark"
+      inlineCollapsed={collapsed}
+      style={{ height: "100%" }}
+    >
+      <Menu.Item
+        key="AdminDashboard"
+        onClick={() => Route("AdminDashboard")}
+        icon={<AppstoreOutlined />}
+      >
+        DashBoard
+      </Menu.Item>
+      <Menu.Item
+        key="CreateOrder"
+        onClick={() => Route("CreateOrder")}
+        icon={<ShopOutlined />}
+      >
+        Create Product
+      </Menu.Item>
+      <Menu.Item
+        key="ManegeOrder"
+        onClick={() => Route("ManegeOrder")}
+        icon={<AppstoreOutlined />}
+      >
+        Manage Order
+      </Menu.Item>
+      <Menu.Item
+        key="AdminProfile"
+        onClick={() => Route("AdminProfile")}
+        icon={<AppstoreOutlined />}
+      >
+        Setting
+      </Menu.Item>
 
-   
-        <Menu
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          mode="inline"
-          theme="dark"
-          inlineCollapsed={collapsed}
-          style={{ height: '100%' }}
-        >
-          <Menu.Item key="1" icon={<AppstoreOutlined />}>
-            DashBoard
-          </Menu.Item>
-          <Menu.Item key="2" icon={<ShopOutlined />}>
-            Create Product
-          </Menu.Item>
-          <Menu.Item key="3" icon={<AppstoreOutlined />}>
-            Manage Order
-          </Menu.Item>
-          <SubMenu key="sub1" icon={<SettingOutlined />} title="Setting">
-            <Menu.Item key="4">General</Menu.Item>
-            <Menu.Item key="5">Security</Menu.Item>
-          </SubMenu>
-          <Menu.Item key="6" icon={<LogoutOutlined />}>
-            Logout
-          </Menu.Item>
-        </Menu>
-     
-   
+      <Menu.Item key="6" icon={<LogoutOutlined />}>
+        Logout
+      </Menu.Item>
+    </Menu>
   );
 };
 
