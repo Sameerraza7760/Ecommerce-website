@@ -1,28 +1,28 @@
-import {
-  AppstoreOutlined,
-  LogoutOutlined,
-  SettingOutlined,
-  ShopOutlined,
-} from "@ant-design/icons";
+import { faClipboard, faCommentDots } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCommentDots, faClipboard } from "@fortawesome/free-solid-svg-icons";
-
+import Typography from "@mui/material/Typography";
 import { Menu } from "antd";
 import type { DrawerProps } from "antd/es/drawer";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
+import useProduct from "./../../../hooks/useProduct";
 
+import { Product } from "types/types";
 import "./../style.css";
 
 function AdminDashboard() {
+  const product = useSelector((state?: any) => state?.product?.product);
+  console.log(product);
+
+  const { getProduct } = useProduct();
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<DrawerProps["placement"]>("left");
 
@@ -41,6 +41,11 @@ function AdminDashboard() {
       setOpen(false);
     };
 
+    useEffect(() => {
+      getProduct();
+      console.log("hi broo==>", product);
+    }, []);
+
     return (
       <>
         <Header />
@@ -53,23 +58,23 @@ function AdminDashboard() {
           <div className="w-[80%] h-full ">
             <div className="flex w-full justify-between p-5 h-[15%]">
               <div>
-              <TextField
-            placeholder="Product Name"
-            id="outlined-basic-product"
-            label="Product Name"
-            variant="outlined"
-            autoComplete="off"
-            style={{ width: "100%", marginBottom: "10px" }}
-            focused
-            color="secondary"
-          />
+                <TextField
+                  placeholder="Product Name"
+                  id="outlined-basic-product"
+                  label="Product Name"
+                  variant="outlined"
+                  autoComplete="off"
+                  style={{ width: "100%", marginBottom: "10px" }}
+                  focused
+                  color="secondary"
+                />
               </div>
               <div className="flex gap-4">
                 <FontAwesomeIcon
                   className="Drawer text-xl "
                   icon={faCommentDots}
                   style={{ fontSize: "2rem", cursor: "pointer" }}
-                   // Adjust the size as needed
+                  // Adjust the size as needed
                 />
                 <FontAwesomeIcon
                   className="Drawer text-xl "
@@ -85,72 +90,69 @@ function AdminDashboard() {
               </div>
 
               <div className="flex flex-wrap justify-center mx-auto gap-3 w-full">
-                <Card className="border  border-gray-100 cursor-pointer rounded-md" sx={{ maxWidth: 290 }}>
-                  <CardMedia
-                    component="img"
-                    alt="Green Iguana"
-                    height="200"
-                    src="" // Replace with the actual image URL
-                    id="Cardimg"
-                    style={{ objectFit: "cover" }}
-                  />
-                  <CardContent className="cardBody">
-                    <Typography gutterBottom variant="h5" component="div">
-                      Lizard
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Lizards are a widespread group of squamate reptiles, with
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button className="updatebtn bg-slate-500">Update</Button>
-                    <Button className="deletebtn  bg-rose-700">Delete</Button>
-                  </CardActions>
-                </Card>
-                <Card className="border  border-gray-100 cursor-pointer rounded-md" sx={{ maxWidth: 290 }}>
-                  <CardMedia
-                    component="img"
-                    alt="Green Iguana"
-                    height="200"
-                    src="" // Replace with the actual image URL
-                    id="Cardimg"
-                    style={{ objectFit: "cover" }}
-                  />
-                  <CardContent className="cardBody">
-                    <Typography gutterBottom variant="h5" component="div">
-                      Lizard
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Lizards are a widespread group of squamate reptiles, with
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button className="updatebtn bg-slate-500">Update</Button>
-                    <Button className="deletebtn  bg-rose-700">Delete</Button>
-                  </CardActions>
-                </Card>
-                <Card className="border  border-gray-100 cursor-pointer rounded-md" sx={{ maxWidth: 290 }}>
-                  <CardMedia
-                    component="img"
-                    alt="Green Iguana"
-                    height="200"
-                    src="" // Replace with the actual image URL
-                    id="Cardimg"
-                    style={{ objectFit: "cover" }}
-                  />
-                  <CardContent className="cardBody">
-                    <Typography gutterBottom variant="h5" component="div">
-                      Lizard
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Lizards are a widespread group of squamate reptiles, with
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button className="updatebtn bg-slate-500">Update</Button>
-                    <Button className="deletebtn  bg-rose-700">Delete</Button>
-                  </CardActions>
-                </Card>
+                {product.map((item: Product) => (
+                  <Card
+                    className="border rounded-md w-[300px]"
+                    sx={{ maxWidth: 490, backgroundColor: "#1a202c" }}
+                  >
+                    <CardMedia
+                      component="img"
+                      alt="Product Image"
+                      height="220"
+                      src={
+                        typeof item.imageUrl === "string" ? item.imageUrl : ""
+                      }
+                      id="Cardimg"
+                      style={{
+                        objectFit: "cover",
+                        transition: "transform 0.3s ease-in-out",
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.transform = "scale(1.05)";
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.transform = "scale(1)";
+                      }}
+                    />
+                    <CardContent className="cardBody">
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        className="text-white font-serif"
+                        fontSize="1rem"
+                      >
+                        {item.productName}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        className="text-white font-serif"
+                      >
+                        {item.productDiscription}
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        className="text-white font-serif"
+                        fontSize="1rem"
+                      >
+                        {` $${item.productPrice}`}{" "}
+                        {/* Replace with the actual price */}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button
+                        style={{ backgroundColor: "#4CAF50", color: "#ffffff" }}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        style={{ backgroundColor: "#FF5722", color: "#ffffff" }}
+                      >
+                        Delete
+                      </Button>
+                    </CardActions>
+                  </Card>
+                ))}
               </div>
             </div>
           </div>

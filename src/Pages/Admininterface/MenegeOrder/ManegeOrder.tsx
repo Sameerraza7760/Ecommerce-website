@@ -12,11 +12,24 @@ import {
   faTimesCircle,
   faHourglassHalf,
 } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
+import useAuth from "./../../../hooks/useAuth";
+import "react-toastify/dist/ReactToastify.css";
 
 function ManegeOrder() {
+  const { logout } = useAuth();
   const [value, setValue] = React.useState("1");
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
+  };
+
+  const handleLogout = async () => {
+    try {
+      toast.success("Logout successful!");
+      setTimeout(() => logout(), 2000);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -37,7 +50,10 @@ function ManegeOrder() {
               </p>{" "}
             </div>
             <div>
-              <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+              <button
+                onClick={handleLogout}
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300"
+              >
                 Logout
               </button>
             </div>

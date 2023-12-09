@@ -12,7 +12,7 @@
     height:2px;
 } */
 #Cardimg{
-    content: url(./../../assets/shirt3.jpg);
+    /* content: url(./../../assets/shirt3.jpg); */
     background-size: cover; /* Change from 'cover' to 'contain' */
     background-position: center center;
     cursor: pointer;

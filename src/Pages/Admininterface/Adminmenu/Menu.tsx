@@ -8,8 +8,12 @@ import {
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "./../style.css";
+import { toast } from "react-toastify";
+import useAuth from "./../../../hooks/useAuth";
+import "react-toastify/dist/ReactToastify.css";
 
 const AppMenu: React.FC = () => {
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const { SubMenu } = Menu;
@@ -22,6 +26,16 @@ const AppMenu: React.FC = () => {
   const Route = (key: string) => {
     setDefaultSelectedKey(key);
     navigate(`/${key}`);
+  };
+
+
+  const handleLogout = async () => {
+    try {
+      toast.success("Logout successful!");
+      setTimeout(() => logout(), 2000);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -62,7 +76,7 @@ const AppMenu: React.FC = () => {
         Setting
       </Menu.Item>
 
-      <Menu.Item key="6" icon={<LogoutOutlined />}>
+      <Menu.Item key="6" onClick={handleLogout} icon={<LogoutOutlined />}>
         Logout
       </Menu.Item>
     </Menu>

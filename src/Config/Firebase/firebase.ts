@@ -91,5 +91,6 @@ export default {
   updateDoc,
   ref,
   uploadBytes,getDownloadURL,
-  storage
+  storage,
+  setDoc
 };

@@ -1,6 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer, { UserState } from "./../features/User/userSlice";
 import adminReducer, { AdminState } from "./../features/Admin/adminSlice";
+import productReducer, {
+  ProductState,
+} from "./../features/Products/productSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -15,13 +18,24 @@ const adminPersistConfig = {
   whitelist: ["admin"],
 };
 
+const productPersistConfig = {
+  key: "product",
+  storage: storage,
+  whitelist: ["product"],
+};
+
 const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
 
 const persistedAdminReducer = persistReducer(adminPersistConfig, adminReducer);
+const persistedProductReducer = persistReducer(
+  productPersistConfig,
+  productReducer
+);
 export const store = configureStore({
   reducer: {
     user: persistedUserReducer,
-    admin: persistedAdminReducer, // Add admin reducer here
+    admin: persistedAdminReducer,
+    product: persistedProductReducer, // Add admin reducer here
   },
 });
 

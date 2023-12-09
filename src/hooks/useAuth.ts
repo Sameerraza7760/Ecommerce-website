@@ -5,11 +5,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { setUser } from "../../src/features/User/userSlice";
 import { Iauth, UserProfile } from "../types/types";
 import firebase from "./../Config/Firebase/firebase";
-import { User, Adminauth } from "./../types/types";
+import { Adminauth, User } from "./../types/types";
 
 import { setAdmin } from "./../features/Admin/adminSlice";
 const useAuth = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [updateAdminprofile, setUpdateAdminProfile] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -104,7 +105,7 @@ const useAuth = () => {
 
   //SEND THE CURRUENT USER IN REDUX
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user: any) => {
       if (user) {
         const userObject: User = {
           email: user.email,
@@ -124,7 +125,7 @@ const useAuth = () => {
     if (image) {
       const storageRef = ref(storage, `images/${image.name}`);
       const snapshot = await uploadBytes(storageRef, image);
-      const url = await getDownloadURL(snapshot.ref);
+      const url :string = await getDownloadURL(snapshot.ref);
       return url;
     }
   };
@@ -139,7 +140,7 @@ const useAuth = () => {
     const getAdmin = async () => {
       const querySnapshot = await getDocs(collection(db, "Admin"));
       const adminArray: Adminauth[] = [];
-      querySnapshot.forEach((doc) => {
+      querySnapshot.forEach((doc: any) => {
         const { id, ...data } = doc.data() as Adminauth;
 
         adminArray.push({ id: doc.id, ...data });
@@ -147,23 +148,25 @@ const useAuth = () => {
         // console.log(adminArray);
       });
       dispatch(setAdmin(adminArray));
+      setUpdateAdminProfile(false);
     };
     getAdmin();
-  }, []);
+  }, [updateAdminprofile]);
 
-
-
-
-  const ubdateAdminProfile = async (userInfo: UserProfile) => {
-    const { id, userName, photurl } = userInfo;
+  const updateAdminProfile = async (userInfo: UserProfile) => {
+    const { id, userName, photurl,phonenumber } = userInfo;
 
     try {
-      const userDocRef = doc(collection(db, "users"), id);
+      const userDocRef = doc(collection(db, "Admin"), id);
 
       const updateData: any = {};
 
       if (userName !== undefined) {
         updateData.username = userName;
+      }
+
+      if (phonenumber!==undefined) {
+        updateData.phonenumber = phonenumber;
       }
 
       if (photurl !== undefined) {
@@ -185,7 +188,8 @@ const useAuth = () => {
     getUser,
     ubdateUserName,
     uploadImage,
-    ubdateAdminProfile
+    updateAdminProfile,
+    setUpdateAdminProfile,
   };
 };
 
