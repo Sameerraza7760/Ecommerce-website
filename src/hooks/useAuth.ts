@@ -6,14 +6,11 @@ import { setUser } from "../../src/features/User/userSlice";
 import { Iauth, UserProfile } from "../types/types";
 import firebase from "./../Config/Firebase/firebase";
 import { Adminauth, User } from "./../types/types";
-
 import { setAdmin } from "./../features/Admin/adminSlice";
 const useAuth = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [updateAdminprofile, setUpdateAdminProfile] = useState<boolean>(false);
-
   const dispatch = useDispatch();
-
   const {
     SignupFirebase,
     signinFirebase,
@@ -125,7 +122,7 @@ const useAuth = () => {
     if (image) {
       const storageRef = ref(storage, `images/${image.name}`);
       const snapshot = await uploadBytes(storageRef, image);
-      const url :string = await getDownloadURL(snapshot.ref);
+      const url: string = await getDownloadURL(snapshot.ref);
       return url;
     }
   };
@@ -136,25 +133,25 @@ const useAuth = () => {
     navigate("/");
   }
 
+  //GET ADMIN PROFILE
   useEffect(() => {
     const getAdmin = async () => {
       const querySnapshot = await getDocs(collection(db, "Admin"));
       const adminArray: Adminauth[] = [];
       querySnapshot.forEach((doc: any) => {
         const { id, ...data } = doc.data() as Adminauth;
-
         adminArray.push({ id: doc.id, ...data });
-
-        // console.log(adminArray);
       });
+      //SEND ADMIN DATA IN REDUX
       dispatch(setAdmin(adminArray));
       setUpdateAdminProfile(false);
     };
     getAdmin();
   }, [updateAdminprofile]);
 
+  //UPDATE THE ADMIN PROFILE
   const updateAdminProfile = async (userInfo: UserProfile) => {
-    const { id, userName, photurl,phonenumber } = userInfo;
+    const { id, userName, photurl, phonenumber } = userInfo;
 
     try {
       const userDocRef = doc(collection(db, "Admin"), id);
@@ -165,7 +162,7 @@ const useAuth = () => {
         updateData.username = userName;
       }
 
-      if (phonenumber!==undefined) {
+      if (phonenumber !== undefined) {
         updateData.phonenumber = phonenumber;
       }
 

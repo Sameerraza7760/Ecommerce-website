@@ -1,14 +1,15 @@
 import TextField from "@mui/material/TextField";
+import { message } from "antd";
 import React, { useState } from "react";
+import { Product } from "types/types";
 import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
-import useProduct from "./../../../hooks/useProduct";
 import useAuth from "./../../../hooks/useAuth";
-import { Product } from "types/types";
-
+import useProduct from "./../../../hooks/useProduct";
 function CreateOrder() {
   const { addProduct } = useProduct();
   const { uploadImage } = useAuth();
+  const [messageApi, contextHolder] = message.useMessage();
   const [productName, setProductName] = useState<string>("");
   const [productPrice, setProductPrice] = useState<number | null>(null);
   const [productDiscription, setProductDiscription] = useState<string>("");
@@ -18,11 +19,9 @@ function CreateOrder() {
   const [email, setEmail] = useState<string>("");
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement> | null) => {
-    // Access the selected file from the input
     if (e && e.target && e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
 
-      // Do something with the selected file, for example, set it in state
       setImageurl(selectedFile);
     }
   };
@@ -40,16 +39,25 @@ function CreateOrder() {
       email,
     };
 
-    // for (let key in productArray) {
-    //   const value = productArray[key as keyof Product];
+    for (let key in productArray) {
+      const value = productArray[key as keyof Product];
 
-    //   if (!value) {
-    //     alert("Please Fill All Inputs");
-    //     return;
-    //   }
-    // }
-    addProduct(productArray);
+      if (!value) {
+        alert("Please Fill All Inputs");
+        return;
+      }
+    }
+
+    try {
+      await addProduct(productArray);
+      // setMessege(true);
+      message.success("Order created successfully!");
+      console.log("hi");
+    } catch (error: any) {
+      message.error(error.message);
+    }
   };
+
   const handlePrice = (e: any) => {
     const value = parseFloat(e.target.value);
     setProductPrice(isNaN(value) ? null : value);

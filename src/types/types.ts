@@ -26,10 +26,11 @@ export interface Adminauth {
 
 export interface Product {
   productName: string;
-  productPrice: number|null;
+  productPrice: number | null;
   productDiscription: string;
   productCategory: string;
-  productQuantaty: number|null;
+  productQuantaty: number | null;
   imageUrl: File | undefined | string;
   email: string;
+  // id?:string
 }
