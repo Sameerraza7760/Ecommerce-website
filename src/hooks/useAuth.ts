@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -5,8 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { setUser } from "../../src/features/User/userSlice";
 import { Iauth, UserProfile } from "../types/types";
 import firebase from "./../Config/Firebase/firebase";
-import { Adminauth, User } from "./../types/types";
 import { setAdmin } from "./../features/Admin/adminSlice";
+import { Adminauth, User } from "./../types/types";
 const useAuth = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [updateAdminprofile, setUpdateAdminProfile] = useState<boolean>(false);
@@ -27,6 +28,7 @@ const useAuth = () => {
     getDocs,
   } = firebase;
   const navigate = useNavigate();
+
   //SIGNUP THE USER
   const signup = async (userinfo: Iauth) => {
     try {
@@ -93,10 +95,11 @@ const useAuth = () => {
       }
 
       await updateDoc(userDocRef, updateData);
+      message.success("Profile Update successfully!");
 
-      console.log("User updated successfully");
-    } catch (error) {
-      console.error("Error updating user:", error);
+      // console.log("User updated successfully");
+    } catch (error: any) {
+      message.error(error.message);
     }
   };
 
@@ -171,10 +174,12 @@ const useAuth = () => {
       }
 
       await updateDoc(userDocRef, updateData);
+      message.success("Profile Update successfully!");
 
       console.log("User updated successfully");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error updating user:", error);
+      message.error(error.message);
     }
   };
   return {

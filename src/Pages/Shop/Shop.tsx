@@ -38,7 +38,10 @@ function Shop() {
               re-stocks on Ribbed Items once sold out.
             </p>
 
-            <h2  onClick={()=>navigate('/Cart')} className="text-2xl font-semibold mb-4 items-end cursor-pointer text-blue-600 h-5">
+            <h2
+              onClick={() => navigate("/Cart")}
+              className="text-2xl font-semibold mb-4 items-end cursor-pointer text-blue-600 h-5"
+            >
               <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
             </h2>
           </div>
@@ -78,7 +81,7 @@ function Shop() {
 
         <div className="w-[80%] mx-auto mt-9 h-auto">
           <div className="w-full flex justify-center flex-wrap gap-3">
-            {product.map((item: any, index: number) => (
+            {product?.map((item: any, index: number) => (
               <UserCard key={index} items={item} />
             ))}
           </div>

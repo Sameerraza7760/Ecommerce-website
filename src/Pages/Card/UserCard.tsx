@@ -7,13 +7,29 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setCartItem } from "./../../features/Cart/CartSlice";
+import { CartItem } from "types/types";
 import { Product } from "types/types";
+import { notification } from "antd";
+
+
 interface ProductProps {
   items: Product;
 }
 function UserCard({ items }: ProductProps) {
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const id = useSelector((state?: any) => state?.user?.user?.id);
+  const addToCart = (items: CartItem) => {
+    notification.success({
+      message: "Item Added to Cart",
+      description: `${items.productName} has been added to your cart.`,
+      placement: "topRight",
+    });
+    dispatch(setCartItem(items));
+  };
   return (
     <div>
       <div className="flex flex-wrap justify-center mx-auto gap-3 w-full">
@@ -22,7 +38,7 @@ function UserCard({ items }: ProductProps) {
           sx={{ maxWidth: 490, backgroundColor: "#1a202c" }}
         >
           <CardMedia
-            onClick={() => navigate("/ProductDetail")}
+            onClick={() => navigate(`/ProductDetail/${items.id || ""}`)}
             component="img"
             alt="Product Image"
             height="220"
@@ -63,6 +79,7 @@ function UserCard({ items }: ProductProps) {
           <CardActions>
             <IconButton
               style={{ backgroundColor: "#2196F3", color: "#ffffff" }}
+              onClick={() => addToCart(items as CartItem)}
             >
               <AddShoppingCartIcon />
             </IconButton>

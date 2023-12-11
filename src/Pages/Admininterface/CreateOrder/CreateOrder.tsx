@@ -47,10 +47,9 @@ function CreateOrder() {
         return;
       }
     }
-
     try {
       await addProduct(productArray);
-      // setMessege(true);
+
       message.success("Order created successfully!");
       console.log("hi");
     } catch (error: any) {

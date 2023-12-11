@@ -1,9 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer, { UserState } from "./../features/User/userSlice";
 import adminReducer, { AdminState } from "./../features/Admin/adminSlice";
-import productReducer, {
-  ProductState,
-} from "./../features/Products/productSlice";
+import cartReducer, { CartState } from "./../features/Cart/CartSlice";
+import productReducer, {ProductState} from "./../features/Products/productSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -24,18 +23,25 @@ const productPersistConfig = {
   whitelist: ["product"],
 };
 
-const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
+const cartPersistConfig = {
+  key: "cart",
+  storage: storage,
+  whitelist: ["cart"],
+};
 
+const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
 const persistedAdminReducer = persistReducer(adminPersistConfig, adminReducer);
 const persistedProductReducer = persistReducer(
   productPersistConfig,
   productReducer
 );
+const persistedCartReducer = persistReducer(cartPersistConfig, cartReducer);
 export const store = configureStore({
   reducer: {
     user: persistedUserReducer,
     admin: persistedAdminReducer,
-    product: persistedProductReducer, // Add admin reducer here
+    product: persistedProductReducer,
+    cart: persistedCartReducer,
   },
 });
 

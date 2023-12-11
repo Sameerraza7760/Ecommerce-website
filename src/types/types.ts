@@ -32,5 +32,27 @@ export interface Product {
   productQuantaty: number | null;
   imageUrl: File | undefined | string;
   email: string;
-  // id?:string
+  id?: string;
+}
+
+export interface CartItem {
+  productName: string;
+  productPrice: number;
+  productDiscription: string;
+  productCategory: string;
+  productQuantaty: number | null;
+  imageUrl: File | undefined | string;
+  email: string;
+  id: string;
+  quantity?: number;
+  userId: string;
+}
+
+export interface userOrder {
+  username: string;
+  email: string;
+  phoneNumber: string;
+  city: string;
+  address: string;
+  usershopping: CartItem[];
 }
