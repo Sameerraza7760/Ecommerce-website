@@ -73,13 +73,18 @@ const useProduct = () => {
     }
   };
 
+  // ORDER PLACED IN DATABASE
   const orderPlaced = async (order: userOrder) => {
     try {
-      const orderRef = doc(
-        collection(db, "order"),
-        auth.currentUser.uid + Date.now()
-      );
-      await setDoc(orderRef, order);
+      const userId = auth.currentUser.uid + Date.now();
+      const orderRef = doc(collection(db, "order"), userId);
+
+      const orderData = {
+        ...order,
+        userId,
+      };
+
+      await setDoc(orderRef, orderData);
       message.success("Order placed successfully!");
     } catch (error: any) {
       console.error("Error placing order:", error);
@@ -87,7 +92,63 @@ const useProduct = () => {
     }
   };
 
-  return { addProduct, getProduct, getProductDetail, orderPlaced };
+  //GET ORDER FROM DATABASE
+  const getOrder = async () => {
+    try {
+      const orderCollection = collection(db, "order");
+      const querySnapshot = await getDocs(orderCollection);
+
+      if (!querySnapshot.empty) {
+        const orderArray = querySnapshot.docs.map(
+          (doc: any) => doc.data() as userOrder
+        );
+        return orderArray;
+      } else {
+        return [];
+      }
+    } catch (error: any) {
+      console.error(error.message);
+      throw error;
+    }
+  };
+
+  //  CHANGE STATUS OF ORDER AFTER ADMMIN MANEGE
+
+  interface Orderstatus {
+    id: string | undefined;
+    status: string | undefined;
+  }
+  const changeOrderStatus = async (statusData: Orderstatus) => {
+    const { status, id } = statusData;
+
+    console.log(status);
+
+    try {
+      // Validate that id is not undefined or null
+      //WRbutFm8KkhR9AbrPU30pOfQpKw21702375240804
+      if (!id) {
+        throw new Error("Document ID is required.");
+      }
+
+      const orderDocRef = doc(collection(db, "order"), id);
+      const updateData = {
+        status,
+      };
+
+      await updateDoc(orderDocRef, updateData);
+      console.log("Document updated successfully.");
+    } catch (error: any) {
+      console.error("Error updating document:", error.message);
+    }
+  };
+  return {
+    addProduct,
+    getProduct,
+    getProductDetail,
+    orderPlaced,
+    getOrder,
+    changeOrderStatus,
+  };
 };
 
 export default useProduct;

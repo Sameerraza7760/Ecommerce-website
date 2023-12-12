@@ -43,7 +43,6 @@ function AdminDashboard() {
 
     useEffect(() => {
       getProduct();
-      console.log("hi broo==>", product);
     }, []);
 
     return (

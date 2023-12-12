@@ -1,40 +1,46 @@
-.dashbordlist li{
-    margin-top: 15px;
-    cursor: pointer;
+.dashbordlist li {
+  margin-top: 15px;
+  cursor: pointer;
 }
 
-.dashbordlist li:hover{
-    background-color: white;
-    color: black;
-    transition: background-color 0.3s ease-out, color 0.3s ease-out;
+.dashbordlist li:hover {
+  background-color: white;
+  color: black;
+  transition: background-color 0.3s ease-out, color 0.3s ease-out;
 }
 /* #outlined-password-input{
     height:2px;
 } */
-#Cardimg{
-    /* content: url(./../../assets/shirt3.jpg); */
-    background-size: cover; /* Change from 'cover' to 'contain' */
-    background-position: center center;
-    cursor: pointer;
-    transition: opacity 0.3s ease-in-out;
-    position: relative;
-    height: 200px;
+#Cardimg {
+  /* content: url(./../../assets/shirt3.jpg); */
+  background-size: cover; /* Change from 'cover' to 'contain' */
+  background-position: center center;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  position: relative;
+  height: 200px;
 }
-.cardBody{
-    height: 100px;
+.cardBody {
+  height: 100px;
 }
-.updatebtn{background-color: darkturquoise !important;
-    color: white !important;
-    font-weight: bold !important ;}
-.deletebtn{
-    background-color: red !important;
-    color: white !important;
-    font-weight: bold !important;
+.updatebtn {
+  background-color: darkturquoise !important;
+  color: white !important;
+  font-weight: bold !important ;
+}
+.deletebtn {
+  background-color: red !important;
+  color: white !important;
+  font-weight: bold !important;
 }
 
+@media (max-width: 840px) {
+  .displayOrder div {
+    flex-direction: column;
+  }
+}
 
-@media(max-width:840px){
-    .displayOrder div{
- flex-direction: column;
-    }
+.status:hover {
+  background-color: rgb(221, 156, 15);
+  padding: 5;
 }

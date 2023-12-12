@@ -4,8 +4,6 @@ import Header from "./../../../Components/Header/Header";
 import { useSelector } from "react-redux";
 import { PlusOutlined } from "@ant-design/icons";
 import { UserProfile } from "./../../../types/types";
-;
-
 import { toast } from "react-toastify";
 import useAuth from "./../../../hooks/useAuth";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,7 +12,13 @@ import { Button, Modal, Upload, message } from "antd";
 import TextField from "@mui/material/TextField";
 
 function Adminprofile() {
-  const { logout, ubdateUserName, uploadImage,setUpdateAdminProfile,updateAdminProfile } = useAuth();
+  const {
+    logout,
+    ubdateUserName,
+    uploadImage,
+    setUpdateAdminProfile,
+    updateAdminProfile,
+  } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -23,7 +27,6 @@ function Adminprofile() {
 
   const adminData = useSelector((state?: any) => state.admin.admin[0]);
   console.log(adminData);
-  
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -36,18 +39,6 @@ function Adminprofile() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
-  //   useEffect(() => {
-  //     const getAdminProfile = async () => {
-  //       if (adminData.id) {
-  //         // const AdminData = await ubdateAdminProfile();
-  //         // setAdminEmail(AdminData?.email)
-  //         // setAdminName(AdminData?.username)
-  //         // setAdminPhoto(AdminData.photourl)
-  //       }
-  //       getAdminProfile();
-  //     };
-  //   }, [updateProfile]);
 
   const handleUpdateProfile = async () => {
     const id = adminData.id;
@@ -72,7 +63,7 @@ function Adminprofile() {
       const url = await uploadImage(photoImage);
       userData.photurl = url;
     }
-    setUpdateAdminProfile(true)
+    setUpdateAdminProfile(true);
 
     if (Object.keys(userData).length > 1) {
       updateAdminProfile(userData);
@@ -99,22 +90,27 @@ function Adminprofile() {
                 alt="Profile"
                 className="object-cover w-full h-full"
               />
-       
-       
-<div
-  className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full cursor-pointer transform hover:rotate-12 hover:scale-125 transition-transform duration-300"
-  style={{ backgroundImage: `url(${adminData.image})`, backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '100%' }}
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    className="w-6 h-6"
-  >
-    <circle cx="12" cy="12" r="12" fill="transparent" />
-  </svg>
-</div>
+
+              <div
+                className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full cursor-pointer transform hover:rotate-12 hover:scale-125 transition-transform duration-300"
+                style={{
+                  backgroundImage: `url(${adminData.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <circle cx="12" cy="12" r="12" fill="transparent" />
+                </svg>
+              </div>
             </div>
             <div className="text-center">
               <h2 className="text-3xl font-extrabold">{adminData.username}</h2>

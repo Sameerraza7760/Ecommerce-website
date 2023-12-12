@@ -6,12 +6,13 @@ import { toast } from "react-toastify";
 import Header from "../../../Components/Header/Header";
 import useAuth from "../../../hooks/useAuth";
 import "./../style.css";
-// import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Signin: React.FC = () => {
-  const AdminEmail = useSelector((state?: any) => state?.admin?.admin[0]?.email);
+  const AdminEmail = useSelector(
+    (state?: any) => state?.admin?.admin[0]?.email
+  );
   console.log("hi==>", AdminEmail);
 
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Signin: React.FC = () => {
         navigate(whereToNavigate);
       }, 2000);
     }
-  }, [successMessage,whereToNavigate]);
+  }, [successMessage, whereToNavigate]);
   return (
     <>
       <Header />

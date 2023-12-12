@@ -55,4 +55,6 @@ export interface userOrder {
   city: string;
   address: string;
   usershopping: CartItem[];
+  status: string;
+  userId?: string;
 }

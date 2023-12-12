@@ -14,6 +14,7 @@ const UserForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [city, setCity] = useState<string>("");
   const [address, setAddress] = useState("");
+  const [status, setStatus] = useState<string>("Pending");
 
   const handleCityChange = (value: string) => {
     setCity(value);
@@ -26,6 +27,7 @@ const UserForm = () => {
       city,
       address,
       usershopping: cartItems,
+      status,
     };
 
     await orderPlaced(userItem);
