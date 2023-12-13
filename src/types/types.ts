@@ -30,7 +30,7 @@ export interface Product {
   productDiscription: string;
   productCategory: string;
   productQuantaty: number | null;
-  imageUrl: File | undefined | string;
+  imageUrl: undefined|string[];
   email: string;
   id?: string;
 }

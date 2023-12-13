@@ -54,7 +54,7 @@ function Shop() {
               label="Product Name"
               variant="outlined"
               autoComplete="off"
-              style={{ width: "100%", marginBottom: "10px" }}
+              style={{ width: "100%", marginBottom: "10px"}}
               focused
             />
           </div>

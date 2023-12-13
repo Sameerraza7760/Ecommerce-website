@@ -39,6 +39,20 @@ const useProduct = () => {
       console.log(error);
     }
   };
+
+  const uploadImage = async (images: File[] | null) => {
+    const urls: string[] = [];
+    if (images) {
+      await Promise.all(images.map(async (item) => {
+        const storageRef = ref(storage, `images/${item.name}`);
+        const snapshot = await uploadBytes(storageRef, item);
+        const url: string = await getDownloadURL(snapshot.ref);
+        urls.push(url);
+      }));
+
+      return urls;
+    }
+  };
   //GET PRODUCT IN DATABASE
   const getProduct = async () => {
     try {
@@ -148,6 +162,7 @@ const useProduct = () => {
     orderPlaced,
     getOrder,
     changeOrderStatus,
+    uploadImage,
   };
 };
 

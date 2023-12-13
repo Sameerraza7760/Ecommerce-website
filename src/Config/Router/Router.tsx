@@ -1,23 +1,22 @@
 // Router.tsx
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Signup from "../../Pages/Accounts/Signup/Signup";
-import Signin from "../../Pages/Accounts/Signin/Signin";
-import Home from "../../Pages/Home/Home";
-import Shop from "../../Pages/Shop/Shop";
-import Profile from "../../Pages/Profile/Profile";
+import { Route, Routes } from "react-router-dom";
 import Account from "../../Pages/Account/Account";
-import Blog from "./../../Pages/Blog/Blog";
-import Setting from "./../../Pages/Setting/Setting";
+import Signin from "../../Pages/Accounts/Signin/Signin";
+import Signup from "../../Pages/Accounts/Signup/Signup";
+import Home from "../../Pages/Home/Home";
+import Profile from "../../Pages/Profile/Profile";
+import Shop from "../../Pages/Shop/Shop";
+import AdminDashboard from "./../../Pages/Admininterface/AdminDashboard/AdminDashboard";
+import Adminprofile from "./../../Pages/Admininterface/Adminprofile/Adminprofile";
+import CreateOrder from "./../../Pages/Admininterface/CreateOrder/CreateOrder";
+import ManegeOrder from "./../../Pages/Admininterface/MenegeOrder/ManegeOrder";
+import Cart from "./../../Pages/Cart/Cart";
 import Notification from "./../../Pages/Notification/Notification";
 import Order from "./../../Pages/Order/Order";
-import WhishList from "./../../Pages/WhishList/WhishList";
-import AdminDashboard from "./../../Pages/Admininterface/AdminDashboard/AdminDashboard";
-import ManegeOrder from "./../../Pages/Admininterface/MenegeOrder/ManegeOrder";
-import CreateOrder from "./../../Pages/Admininterface/CreateOrder/CreateOrder";
-import Adminprofile from "./../../Pages/Admininterface/Adminprofile/Adminprofile";
 import ProductDetail from "./../../Pages/ProductDetail/ProductDetail";
-import Cart from "./../../Pages/Cart/Cart";
+import Setting from "./../../Pages/Setting/Setting";
+import WhishList from "./../../Pages/WhishList/WhishList";
 
 const AppRouter: React.FC = () => {
   return (
@@ -28,7 +27,6 @@ const AppRouter: React.FC = () => {
       <Route path="/Shop" element={<Shop />} />
       <Route path="/Profile" element={<Profile />} />
       <Route path="/Account" element={<Account />}></Route>
-      <Route path="/Blog" element={<Blog />}></Route>
       <Route path="/Setting" element={<Setting />}></Route>
       <Route path="/Notification" element={<Notification />}></Route>
       <Route path="/Order" element={<Order />}></Route>
@@ -37,10 +35,12 @@ const AppRouter: React.FC = () => {
       <Route path="/ManegeOrder" element={<ManegeOrder />}></Route>
       <Route path="/CreateOrder" element={<CreateOrder />}></Route>
       <Route path="/AdminProfile" element={<Adminprofile />}>
+       
         {" "}
       </Route>
       <Route path="/ProductDetail/:id" element={<ProductDetail />} />
       <Route path="/Cart" element={<Cart />}></Route>
+      <Route path="/WhishList" element={<WhishList />} />
     </Routes>
   );
 };

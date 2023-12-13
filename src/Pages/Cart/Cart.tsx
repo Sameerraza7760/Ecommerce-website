@@ -18,13 +18,16 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 function Cart() {
   const cartItems = useSelector((state?: any) => state?.cart?.cart);
+  const userId = useSelector((state?: any) => state?.user?.user?.id);
+  console.log(cartItems);
+  console.log(userId);
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState<DrawerProps["size"]>();
-  const totalPrice = cartItems.reduce(
-    (total: string, item: CartItem) => total + item?.productPrice,
-    0
-  );
+  const totalPrice = cartItems
+    .filter((item: CartItem) => item.userId === userId)
+    .reduce((total: string, item: CartItem) => total + item?.productPrice, 0);
 
   const showLargeDrawer = () => {
     setSize("large");
@@ -67,39 +70,44 @@ function Cart() {
             <p className="text-gray-600">Your cart is empty.</p>
           ) : (
             <div>
-              {cartItems.map((item: CartItem) => (
-                <div
-                  key={item.id}
-                  className="flex items-center border-b border-gray-200 py-4"
-                >
-                  <img
-                    src={item.imageUrl as string}
-                    alt={item.productName}
-                    className="w-16 h-16 object-cover rounded-md mr-4 shadow-md"
-                  />
-                  <div className="flex justify-between w-full">
-                    <div className="w-[80%]">
-                      <h3 className="text-lg font-semibold text-gray-800 font-serif ">
-                        {item.productName}
-                      </h3>
-                      <p className="text-gray-600 font-serif ">
-                        ${item.productPrice.toFixed(2)}
-                      </p>
-                      <p className="text-gray-600 font-serif">
-                        Quantity: {item.quantity}
-                      </p>
-                    </div>
-                    <div className="w-[20%]">
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="ml-auto h-3 w-4  "
-                      >
-                        <FontAwesomeIcon icon={faTrash} color="black text-xl" />
-                      </button>
+              {cartItems
+                .filter((item: CartItem) => item.userId === userId)
+                .map((item: CartItem) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center border-b border-gray-200 py-4"
+                  >
+                    <img
+                      src={item.imageUrl as string}
+                      alt={item.productName}
+                      className="w-16 h-16 object-cover rounded-md mr-4 shadow-md"
+                    />
+                    <div className="flex justify-between w-full">
+                      <div className="w-[80%]">
+                        <h3 className="text-lg font-semibold text-gray-800 font-serif ">
+                          {item.productName}
+                        </h3>
+                        <p className="text-gray-600 font-serif ">
+                          ${item.productPrice.toFixed(2)}
+                        </p>
+                        <p className="text-gray-600 font-serif">
+                          Quantity: {item.quantity}
+                        </p>
+                      </div>
+                      <div className="w-[20%]">
+                        <button
+                          onClick={() => removeItem(item.id)}
+                          className="ml-auto h-3 w-4  "
+                        >
+                          <FontAwesomeIcon
+                            icon={faTrash}
+                            color="black text-xl"
+                          />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
 
               <div className="mt-4 flex justify-between items-center">
                 <p className="text-xl font-semibold text-gray-800 font-sans ">

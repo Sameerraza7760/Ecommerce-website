@@ -7,27 +7,28 @@ import Header from "./../../../Components/Header/Header";
 import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
 function CreateOrder() {
-  const { addProduct } = useProduct();
-  const { uploadImage } = useAuth();
+  const { addProduct, uploadImage } = useProduct();
+
   const [messageApi, contextHolder] = message.useMessage();
   const [productName, setProductName] = useState<string>("");
   const [productPrice, setProductPrice] = useState<number | null>(null);
   const [productDiscription, setProductDiscription] = useState<string>("");
   const [productCategory, setProductCategory] = useState<string>("");
   const [productQuantaty, setProductQuantaty] = useState<number | null>(null);
-  const [imageurl, setImageurl] = useState<File | null>(null);
+  const [imageurl, setImageurl] = useState<File[]>([]);
   const [email, setEmail] = useState<string>("");
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement> | null) => {
     if (e && e.target && e.target.files && e.target.files[0]) {
-      const selectedFile = e.target.files[0];
-
-      setImageurl(selectedFile);
+      const selectedFile = Array.from(e.target.files);
+      setImageurl((preImage) => [...preImage, ...selectedFile]);
+      console.log(imageurl);
     }
   };
 
   const product = async () => {
-    let imageUrl: string | undefined = await uploadImage(imageurl);
+    let imageUrl = await uploadImage(imageurl);
+    console.log("hu==>", imageUrl);
 
     const productArray: Product = {
       productName,
@@ -39,14 +40,14 @@ function CreateOrder() {
       email,
     };
 
-    for (let key in productArray) {
-      const value = productArray[key as keyof Product];
+    // // for (let key in productArray) {
+    // //   const value = productArray[key as keyof Product];
 
-      if (!value) {
-        alert("Please Fill All Inputs");
-        return;
-      }
-    }
+    // //   if (!value) {
+    // //     alert("Please Fill All Inputs");
+    // //     return;
+    // //   }
+    // // }
     try {
       await addProduct(productArray);
 

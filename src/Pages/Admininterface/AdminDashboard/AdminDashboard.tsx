@@ -7,9 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { Menu } from "antd";
-import type { DrawerProps } from "antd/es/drawer";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
@@ -23,23 +21,23 @@ function AdminDashboard() {
   console.log(product);
 
   const { getProduct } = useProduct();
-  const [open, setOpen] = useState(false);
-  const [placement, setPlacement] = useState<DrawerProps["placement"]>("left");
+  // const [open, setOpen] = useState(false);
+  // const [placement, setPlacement] = useState<DrawerProps["placement"]>("left");
 
-  const { SubMenu } = Menu;
+  // const { SubMenu } = Menu;
   {
-    const [collapsed, setCollapsed] = useState(false);
+    // const [collapsed, setCollapsed] = useState(false);
 
-    const toggleCollapsed = () => {
-      setCollapsed(!collapsed);
-    };
-    const showDrawer = () => {
-      setOpen(true);
-    };
+    // const toggleCollapsed = () => {
+    //   setCollapsed(!collapsed);
+    // };
+    // const showDrawer = () => {
+    //   setOpen(true);
+    // };
 
-    const onClose = () => {
-      setOpen(false);
-    };
+    // const onClose = () => {
+    //   setOpen(false);
+    // };
 
     useEffect(() => {
       getProduct();
@@ -93,13 +91,16 @@ function AdminDashboard() {
                   <Card
                     className="border rounded-md w-[300px]"
                     sx={{ maxWidth: 490, backgroundColor: "#1a202c" }}
+                    key={item.id}
                   >
                     <CardMedia
                       component="img"
                       alt="Product Image"
                       height="220"
                       src={
-                        typeof item.imageUrl === "string" ? item.imageUrl : ""
+                        typeof item?.imageUrl?.[0] === "string"
+                          ? item.imageUrl[0]
+                          : undefined
                       }
                       id="Cardimg"
                       style={{

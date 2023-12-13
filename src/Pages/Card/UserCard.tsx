@@ -13,22 +13,23 @@ import { CartItem } from "types/types";
 import { Product } from "types/types";
 import { notification } from "antd";
 
-
 interface ProductProps {
   items: Product;
 }
 function UserCard({ items }: ProductProps) {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const id = useSelector((state?: any) => state?.user?.user?.id);
+  const userId = useSelector((state?: any) => state?.user?.user?.id);
   const addToCart = (items: CartItem) => {
     notification.success({
       message: "Item Added to Cart",
       description: `${items.productName} has been added to your cart.`,
       placement: "topRight",
     });
-    dispatch(setCartItem(items));
+
+    const cartObject: CartItem = { ...items, userId };
+    dispatch(setCartItem(cartObject));
+    console.log(cartObject);
   };
   return (
     <div>
@@ -42,7 +43,11 @@ function UserCard({ items }: ProductProps) {
             component="img"
             alt="Product Image"
             height="220"
-            src={typeof items.imageUrl === "string" ? items.imageUrl : ""}
+            src={
+              typeof items?.imageUrl?.[0] === "string"
+                ? items.imageUrl[0]
+                : undefined
+            }
             id="Cardimg"
             style={{
               objectFit: "cover",

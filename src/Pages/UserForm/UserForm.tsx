@@ -67,9 +67,10 @@ const UserForm = () => {
       />
       <Select
         placeholder="Select City"
-        className="w-full border-b-2 border-gray-300 outline-none focus:border-blue-500 "
+        className="w-full border-b-2 border-gray-300 outline-none focus:border-blue-500"
         onChange={handleCityChange}
-        value={city}
+        value={city || "Karachi"}
+        defaultValue="Karachi"
       >
         <Option value="Karachi">Karachi</Option>
         <Option value="Islamabad">Islamabad</Option>
