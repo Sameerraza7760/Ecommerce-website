@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Product, userOrder } from "types/types";
 import firebase from "../Config/Firebase/firebase"; // Adjust the import path as needed
 import { setProduct } from "./../features/Products/productSlice";
+import { useState } from "react";
 
 const useProduct = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const useProduct = () => {
     getDoc,
     collection,
     db,
+    deleteDoc,
     doc,
     updateDoc,
     getDownloadURL,
@@ -20,8 +22,10 @@ const useProduct = () => {
     storage,
     getDocs,
     setDoc,
+    arrayUnion,
   } = firebase;
   const navigate = useNavigate();
+  const [rewiew, setRewiew] = useState<boolean>(false);
 
   // ADD PRODUCT IN DATABASE
   const addProduct = async (newProductData: Product) => {
@@ -40,15 +44,18 @@ const useProduct = () => {
     }
   };
 
+  // UPLOAD IMAGES OF ARRAY IN STOREAGE AND GET LINK
   const uploadImage = async (images: File[] | null) => {
     const urls: string[] = [];
     if (images) {
-      await Promise.all(images.map(async (item) => {
-        const storageRef = ref(storage, `images/${item.name}`);
-        const snapshot = await uploadBytes(storageRef, item);
-        const url: string = await getDownloadURL(snapshot.ref);
-        urls.push(url);
-      }));
+      await Promise.all(
+        images.map(async (item) => {
+          const storageRef = ref(storage, `images/${item.name}`);
+          const snapshot = await uploadBytes(storageRef, item);
+          const url: string = await getDownloadURL(snapshot.ref);
+          urls.push(url);
+        })
+      );
 
       return urls;
     }
@@ -125,9 +132,7 @@ const useProduct = () => {
       throw error;
     }
   };
-
   //  CHANGE STATUS OF ORDER AFTER ADMMIN MANEGE
-
   interface Orderstatus {
     id: string | undefined;
     status: string | undefined;
@@ -138,8 +143,6 @@ const useProduct = () => {
     console.log(status);
 
     try {
-      // Validate that id is not undefined or null
-      //WRbutFm8KkhR9AbrPU30pOfQpKw21702375240804
       if (!id) {
         throw new Error("Document ID is required.");
       }
@@ -150,19 +153,81 @@ const useProduct = () => {
       };
 
       await updateDoc(orderDocRef, updateData);
-      console.log("Document updated successfully.");
+      message.success(status);
     } catch (error: any) {
       console.error("Error updating document:", error.message);
     }
   };
+
+  //SUBMIT REWIEW IN DATABASE
+  const submitRewiew = async (rewiewDetail: any) => {
+    const { productId, newReview } = rewiewDetail;
+    console.log(newReview, productId);
+
+    try {
+      const productDocRef = doc(collection(db, "PRODUCT"), productId);
+
+      const updateData = {
+        rewiew: arrayUnion(newReview),
+      };
+      await updateDoc(productDocRef, updateData);
+
+      setRewiew(true);
+      message.success("Rewiew Added");
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+//DELETE PRODUCT IN DATABASE
+  const deleteProduct = async (id: any) => {
+    await deleteDoc(doc(db, "PRODUCT", id));
+    message.info("Delete Item");
+  };
+
+  //UPLOAD PRODUCT IN DATABASE
+  const updateProduct = async (item: any) => {
+    // const {
+    //   productPrice,
+    //   productName,
+    //   id,
+    //   productDiscription,
+    //   productQuantaty,
+    // } = item;
+    // try {
+    //   const productDocref = doc(collection(db, "PRODUCT"), id);
+    //   const updateData: Partial<Product> = {};
+    //   if (productName !== undefined) {
+    //     updateData.productName = productName;
+    //   }
+    //   if (productPrice !== undefined) {
+    //     updateData.productPrice = productPrice;
+    //   }
+    //   if (productDiscription !== undefined) {
+    //     updateData.productPrice = productPrice;
+    //   }
+    //   if (productQuantaty !== undefined) {
+    //     updateData.productPrice = productPrice;
+    //   }
+    //   await updateDoc(productDocref, updateData);
+    //   message.success(" Update Product successfully!");
+    //   // console.log("User updated successfully");
+    // } catch (error: any) {
+    //   message.error(error.message);
+    // }
+  };
   return {
     addProduct,
+    submitRewiew,
     getProduct,
     getProductDetail,
     orderPlaced,
     getOrder,
     changeOrderStatus,
     uploadImage,
+    setRewiew,
+    rewiew,
+    deleteProduct,
+    updateProduct,
   };
 };
 

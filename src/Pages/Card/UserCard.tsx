@@ -32,67 +32,50 @@ function UserCard({ items }: ProductProps) {
     console.log(cartObject);
   };
   return (
-    <div>
-      <div className="flex flex-wrap justify-center mx-auto gap-3 w-full">
-        <Card
-          className="border rounded-md w-[300px]"
-          sx={{ maxWidth: 490, backgroundColor: "#1a202c" }}
+    <div
+      key={items.id}
+      className="bg-white rounded-md overflow-hidden shadow-md cursor-pointer "
+    >
+      {" "}
+      <img
+        style={{
+          objectFit: "cover",
+          transition: "transform 0.3s ease-in-out",
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.transform = "scale(1.05)";
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.transform = "scale(1)";
+        }}
+        id="Cardimg"
+        src={
+          typeof items?.imageUrl?.[0] === "string"
+            ? items.imageUrl[0]
+            : undefined
+        }
+        // alt={`Product ${index + 1}`}
+        className="w-full h-48 object-cover"
+        onClick={() => navigate(`/ProductDetail/${items.id || ""}`)}
+      />
+      <div className="p-4">
+        <h2 className="text-xl font-semibold text-gray-800">
+          {items.productName}
+        </h2>
+        <p className="text-gray-600">{items.productDiscription}</p>
+        <p className="text-blue-500 font-bold mt-2">${items.productPrice}</p>
+      </div>
+      <div className="flex justify-end p-4">
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-full"
+          onClick={() => addToCart(items as CartItem)}
         >
-          <CardMedia
-            onClick={() => navigate(`/ProductDetail/${items.id || ""}`)}
-            component="img"
-            alt="Product Image"
-            height="220"
-            src={
-              typeof items?.imageUrl?.[0] === "string"
-                ? items.imageUrl[0]
-                : undefined
-            }
-            id="Cardimg"
-            style={{
-              objectFit: "cover",
-              transition: "transform 0.3s ease-in-out",
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.transform = "scale(1.05)";
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-            }}
-          />
-          <CardContent className="cardBody">
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              className="text-white font-serif"
-              fontSize="1rem"
-            >
-              {items.productName}
-            </Typography>
-            <Typography variant="body2" className="text-white font-serif">
-              {items.productDiscription}
-            </Typography>
-            <Typography
-              variant="h6"
-              className="text-white font-serif"
-              fontSize="1rem"
-            >
-              {` $${items.productPrice}`} {/* Replace with the actual price */}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <IconButton
-              style={{ backgroundColor: "#2196F3", color: "#ffffff" }}
-              onClick={() => addToCart(items as CartItem)}
-            >
-              <AddShoppingCartIcon />
-            </IconButton>
-          </CardActions>
-        </Card>
+          Add to Cart
+        </button>
       </div>
     </div>
   );
 }
 
 export default UserCard;
+

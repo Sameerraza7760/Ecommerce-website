@@ -27,6 +27,8 @@ import {
   getDocs,
   getDoc,
   serverTimestamp,
+  arrayUnion ,
+  deleteDoc
 } from "firebase/firestore";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -76,7 +78,7 @@ const addUserToDB = async (userProfile: Iauth, uid: string) => {
   let { email, username } = userProfile;
   let userData = { email, username, uid };
   return setDoc(doc(db, "users", uid), userData);
-}
+};
 
 export default {
   createUserWithEmailAndPassword,
@@ -90,7 +92,10 @@ export default {
   doc,
   updateDoc,
   ref,
-  uploadBytes,getDownloadURL,
+  uploadBytes,
+  getDownloadURL,
   storage,
-  setDoc
+  setDoc,
+  arrayUnion ,
+  deleteDoc
 };

@@ -137,8 +137,6 @@ function CreateOrder() {
             placeholder="Product Image URL"
             typeof="file"
             id="outlined-basic-image"
-            // label="Product Image URL"
-            // variant="outlined"
             autoComplete="off"
             style={{ width: "100%", marginBottom: "10px" }}
             type="file"

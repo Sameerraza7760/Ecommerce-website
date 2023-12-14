@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Header from "./../../Components/Header/Header";
 import UserCard from "./../Card/UserCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useProduct from "./../../hooks/useProduct";
 import { Product } from "types/types";
 import TextField from "@mui/material/TextField";
@@ -15,13 +15,27 @@ function Shop() {
   const product: Product[] = useSelector(
     (state?: any) => state?.product?.product
   );
+
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const handleCategoryChange = (e: any) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  const filteredProducts: Product[] =
+    selectedCategory === "All"
+      ? product
+      : product.filter((item: Product) =>
+          item.productName.toLowerCase().includes(selectedCategory)
+        );
+
   console.log(product);
   const { getProduct } = useProduct();
 
   useEffect(() => {
     getProduct();
   }, []);
-  const categories = ["Shirts", "Paints", "Tops", "Jackets", "Shoes"];
+  const categories = ["shirt", "paint", "Tops", "Jackets", "Shoes"];
   const defaultCategory = categories[0];
 
   return (
@@ -29,33 +43,23 @@ function Shop() {
       <Header />
       <div className="w-full">
         <div className="w-[60%] mx-auto text-center mt-6">
-          <h1 className="font-sens text-xl font-bold">PRODUCTS</h1>
-
-          <div className="flex justify-between">
-            <p className="w-full mx-auto font-serif">
-              Inspired by the late '90s and early-to-mid 2000s clothing styles.
-              Comfortable, sustainable + pantone Inspired colorways. No
-              re-stocks on Ribbed Items once sold out.
-            </p>
-
-            <h2
-              onClick={() => navigate("/Cart")}
-              className="text-2xl font-semibold mb-4 items-end cursor-pointer text-blue-600 h-5"
-            >
-              <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
-            </h2>
-          </div>
+          <h1 className="text-3xl font-bold text-blue-600 mb-4">
+            Explore Our Products
+          </h1>
+          <p className="text-gray-700 mb-8">
+            Discover our latest collection inspired by the late '90s and early
+            2000s styles. Comfortable, sustainable, and pantone-inspired
+            colorways. Limited editions on ribbed items.
+          </p>
         </div>
-        <div className="flex w-[90%] p-4 ml-6 justify-between ">
+
+        <div className="flex w-[90%] p-4 mx-auto mb-8 justify-between">
           <div className="w-[300px]">
-            <TextField
-              placeholder="Product Name"
-              id="outlined-basic-product"
-              label="Product Name"
-              variant="outlined"
-              autoComplete="off"
-              style={{ width: "100%", marginBottom: "10px"}}
-              focused
+            <input
+              type="text"
+              placeholder="Search Product"
+              className="w-full p-2 border-b-2 border-gray-300 outline-none focus:border-blue-500"
+              onChange={(e) => setSelectedCategory(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -68,8 +72,10 @@ function Shop() {
             <select
               id="categorySelect"
               className="border p-2 rounded-md w-full"
-              defaultValue={defaultCategory}
+              value={selectedCategory}
+              onChange={handleCategoryChange}
             >
+              <option value="All">All</option>
               {categories.map((category) => (
                 <option key={category} value={category}>
                   {category}
@@ -79,12 +85,19 @@ function Shop() {
           </div>
         </div>
 
-        <div className="w-[80%] mx-auto mt-9 h-auto">
-          <div className="w-full flex justify-center flex-wrap gap-3">
-            {product?.map((item: any, index: number) => (
-              <UserCard key={index} items={item} />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-[80%] mx-auto">
+          {filteredProducts.map((item: Product, index: number) => (
+            <UserCard key={index} items={item} />
+          ))}
+        </div>
+
+        <div className="fixed bottom-0 right-0 m-6">
+          <h2
+            onClick={() => navigate("/Cart")}
+            className="text-2xl font-semibold items-end cursor-pointer text-blue-600"
+          >
+            <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
+          </h2>
         </div>
       </div>
     </>
