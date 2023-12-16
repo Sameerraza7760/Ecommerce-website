@@ -73,7 +73,7 @@ function Home() {
           id="container"
         >
           <div
-            className="h-[500px] rounded-md border bg-cover bg-center w-[23%] relative"
+            className="h-[500px] rounded-md border bg-cover bg-center  w-[350px]  relative"
             id="image1"
           >
             <div className="absolute inset-0 flex items-center justify-center">
@@ -83,7 +83,7 @@ function Home() {
             </div>
           </div>
           <div
-            className="h-[500px] rounded-md border bg-cover bg-center w-[23%] relative"
+            className="h-[500px] rounded-md border bg-cover bg-center  w-[350px] relative"
             id="image2"
           >
             <div className="absolute inset-0 flex items-center justify-center">
@@ -93,7 +93,7 @@ function Home() {
             </div>
           </div>
           <div
-            className="h-[500px] rounded-md border bg-cover bg-center w-[23%] relative"
+            className="h-[500px] rounded-md border bg-cover bg-center w-[350px] relative"
             id="image3"
           >
             <div className="absolute inset-0 flex items-center justify-center">
@@ -104,7 +104,7 @@ function Home() {
           </div>
         </div>
         <div
-          className="w-[73%] mx-auto h-[70vh] rounded-md overflow-hidden relative group"
+          className="w-[77%] mx-auto h-[70vh] rounded-md overflow-hidden relative group"
           id="image4"
         >
           <button className="absolute inset-0  text-white px-4 py-2 rounded-md opacity-0 transition-opacity duration-300 group-hover:bg-transparent group-hover:opacity-100">
@@ -114,7 +114,7 @@ function Home() {
       </div>
 
       <div className="images-container  h-[80vh]  flex justify-center w-[81%] mt-4  mx-auto cursor-pointer ">
-        <div className="firstDiv w-[40%] mx-auto relative overflow-hidden">
+        <div className="firstDiv w-[50%] mx-auto relative overflow-hidden">
           <div className="h-full w-full bg-cover bg-center transition-opacity duration-300 hover:opacity-60 hover:backdrop-blur-md">
             {/* Your image content goes here */}
           </div>
@@ -126,7 +126,7 @@ function Home() {
         </div>
 
         <div className="secondDiv  w-[40%] mx-auto  ">
-          <div className="innerDiv2 w-[80%] mx-auto pt-[40%]">
+          <div className="innerDiv2 w-[80%] mx-auto pt-[40%] text-center">
             {/* <div className="h-[10vh]" ></div> */}
             <h1 className="font-bold font-sans text-slate-900 text-center text-xl">
               {" "}

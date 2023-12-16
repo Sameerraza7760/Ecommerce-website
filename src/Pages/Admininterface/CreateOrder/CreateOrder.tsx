@@ -8,7 +8,6 @@ import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
 function CreateOrder() {
   const { addProduct, uploadImage } = useProduct();
-
   const [messageApi, contextHolder] = message.useMessage();
   const [productName, setProductName] = useState<string>("");
   const [productPrice, setProductPrice] = useState<number | null>(null);
@@ -28,7 +27,6 @@ function CreateOrder() {
 
   const product = async () => {
     let imageUrl = await uploadImage(imageurl);
-    console.log("hu==>", imageUrl);
 
     const productArray: Product = {
       productName,
@@ -40,19 +38,21 @@ function CreateOrder() {
       email,
     };
 
-    // // for (let key in productArray) {
-    // //   const value = productArray[key as keyof Product];
-
-    // //   if (!value) {
-    // //     alert("Please Fill All Inputs");
-    // //     return;
-    // //   }
-    // // }
+    for (let key in productArray) {
+      if (!productArray[key as keyof Product]) {
+        message.warning("Please Fill All Inputs");
+        return;
+      }
+    }
     try {
       await addProduct(productArray);
-
       message.success("Order created successfully!");
-      console.log("hi");
+      setProductName(" ");
+      setProductCategory(" ");
+      setProductPrice(null);
+      setProductDiscription(" ");
+      setEmail(" ");
+      setProductQuantaty(null);
     } catch (error: any) {
       message.error(error.message);
     }
@@ -66,15 +66,14 @@ function CreateOrder() {
     const value = parseFloat(e.target.value);
     setProductQuantaty(isNaN(value) ? null : value);
   };
-
   return (
     <>
       <Header />
       <div className="min-h-screen w-full flex bg-gradient-to-r from-blue-500 to-purple-500 ">
-        <div className="h-auto w-[16%]">
+        <div className="menu h-auto w-[200px]">
           <AppMenu />
         </div>
-        <div className="bg-white shadow-md rounded-lg p-8 m-4 w-[60%] mx-auto h-auto ">
+        <div className="orderForm bg-white shadow-md rounded-lg p-8 m-4 w-[60%] mx-auto h-auto ">
           <h2 className="text-3xl mb-6 text-center text-gray-800 font-semibold font-serif">
             Add Product
           </h2>
@@ -85,6 +84,7 @@ function CreateOrder() {
             variant="outlined"
             autoComplete="off"
             style={{ width: "100%", marginBottom: "10px" }}
+            value={productName}
             focused
             color="secondary"
             onChange={(e) => setProductName(e.target.value)}
@@ -114,6 +114,7 @@ function CreateOrder() {
             variant="outlined"
             autoComplete="off"
             style={{ width: "100%", marginBottom: "10px" }}
+            value={productDiscription}
             multiline
             rows={2}
             focused
@@ -128,6 +129,7 @@ function CreateOrder() {
             variant="outlined"
             autoComplete="off"
             style={{ width: "100%", marginBottom: "10px" }}
+            value={productCategory}
             focused
             color="secondary"
             onChange={(e) => setProductCategory(e.target.value)}
@@ -157,6 +159,7 @@ function CreateOrder() {
             focused
             color="secondary"
             onChange={handleQuantity}
+            value={productQuantaty}
           />
 
           <TextField
@@ -168,6 +171,7 @@ function CreateOrder() {
             style={{ width: "100%", marginBottom: "10px" }}
             type="email"
             focused
+            value={email}
             color="secondary"
             onChange={(e) => setEmail(e.target.value)}
           />

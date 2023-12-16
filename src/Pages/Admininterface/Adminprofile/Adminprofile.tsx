@@ -7,6 +7,7 @@ import { UserProfile } from "./../../../types/types";
 import { toast } from "react-toastify";
 import useAuth from "./../../../hooks/useAuth";
 import "react-toastify/dist/ReactToastify.css";
+import "./../style.css";
 
 import { Button, Modal, Upload, message } from "antd";
 import TextField from "@mui/material/TextField";
@@ -79,11 +80,11 @@ function Adminprofile() {
     <>
       <Header />
       <div className="bg-gray-800 min-h-screen flex flex-col md:flex-row">
-        <div className="w-full md:w-1/5 h-screen">
+  <div className="Adminmenu h-auto w-full md:w-1/5">
           <AppMenu />
         </div>
-        <div className="flex-1 flex items-center justify-center">
-          <div className="bg-gray-900 text-white p-8 rounded-lg shadow-md w-full md:max-w-md space-y-6">
+        <div className="flex-1 flex items-center justify-center w-full">
+    <div className="bg-gray-900 text-white p-8 rounded-lg shadow-md w-full md:max-w-md space-y-6">
             <div className="relative w-40 h-40 overflow-hidden rounded-full mx-auto border-4 border-blue-500 transform hover:rotate-6 hover:scale-110 transition-transform duration-300">
               <img
                 src="https://via.placeholder.com/150"

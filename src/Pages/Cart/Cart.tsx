@@ -19,9 +19,6 @@ import { useDispatch } from "react-redux";
 function Cart() {
   const cartItems = useSelector((state?: any) => state?.cart?.cart);
   const userId = useSelector((state?: any) => state?.user?.user?.id);
-  console.log(cartItems);
-  console.log(userId);
-
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState<DrawerProps["size"]>();
@@ -144,7 +141,7 @@ function Cart() {
                       Provide your information to place the order.
                     </p>
                   </div>
-                  <UserForm />
+                  <UserForm Total={totalPrice} />
                 </Drawer>
               </div>
             </div>

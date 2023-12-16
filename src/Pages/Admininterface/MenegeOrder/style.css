@@ -1,0 +1,14 @@
+@media (max-width: 630px) {
+  .menu {
+    width: 10% !important;
+  }
+  .orderForm {
+    width: 83% !important;
+  }
+  .orderContainer{
+    width: 80% !important;
+  }
+  .here{
+    width: 90% !important;
+  }
+}

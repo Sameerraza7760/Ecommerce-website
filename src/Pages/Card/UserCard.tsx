@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCartItem } from "./../../features/Cart/CartSlice";
 import { CartItem } from "types/types";
 import { Product } from "types/types";
+import './style.css'
 import { notification } from "antd";
 
 interface ProductProps {
@@ -33,47 +34,39 @@ function UserCard({ items }: ProductProps) {
   };
   return (
     <div
-      key={items.id}
-      className="bg-white rounded-md overflow-hidden shadow-md cursor-pointer "
-    >
-      {" "}
-      <img
-        style={{
-          objectFit: "cover",
-          transition: "transform 0.3s ease-in-out",
-        }}
-        onMouseOver={(e) => {
-          e.currentTarget.style.transform = "scale(1.05)";
-        }}
-        onMouseOut={(e) => {
-          e.currentTarget.style.transform = "scale(1)";
-        }}
-        id="Cardimg"
-        src={
-          typeof items?.imageUrl?.[0] === "string"
-            ? items.imageUrl[0]
-            : undefined
-        }
-        // alt={`Product ${index + 1}`}
-        className="w-full h-48 object-cover"
-        onClick={() => navigate(`/ProductDetail/${items.id || ""}`)}
-      />
-      <div className="p-4">
-        <h2 className="text-xl font-semibold text-gray-800">
-          {items.productName}
-        </h2>
-        <p className="text-gray-600">{items.productDiscription}</p>
-        <p className="text-blue-500 font-bold mt-2">${items.productPrice}</p>
-      </div>
-      <div className="flex justify-end p-4">
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-full"
-          onClick={() => addToCart(items as CartItem)}
-        >
-          Add to Cart
-        </button>
-      </div>
+    key={items.id}
+    className="bg-white rounded-md overflow-hidden shadow-md cursor-pointer transition-transform transform hover:scale-105"
+  >
+    <img
+      src={
+        typeof items?.imageUrl?.[0] === 'string'
+          ? items.imageUrl[0]
+          : undefined
+      }
+      alt={items.productName}
+      className="w-full h-48 object-cover"
+      onClick={() => navigate(`/ProductDetail/${items.id || ''}`)}
+    />
+    <div className="p-4">
+      <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-gray-800 mb-2">
+        {items.productName}
+      </h2>
+      <p className="text-sm md:text-base text-gray-600 mb-4">
+        {items.productDiscription}
+      </p>
+      <p className="text-blue-500 font-bold text-lg md:text-xl">
+        ${items.productPrice}
+      </p>
     </div>
+    <div className="addCartBtn flex justify-end p-4">
+      <button
+        className="bg-blue-500 text-white px-4 py-2 rounded-full"
+        onClick={() => addToCart(items as CartItem)}
+      >
+        Add to Cart
+      </button>
+    </div>
+  </div>
   );
 }
 

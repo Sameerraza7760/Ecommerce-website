@@ -44,3 +44,23 @@
   background-color: rgb(221, 156, 15);
   padding: 5;
 }
+
+@media (max-width: 580px) {
+  .menu {
+    width: 46% !important;
+  }
+}
+
+@media (max-width: 522px) {
+  .menu {
+    width: 26% !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .menu {
+    width: 15% !important;
+  }
+}
+
+

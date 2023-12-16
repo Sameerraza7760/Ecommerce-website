@@ -17,6 +17,7 @@ import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
 import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
+import './../style.css';
 
 function ManegeOrder() {
   const { logout } = useAuth();
@@ -54,11 +55,11 @@ function ManegeOrder() {
       <Header />
 
       <div className="bg-slate-400 min-h-screen w-full flex">
-        <div className="h-auto w-[16%]">
+        <div className="menu h-auto w-[200px]">
           <AppMenu />
         </div>
 
-        <div className="orderContainer w-[80%] p-5 mt-3 h-auto bg-slate-300 mx-auto rounded-md ">
+        <div className="orderContainer w-[70%] p-5 mt-3 h-auto bg-slate-300 mx-auto rounded-md ">
           <div className="w-full h-auto flex justify-between">
             <div className="w-full font-serif font-bold cursor-pointer">
               <h1>Order</h1>{" "}
@@ -96,7 +97,7 @@ function ManegeOrder() {
                         key={item.userId}
                         className="displayOrder w-full mx-auto rounded-md h-auto"
                       >
-                        <div className="w-full flex items-center gap-9 p-4 bg-gray-100 rounded-md mb-5">
+                        <div className="here w-full flex items-center gap-9 p-4 bg-gray-100 rounded-md mb-5">
                           <div className="flex-none text-xl font-bold">
                             {index + 1}
                           </div>

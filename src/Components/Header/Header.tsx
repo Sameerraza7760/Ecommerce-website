@@ -276,13 +276,16 @@ function ResponsiveAppBar() {
                 <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
               </IconButton>
             </Tooltip>
-            <div>
+            <div className="mb-3" >
               <Button
                 aria-controls="simple-menu"
                 aria-haspopup="true"
                 onClick={handleClick}
+                className="mb-[10px]"
               >
-                {email ? email : "Login"}
+                {/* IN THIS IF EMAIL TRUTY SO YOU DO REMOVE ALL NUMBER BY USING REPLACE (\/d+/g,"") AFTER REMOVE ALL THE NUMBER
+                YOU USED SPLIT TO MAKE ARRAY LIKE .SPLIT(@)[0] mean  ['EXAMPLE','EXAPMLEGMAIL.COM'] BY [0] YOU SELCT FIRST INDEX */}
+                {email ? email.replace(/\d+/g, "").split('@')[0] : "Login"}
               </Button>
               {email ? (
                 <Menu

@@ -7,17 +7,18 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import React, { useEffect } from "react";
+import { Modal } from "antd";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Product } from "types/types";
 import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
-import useProduct from "./../../../hooks/useProduct";
-import { useState } from "react";
-import { Product } from "types/types";
-import "./../style.css";
-import { Modal, Space } from "antd";
 import useAuth from "./../../../hooks/useAuth";
+import useProduct from "./../../../hooks/useProduct";
+import { useNavigate, useNavigation } from "react-router-dom";
+import "./../style.css";
 function AdminDashboard() {
+  const navigate=useNavigate()
   const product = useSelector((state?: any) => state?.product?.product);
   console.log(product);
   const { getProduct, deleteProduct, updateProduct } = useProduct();
@@ -87,7 +88,7 @@ function AdminDashboard() {
       <Header />
 
       <div className="bg-blue-100 min-h-screen w-full flex">
-        <div className="h-auto w-[16%]">
+        <div className="menu h-auto w-[250px]">
           <AppMenu />
         </div>
 
@@ -111,6 +112,7 @@ function AdminDashboard() {
                 className="Drawer text-xl "
                 icon={faCommentDots}
                 style={{ fontSize: "2rem", cursor: "pointer" }}
+                onClick={()=>navigate('/Chat')}
                 // Adjust the size as needed
               />
               <FontAwesomeIcon

@@ -36,3 +36,10 @@
   width: 100%;
   margin-bottom: 10px;
 }
+
+
+@media(max-width:360px){
+  .responsiveheading{
+    font-size: 18px !important;
+  }
+}

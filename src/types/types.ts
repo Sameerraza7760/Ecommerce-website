@@ -46,6 +46,7 @@ export interface CartItem {
   email: string;
   id: string;
   quantity?: number;
+
   userId: string;
 }
 
@@ -58,4 +59,6 @@ export interface userOrder {
   usershopping: CartItem[];
   status: string;
   userId?: string;
+  Total:number;
+  date:string
 }
