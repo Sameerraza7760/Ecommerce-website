@@ -1,55 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import useAuth from "hooks/useAuth";
-import { AdminState } from "store/slice/adminSlice";
-import { Adminauth } from "types/types";
-function Chat() {
-  const Admin = useSelector((state?: any) => state?.admin?.admin[0]);
-  const User = useSelector((state?: any) => state?.user?.user);
-  console.log(User);
+import React from "react";
 
-  const [newMessage, setNewMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-  const [adminName, setAdminName] = useState([]);
-  const [adminId, setAdminId] = useState(null);
+function AdminChat() {
   const customerNames = ["Customer 1", "Customer 2", "Customer 3"]; // Your customer names
-
-  // const handleSendMessage = async () => {
- 
-  //     const chatroomid = Admin.id + User.id
-  //     const messageData = {
-  //       message: newMessage,
-  //       email: auth?.currentUser?.email,
-  //       senderId: yoursid,
-  //       recieverId: adminId,
-  //       timestamp: serverTimestamp(),
-  //       chatRoomid: chatroomid,
-      
-  //     setChatRoomId(chatroomid);
-  //     const messagesRef = collection(db, "messeges");
-
-  //     try {
-  //       await addDoc(messagesRef, messageData);
-
-  //       console.log("Message sent successfully!");
-  //       setNewMessage("");
-  //     } catch (error) {
-  //       console.error("Error sending message:", error.message);
-  //     }
-  //   } else {
-  //     console.log("id not found");
-  
-  // };
-
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
       <div className="bg-gray-800 text-white p-4 w-1/4">
         <h3 className="text-2xl font-semibold mb-4">Customer List</h3>
         <ul>
-          <li className="mb-2 cursor-pointer hover:bg-gray-700 px-4 py-2 rounded-md transition duration-300  text-center">
-            {Admin.email.replace(/\d+/g, "").split("@")[0]}
-          </li>
+          {customerNames.map((name, index) => (
+            <li
+              key={index}
+              className="mb-2 cursor-pointer hover:bg-gray-700 px-4 py-2 rounded-md transition duration-300"
+            >
+              {name}
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -116,4 +82,4 @@ function Chat() {
   );
 }
 
-export default Chat;
+export default AdminChat;

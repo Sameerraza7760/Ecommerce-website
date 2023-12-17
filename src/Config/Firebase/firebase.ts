@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { setUser } from "./../../features/User/userSlice";
+import { setUser } from "../../store/slice/userSlice";
 // import { Dispatch } from "react";
 
 import { Iauth } from "types/types";

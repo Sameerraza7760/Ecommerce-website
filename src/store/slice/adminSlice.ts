@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Adminauth } from "./../../types/types";
+import { Adminauth } from "../../types/types";
 
 export interface AdminState {
   admin: Adminauth[] | null;

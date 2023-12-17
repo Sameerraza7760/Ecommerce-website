@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setCartItem } from "./../../features/Cart/CartSlice";
+import { setCartItem } from "../../store/slice/CartSlice";
 import { CartItem } from "types/types";
 import { Product } from "types/types";
 import './style.css'

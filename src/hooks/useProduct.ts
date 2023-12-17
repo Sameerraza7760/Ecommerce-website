@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Product, userOrder } from "types/types";
 import firebase from "../Config/Firebase/firebase"; // Adjust the import path as needed
-import { setProduct } from "./../features/Products/productSlice";
+import { setProduct } from "../store/slice/productSlice";
 import { useState } from "react";
 
 const useProduct = () => {

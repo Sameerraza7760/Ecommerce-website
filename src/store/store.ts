@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer, { UserState } from "./../features/User/userSlice";
-import adminReducer, { AdminState } from "./../features/Admin/adminSlice";
-import cartReducer, { CartState } from "./../features/Cart/CartSlice";
-import productReducer, {ProductState} from "./../features/Products/productSlice";
+import userReducer, { UserState } from "./slice/userSlice";
+import adminReducer, { AdminState } from "./slice/adminSlice";
+import cartReducer, { CartState } from "./slice/CartSlice";
+import productReducer, {ProductState} from "./slice/productSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 

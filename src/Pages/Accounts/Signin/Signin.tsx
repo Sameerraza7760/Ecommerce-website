@@ -10,12 +10,10 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Signin: React.FC = () => {
+  const navigate = useNavigate();
   const AdminEmail = useSelector(
     (state?: any) => state?.admin?.admin[0]?.email
   );
-  console.log("hi==>", AdminEmail);
-
-  const navigate = useNavigate();
   const { signin, successMessage } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setpassword] = useState<string>("");

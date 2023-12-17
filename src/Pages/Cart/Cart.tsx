@@ -11,7 +11,7 @@ import UserForm from "./../../Pages/UserForm/UserForm";
 import {
   setRemoveAllItems,
   setRemoveCartItem,
-} from "./../../features/Cart/CartSlice";
+} from "../../store/slice/CartSlice";
 
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 

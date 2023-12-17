@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import { setUser } from "../../src/features/User/userSlice";
+import { setUser } from "../store/slice/userSlice";
 import { Iauth, UserProfile } from "../types/types";
 import firebase from "./../Config/Firebase/firebase";
-import { setAdmin } from "./../features/Admin/adminSlice";
+import { setAdmin } from "../store/slice/adminSlice";
 import { Adminauth, User } from "./../types/types";
 const useAuth = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -149,18 +149,14 @@ const useAuth = () => {
       dispatch(setAdmin(adminArray));
       setUpdateAdminProfile(false);
     };
-    getAdmin();
   }, [updateAdminprofile]);
 
   //UPDATE THE ADMIN PROFILE
   const updateAdminProfile = async (userInfo: UserProfile) => {
     const { id, userName, photurl, phonenumber } = userInfo;
-
     try {
       const userDocRef = doc(collection(db, "Admin"), id);
-
       const updateData: any = {};
-
       if (userName !== undefined) {
         updateData.username = userName;
       }

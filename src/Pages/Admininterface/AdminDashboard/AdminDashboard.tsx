@@ -10,12 +10,12 @@ import Typography from "@mui/material/Typography";
 import { Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Product } from "types/types";
 import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
 import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
-import { useNavigate, useNavigation } from "react-router-dom";
 import "./../style.css";
 function AdminDashboard() {
   const navigate=useNavigate()

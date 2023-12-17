@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { CartItem, userOrder } from "types/types";
 import useProduct from "./../../hooks/useProduct";
 import { useDispatch } from "react-redux";
-import { setRemoveAllItems } from "./../../features/Cart/CartSlice";
+import { setRemoveAllItems } from "../../store/slice/CartSlice";
 const { Option } = Select;
 interface UserFormProps {
   Total: number;

@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CartItem, Product } from "types/types";
 import Footer from "./../../Components/Footer/Footer";
 import Header from "./../../Components/Header/Header";
-import { setCartItem } from "./../../features/Cart/CartSlice";
+import { setCartItem } from "../../store/slice/CartSlice";
 import useProduct from "./../../hooks/useProduct";
 
 
