@@ -40,7 +40,7 @@ function Profile() {
   };
 
   const navigate = useNavigate();
-  const { logout, getUser, ubdateUserName, uploadImage } = useAuth();
+  const { logout, getUser, updateUserName, uploadImage } = useAuth();
   const handleLogout = async () => {
     try {
       toast.success("Logout successful!");
@@ -77,7 +77,7 @@ function Profile() {
     }
 
     if (Object.keys(userData).length > 1) {
-      ubdateUserName(userData);
+      updateUserName(userData);
     }
   };
 
@@ -100,44 +100,47 @@ function Profile() {
     <div>
       <Header />
       <div className="mainProfileContainer h-full flex gap-4 pt-[3%] pl-[5%]">
-      <div className="innerMiniContainer h-[40vh] w-[250px] flex flex-col gap-1">
-        <div></div>
-        <div className="h-[30%] w-full bg-slate-400 rounded-md shadow-md flex items-center">
-          <img className="profileimage" src={validUserPhoto} alt="" />
-          <h1 className="profileName">{userName}</h1>
+        <div className="innerMiniContainer h-[40vh] w-[250px] flex flex-col gap-1">
+          <div></div>
+          <div className="h-[30%] w-full bg-slate-400 rounded-md shadow-md flex items-center">
+            <img className="profileimage" src={validUserPhoto} alt="" />
+            <h1 className="profileName">{userName}</h1>
+          </div>
+          <div className="h-[80%] w-full bg-slate-200 rounded-md shadow-md p-4">
+            <ul className="cursor-pointer">
+              <li
+                className="py-2 border-b border-gray-300"
+                onClick={() => handleRoute("/Order")}
+              >
+                My Order
+              </li>
+              <li
+                className="py-2 border-b border-gray-300"
+                onClick={() => handleRoute("/WishList")}
+              >
+                WishList
+              </li>
+              <li
+                className="py-2 border-b border-gray-300"
+                onClick={() => handleRoute("/Notification")}
+              >
+                Notification
+              </li>
+              <li
+                className="py-2 border-b border-gray-300"
+                onClick={() => handleRoute("/Setting")}
+              >
+                Setting
+              </li>
+              <li
+                className="py-2 border-b border-gray-300"
+                onClick={handleLogout}
+              >
+                Logout
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className="h-[80%] w-full bg-slate-200 rounded-md shadow-md p-4">
-          <ul className="cursor-pointer">
-            <li
-              className="py-2 border-b border-gray-300"
-              onClick={() => handleRoute('/Order')}
-            >
-              My Order
-            </li>
-            <li
-              className="py-2 border-b border-gray-300"
-              onClick={() => handleRoute('/WishList')}
-            >
-              WishList
-            </li>
-            <li
-              className="py-2 border-b border-gray-300"
-              onClick={() => handleRoute('/Notification')}
-            >
-              Notification
-            </li>
-            <li
-              className="py-2 border-b border-gray-300"
-              onClick={() => handleRoute('/Setting')}
-            >
-              Setting
-            </li>
-            <li className="py-2 border-b border-gray-300" onClick={handleLogout}>
-              Logout
-            </li>
-          </ul>
-        </div>
-      </div>
         <div className="innerMiniContainer2  h-[76vh] w-[70%] rounded-md shadow-md bg-slate-300 mb-4 ">
           <div className="h-[20%] w-full border-b border-gray-300 flex justify-between ">
             <div className="w-[90%]">

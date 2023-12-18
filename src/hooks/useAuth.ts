@@ -5,46 +5,59 @@ import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { setUser } from "../store/slice/userSlice";
 import { Iauth, UserProfile } from "../types/types";
-import firebase from "./../Config/Firebase/firebase";
 import { setAdmin } from "../store/slice/adminSlice";
 import { Adminauth, User } from "./../types/types";
+import { auth } from "./../Config/Firebase/firebase";
+import { db } from "./../Config/Firebase/firebase";
+import { storage } from "./../Config/Firebase/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 const useAuth = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [updateAdminprofile, setUpdateAdminProfile] = useState<boolean>(false);
+
   const dispatch = useDispatch();
-  const {
-    SignupFirebase,
-    signinFirebase,
-    auth,
-    getDoc,
-    collection,
-    db,
-    doc,
-    updateDoc,
-    getDownloadURL,
-    ref,
-    uploadBytes,
-    storage,
-    getDocs,
-  } = firebase;
   const navigate = useNavigate();
 
   //SIGNUP THE USER
   const signup = async (userinfo: Iauth) => {
+    const { email, password } = userinfo;
     try {
-      const userCredential = await SignupFirebase(userinfo);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await addUserToDB(userinfo, userCredential.user.uid);
       setSuccessMessage("Registered successfully");
+      return userCredential;
     } catch (e: any) {
       console.log(e.message);
     }
   };
 
+  //ADD USER IN DATABASE
+  const addUserToDB = async (userProfile: Iauth, uid: string) => {
+    let { email, username } = userProfile;
+    let userData = { email, username, uid };
+    return setDoc(doc(db, "users", uid), userData);
+  };
   //SIGININ THE USER
   const signin = async (userinfo: Iauth) => {
     try {
-      await signinFirebase(userinfo);
-
+      const { email, password } = userinfo;
       setSuccessMessage("Loggedin");
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (e: any) {
       console.log(e.message);
     }
@@ -78,7 +91,7 @@ const useAuth = () => {
   };
 
   //UPDATE THE PROFILE OF CURRENT USER
-  const ubdateUserName = async (userInfo: UserProfile) => {
+  const updateUserName = async (userInfo: UserProfile) => {
     const { id, userName, photurl } = userInfo;
 
     try {
@@ -104,7 +117,8 @@ const useAuth = () => {
   };
 
   //SEND THE CURRUENT USER IN REDUX
-  useEffect(() => {
+
+  const sendUserInRedux = () => {
     const unsubscribe = auth.onAuthStateChanged((user: any) => {
       if (user) {
         const userObject: User = {
@@ -118,7 +132,10 @@ const useAuth = () => {
     });
 
     return () => unsubscribe();
-  }, [auth, dispatch]);
+
+
+  };
+  sendUserInRedux();
 
   //UPLOAD IMAGE AND TAKE URL
   const uploadImage = async (image: File | null) => {
@@ -137,19 +154,17 @@ const useAuth = () => {
   }
 
   //GET ADMIN PROFILE
-  useEffect(() => {
-    const getAdmin = async () => {
-      const querySnapshot = await getDocs(collection(db, "Admin"));
-      const adminArray: Adminauth[] = [];
-      querySnapshot.forEach((doc: any) => {
-        const { id, ...data } = doc.data() as Adminauth;
-        adminArray.push({ id: doc.id, ...data });
-      });
-      //SEND ADMIN DATA IN REDUX
-      dispatch(setAdmin(adminArray));
-      setUpdateAdminProfile(false);
-    };
-  }, [updateAdminprofile]);
+
+  const getAdmin = async () => {
+    const querySnapshot = await getDocs(collection(db, "Admin"));
+    const adminArray: Adminauth[] = [];
+    querySnapshot.forEach((doc: any) => {
+      const { id, ...data } = doc.data() as Adminauth;
+      adminArray.push({ id: doc.id, ...data });
+    });
+    //SEND ADMIN DATA IN REDUX
+    dispatch(setAdmin(adminArray));
+  };
 
   //UPDATE THE ADMIN PROFILE
   const updateAdminProfile = async (userInfo: UserProfile) => {
@@ -184,10 +199,10 @@ const useAuth = () => {
     logout,
     successMessage,
     getUser,
-    ubdateUserName,
+    updateUserName,
     uploadImage,
     updateAdminProfile,
-    setUpdateAdminProfile,
+    getAdmin,
   };
 };
 

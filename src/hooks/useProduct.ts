@@ -1,31 +1,26 @@
 import { message } from "antd";
+import {
+  arrayUnion,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Product, userOrder } from "types/types";
-import firebase from "../Config/Firebase/firebase"; // Adjust the import path as needed
 import { setProduct } from "../store/slice/productSlice";
-import { useState } from "react";
+import { auth, db, storage } from "./../Config/Firebase/firebase";
 
 const useProduct = () => {
   const dispatch = useDispatch();
-  const {
-    auth,
-    getDoc,
-    collection,
-    db,
-    deleteDoc,
-    doc,
-    updateDoc,
-    getDownloadURL,
-    ref,
-    uploadBytes,
-    storage,
-    getDocs,
-    setDoc,
-    arrayUnion,
-  } = firebase;
+
   const navigate = useNavigate();
-  const [rewiew, setRewiew] = useState<boolean>(false);
 
   // ADD PRODUCT IN DATABASE
   const addProduct = async (newProductData: Product) => {
@@ -47,18 +42,17 @@ const useProduct = () => {
   // UPLOAD IMAGES OF ARRAY IN STOREAGE AND GET LINK
   const uploadImage = async (images: File[] | null) => {
     const urls: string[] = [];
-    if (images) {
-      await Promise.all(
-        images.map(async (item) => {
-          const storageRef = ref(storage, `images/${item.name}`);
-          const snapshot = await uploadBytes(storageRef, item);
-          const url: string = await getDownloadURL(snapshot.ref);
-          urls.push(url);
-        })
-      );
+    if (!images) return;
+    await Promise.all(
+      images.map(async (item) => {
+        const storageRef = ref(storage, `images/${item.name}`);
+        const snapshot = await uploadBytes(storageRef, item);
+        const url: string = await getDownloadURL(snapshot.ref);
+        urls.push(url);
+      })
+    );
 
-      return urls;
-    }
+    return urls;
   };
   //GET PRODUCT IN DATABASE
   const getProduct = async () => {
@@ -163,22 +157,18 @@ const useProduct = () => {
   const submitRewiew = async (rewiewDetail: any) => {
     const { productId, newReview } = rewiewDetail;
     console.log(newReview, productId);
-
     try {
       const productDocRef = doc(collection(db, "PRODUCT"), productId);
-
       const updateData = {
         rewiew: arrayUnion(newReview),
       };
       await updateDoc(productDocRef, updateData);
-
-      setRewiew(true);
       message.success("Rewiew Added");
     } catch (error: any) {
       console.log(error.message);
     }
   };
-//DELETE PRODUCT IN DATABASE
+  //DELETE PRODUCT IN DATABASE
   const deleteProduct = async (id: any) => {
     await deleteDoc(doc(db, "PRODUCT", id));
     message.info("Delete Item");
@@ -224,8 +214,6 @@ const useProduct = () => {
     getOrder,
     changeOrderStatus,
     uploadImage,
-    setRewiew,
-    rewiew,
     deleteProduct,
     updateProduct,
   };
