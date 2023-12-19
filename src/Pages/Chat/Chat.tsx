@@ -1,45 +1,51 @@
-import React, { useEffect, useState } from "react";
+import { FieldValue, arrayUnion, serverTimestamp } from "firebase/firestore";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import useAuth from "hooks/useAuth";
-import { AdminState } from "store/slice/adminSlice";
-import { Adminauth } from "types/types";
+import { messegeData } from "types/types";
+import useChat from "./../../hooks/useChat";
 function Chat() {
+  const { sendMessegeToDb, getMessagesFromDb } = useChat();
   const Admin = useSelector((state?: any) => state?.admin?.admin[0]);
   const User = useSelector((state?: any) => state?.user?.user);
   console.log(User);
-
-  const [newMessage, setNewMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState<string>("");
+  const [messages, setMessages] = useState<messegeData[]>([]);
+  const [getMessege, setGetMessege] = useState<boolean>(false);
   const [adminName, setAdminName] = useState([]);
   const [adminId, setAdminId] = useState(null);
-  const customerNames = ["Customer 1", "Customer 2", "Customer 3"]; // Your customer names
-
-  // const handleSendMessage = async () => {
- 
-  //     const chatroomid = Admin.id + User.id
-  //     const messageData = {
-  //       message: newMessage,
-  //       email: auth?.currentUser?.email,
-  //       senderId: yoursid,
-  //       recieverId: adminId,
-  //       timestamp: serverTimestamp(),
-  //       chatRoomid: chatroomid,
-      
-  //     setChatRoomId(chatroomid);
-  //     const messagesRef = collection(db, "messeges");
-
-  //     try {
-  //       await addDoc(messagesRef, messageData);
-
-  //       console.log("Message sent successfully!");
-  //       setNewMessage("");
-  //     } catch (error) {
-  //       console.error("Error sending message:", error.message);
-  //     }
-  //   } else {
-  //     console.log("id not found");
-  
-  // };
+  const handleSendMessege = async () => {
+    const messageData: messegeData = {
+      message: newMessage,
+      email: User?.email,
+      senderId: User.id,
+      receiverId: Admin.id,
+      timestamp: serverTimestamp(),
+      chatRoomId: {
+        [Admin.id]: true,
+        [User.id]: true,
+      },
+      chatRoom: {
+        message: [newMessage],
+        timestamp: Date.now(),
+      },
+    };
+    messageData.chatRoom.message = arrayUnion(newMessage);
+    setGetMessege(true);
+    await sendMessegeToDb(messageData);
+    setNewMessage(" ")
+  };
+  const getMesseges = async () => {
+    const unsubscribe = getMessagesFromDb(Admin.id, User.id, (messages) => {
+      console.log("Filtered Messages:", messages);
+      if (messages) {
+        setMessages(messages);
+        setGetMessege(false)
+      }
+    });
+  };
+  useEffect(() => {
+    getMesseges();
+  }, []);
 
   return (
     <div className="flex h-screen">
@@ -83,22 +89,35 @@ function Chat() {
               src="https://via.placeholder.com/40"
               alt="User"
             />
-            <div className="ml-3 bg-blue-100 p-3 rounded-lg w-3/4">
-              <p className="text-sm text-blue-800 font-semibold">
-                Hi! How can I help you today?
-              </p>
-            </div>
+           
           </div>
-          <div className="flex items-end justify-end">
-            <div className="bg-green-500 text-white p-3 rounded-lg w-3/4">
-              <p className="text-sm">Sure! I can assist you with that.</p>
-            </div>
-            <img
-              className="h-10 w-10 rounded-full object-cover ml-3"
-              src="https://via.placeholder.com/40"
-              alt="User"
-            />
-          </div>
+        </div>
+        <div className="items-end justify-end">
+        {Array.isArray(messages) &&
+            messages.map(
+              (item, index) =>
+                Array.isArray(item.chatRoom.message) &&
+                item.chatRoom.message.map((message, messageIndex) => (
+                  <div key={messageIndex} className="flex items-start mt-2">
+                    <img
+                      className="h-10 w-10 rounded-full object-cover"
+                      src="https://via.placeholder.com/40"
+                      alt="User"
+                    />
+                    <div
+                      className={`flex items-start mt-2 ${
+                        item.senderId === User.id
+                          ? "bg-blue-200"
+                          : "bg-green-200"
+                      } p-3 rounded-lg w-3/4`}
+                    >
+                      <p className="text-sm text-blue-800 font-semibold">
+                        {message}
+                      </p>
+                    </div>
+                  </div>
+                ))
+            )}
         </div>
         {/* Input Section */}
         <div className="mt-4 h-auto flex">
@@ -106,8 +125,13 @@ function Chat() {
             type="text"
             placeholder="Type your message..."
             className="w-[90%] p-3 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(e) => setNewMessage(e.target.value)}
+            value={newMessage}
           />
-          <button className="mt-2 bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none w-[10%] ">
+          <button
+            onClick={handleSendMessege}
+            className="mt-2 bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none w-[10%] "
+          >
             Send
           </button>
         </div>

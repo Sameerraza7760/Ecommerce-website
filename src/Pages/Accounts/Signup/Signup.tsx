@@ -5,17 +5,16 @@ import useAuth from "../../../hooks/useAuth";
 import Header from "./../../../Components/Header/Header";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import firebase from "./../../../Config/Firebase/firebase";
+
 import { useDispatch } from "react-redux";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const Siginup: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { signup, successMessage } = useAuth();
+  const { signup, successMessage, error } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
@@ -26,14 +25,17 @@ const Siginup: React.FC = () => {
   };
   useEffect(() => {
     if (successMessage) {
-      toast.success("Signup successful!");
+      toast.success("Signin successful!");
 
       setTimeout(() => {
         navigate("/Signin");
       }, 2000);
+      return;
     }
-  }, [successMessage]);
-
+    if (error) {
+      toast.warning(error);
+    }
+  }, [successMessage, error]);
 
   return (
     <>

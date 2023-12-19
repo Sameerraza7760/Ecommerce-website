@@ -192,7 +192,7 @@ function ManegeOrder() {
                       item.status === "Delevered" ? (
                         <div
                           key={item.userId}
-                          className="displayOrder w-full mx-auto bg-white rounded-md h-auto"
+                          className="displayOrder w-full mx-auto bg-white rounded-md h-auto mb-2"
                         >
                           <div className="w-full flex items-center gap-9 p-4 bg-gray-100 rounded-md">
                             {/* <div className="flex-none text-xl font-bold">{index + 1}</div> */}

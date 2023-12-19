@@ -43,7 +43,6 @@ function ResponsiveAppBar() {
     null
   );
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     try {
       toast.success("Logout successful!");
@@ -52,7 +51,6 @@ function ResponsiveAppBar() {
       console.log(error);
     }
   };
-
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -123,7 +121,7 @@ function ResponsiveAppBar() {
               }}
             >
               <Button
-                onClick={() => navigate("/Home")}
+                onClick={() => navigate(email ? "/Home" : "/")}
                 sx={{
                   my: 2,
                   color: "black",
@@ -136,7 +134,7 @@ function ResponsiveAppBar() {
               </Button>
 
               <Button
-                onClick={() => navigate("/Shop")}
+                onClick={() => navigate(email ? "/Shop" : "/")}
                 sx={{
                   my: 2,
                   color: "black",
@@ -209,7 +207,7 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
-              onClick={() => navigate("/Home")}
+              onClick={() => navigate(email ? "/Home" : "/")}
               sx={{
                 my: 2,
                 color: "black",
@@ -221,7 +219,7 @@ function ResponsiveAppBar() {
               Home
             </Button>
             <Button
-              onClick={() => navigate("/Shop")}
+              onClick={() => navigate(email ? "/Shop" : "/")}
               sx={{
                 my: 2,
                 color: "black",
@@ -276,7 +274,7 @@ function ResponsiveAppBar() {
                 <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
               </IconButton>
             </Tooltip>
-            <div className="mb-3" >
+            <div className="mb-3">
               <Button
                 aria-controls="simple-menu"
                 aria-haspopup="true"
@@ -285,7 +283,7 @@ function ResponsiveAppBar() {
               >
                 {/* IN THIS IF EMAIL TRUTY SO YOU DO REMOVE ALL NUMBER BY USING REPLACE (\/d+/g,"") AFTER REMOVE ALL THE NUMBER
                 YOU USED SPLIT TO MAKE ARRAY LIKE .SPLIT(@)[0] mean  ['EXAMPLE','EXAPMLEGMAIL.COM'] BY [0] YOU SELCT FIRST INDEX */}
-                {email ? email.replace(/\d+/g, "").split('@')[0] : "Login"}
+                {email ? email.replace(/\d+/g, "").split("@")[0] : "Login"}
               </Button>
               {email ? (
                 <Menu

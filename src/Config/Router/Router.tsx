@@ -18,6 +18,7 @@ import ProductDetail from "./../../Pages/ProductDetail/ProductDetail";
 import Setting from "./../../Pages/Setting/Setting";
 import WhishList from "./../../Pages/WhishList/WhishList";
 import Chat from "./../../Pages/Chat/Chat";
+import AdminChat from "./../../Pages/Admininterface/AdminChat/AdminChat";
 
 const AppRouter: React.FC = () => {
   return (
@@ -42,6 +43,7 @@ const AppRouter: React.FC = () => {
       <Route path="/Cart" element={<Cart />}></Route>
       <Route path="/WhishList" element={<WhishList />} />
       <Route path="/Chat" element={<Chat />}></Route>
+      <Route path="/AdminChat" element={<AdminChat/>} ></Route>
     </Routes>
   );
 };

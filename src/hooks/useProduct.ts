@@ -10,17 +10,13 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { Product, userOrder } from "types/types";
 import { setProduct } from "../store/slice/productSlice";
 import { auth, db, storage } from "./../Config/Firebase/firebase";
 
 const useProduct = () => {
   const dispatch = useDispatch();
-
-  const navigate = useNavigate();
 
   // ADD PRODUCT IN DATABASE
   const addProduct = async (newProductData: Product) => {
@@ -51,7 +47,6 @@ const useProduct = () => {
         urls.push(url);
       })
     );
-
     return urls;
   };
   //GET PRODUCT IN DATABASE

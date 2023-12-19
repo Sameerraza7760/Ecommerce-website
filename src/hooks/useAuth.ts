@@ -23,8 +23,10 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { toast } from "react-toastify";
 const useAuth = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,7 +44,7 @@ const useAuth = () => {
       setSuccessMessage("Registered successfully");
       return userCredential;
     } catch (e: any) {
-      console.log(e.message);
+      setError(e.message);
     }
   };
 
@@ -56,10 +58,10 @@ const useAuth = () => {
   const signin = async (userinfo: Iauth) => {
     try {
       const { email, password } = userinfo;
-      setSuccessMessage("Loggedin");
       await signInWithEmailAndPassword(auth, email, password);
+      setSuccessMessage("Loggedin");
     } catch (e: any) {
-      console.log(e.message);
+      setError(e.message);
     }
   };
 
@@ -132,8 +134,6 @@ const useAuth = () => {
     });
 
     return () => unsubscribe();
-
-
   };
   sendUserInRedux();
 
@@ -203,6 +203,7 @@ const useAuth = () => {
     uploadImage,
     updateAdminProfile,
     getAdmin,
+    error,
   };
 };
 

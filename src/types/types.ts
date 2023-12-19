@@ -1,3 +1,5 @@
+import { FieldValue } from "firebase/firestore";
+
 export interface Iauth {
   email: string;
   password: string;
@@ -59,6 +61,24 @@ export interface userOrder {
   usershopping: CartItem[];
   status: string;
   userId?: string;
-  Total:number;
-  date:string
+  Total: number;
+  date: string;
+}
+
+export interface ChatRoomItem {
+ 
+  message: FieldValue | string[];
+  timestamp: any; // Replace 'any' with the appropriate type for your timestamp
+}
+
+export interface messegeData {
+  message: string;
+  email: string;
+  senderId: string | undefined;
+  receiverId: string;
+  timestamp: any;
+  chatRoomId: {
+    [key: string]: boolean;
+  };
+  chatRoom: ChatRoomItem;
 }

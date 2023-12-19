@@ -14,7 +14,7 @@ const Signin: React.FC = () => {
   const AdminEmail = useSelector(
     (state?: any) => state?.admin?.admin[0]?.email
   );
-  const { signin, successMessage } = useAuth();
+  const { signin, successMessage, error } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setpassword] = useState<string>("");
   const [whereToNavigate, setWhereToNavigate] = useState<string>("/Home");
@@ -33,8 +33,12 @@ const Signin: React.FC = () => {
       setTimeout(() => {
         navigate(whereToNavigate);
       }, 2000);
+      return
     }
-  }, [successMessage, whereToNavigate]);
+    if (error) {
+      toast.warning(error);
+    }
+  }, [successMessage, whereToNavigate, error]);
   return (
     <>
       <Header />

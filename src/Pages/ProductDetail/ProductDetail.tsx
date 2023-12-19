@@ -32,8 +32,8 @@ function ProductDetail() {
     async (productId: string) => {
       setRewiew(true);
       await submitRewiew({ newReview, productId });
-      newReview.author = " ";
-      newReview.content = " ";
+      newReview.author = "";
+      newReview.content = "";
     },
     [newReview]
   );

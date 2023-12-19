@@ -112,7 +112,7 @@ function AdminDashboard() {
                 className="Drawer text-xl "
                 icon={faCommentDots}
                 style={{ fontSize: "2rem", cursor: "pointer" }}
-                onClick={()=>navigate('/Chat')}
+                onClick={()=>navigate('/AdminChat')}
                 // Adjust the size as needed
               />
               <FontAwesomeIcon
