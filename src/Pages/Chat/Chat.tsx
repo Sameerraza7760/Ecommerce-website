@@ -1,18 +1,18 @@
-import { FieldValue, arrayUnion, serverTimestamp } from "firebase/firestore";
-import React, { useCallback, useEffect, useState } from "react";
+import { arrayUnion, serverTimestamp } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { messegeData } from "types/types";
 import useChat from "./../../hooks/useChat";
+import './style.css';
 function Chat() {
   const { sendMessegeToDb, getMessagesFromDb } = useChat();
   const Admin = useSelector((state?: any) => state?.admin?.admin[0]);
   const User = useSelector((state?: any) => state?.user?.user);
-  console.log(User);
   const [newMessage, setNewMessage] = useState<string>("");
   const [messages, setMessages] = useState<messegeData[]>([]);
   const [getMessege, setGetMessege] = useState<boolean>(false);
-  const [adminName, setAdminName] = useState([]);
-  const [adminId, setAdminId] = useState(null);
+  const navigate = useNavigate();
   const handleSendMessege = async () => {
     const messageData: messegeData = {
       message: newMessage,
@@ -32,14 +32,14 @@ function Chat() {
     messageData.chatRoom.message = arrayUnion(newMessage);
     setGetMessege(true);
     await sendMessegeToDb(messageData);
-    setNewMessage(" ")
+    setNewMessage(" ");
   };
   const getMesseges = async () => {
     const unsubscribe = getMessagesFromDb(Admin.id, User.id, (messages) => {
       console.log("Filtered Messages:", messages);
       if (messages) {
         setMessages(messages);
-        setGetMessege(false)
+        setGetMessege(false);
       }
     });
   };
@@ -51,10 +51,12 @@ function Chat() {
     <div className="flex h-screen">
       {/* Sidebar */}
       <div className="bg-gray-800 text-white p-4 w-1/4">
-        <h3 className="text-2xl font-semibold mb-4">Customer List</h3>
         <ul>
           <li className="mb-2 cursor-pointer hover:bg-gray-700 px-4 py-2 rounded-md transition duration-300  text-center">
-            {Admin.email.replace(/\d+/g, "").split("@")[0]}
+            <h3 className="adminNameChat font-semibold mb-4 text-lg">
+              {" "}
+              {Admin.email.replace(/\d+/g, "").split("@")[0]}
+            </h3>
           </li>
         </ul>
       </div>
@@ -63,7 +65,10 @@ function Chat() {
       <div className="bg-white p-4 shadow-md rounded-tl-md w-full h-[100vh] flex flex-col">
         <div className="flex items-center justify-between mb-4 h-auto">
           <h3 className="text-xl font-semibold text-gray-800">Live Chat</h3>
-          <button className="text-gray-500 hover:text-gray-700">
+          <button
+            className="text-gray-500 hover:text-gray-700"
+            onClick={() => navigate("/Shop")}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -81,35 +86,28 @@ function Chat() {
           </button>
         </div>
         {/* Chat Content */}
-        <div className="flex flex-col space-y-4 h-[95%]">
-          {/* Sample Chat Messages */}
-          <div className="flex items-start">
-            <img
-              className="h-10 w-10 rounded-full object-cover"
-              src="https://via.placeholder.com/40"
-              alt="User"
-            />
-           
-          </div>
-        </div>
-        <div className="items-end justify-end">
-        {Array.isArray(messages) &&
+
+        <div className="flex flex-col  space-y-2 h-[95%]">
+          {Array.isArray(messages) &&
             messages.map(
               (item, index) =>
                 Array.isArray(item.chatRoom.message) &&
                 item.chatRoom.message.map((message, messageIndex) => (
-                  <div key={messageIndex} className="flex items-start mt-2">
+                  <div
+                    key={messageIndex}
+                    className="flex items-start mt-2 gap-3 w-[100%]"
+                  >
                     <img
                       className="h-10 w-10 rounded-full object-cover"
                       src="https://via.placeholder.com/40"
                       alt="User"
                     />
                     <div
-                      className={`flex items-start mt-2 ${
+                      className={`flex items-start  ${
                         item.senderId === User.id
                           ? "bg-blue-200"
                           : "bg-green-200"
-                      } p-3 rounded-lg w-3/4`}
+                      } p-3 rounded-lg w-[80%]`}
                     >
                       <p className="text-sm text-blue-800 font-semibold">
                         {message}
@@ -120,17 +118,17 @@ function Chat() {
             )}
         </div>
         {/* Input Section */}
-        <div className="mt-4 h-auto flex">
+        <div className="mt-4 h-auto flex gap-2">
           <input
             type="text"
-            placeholder="Type your message..."
-            className="w-[90%] p-3 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-[86%] p-3 border rounded-md focus:outline-none focus:border-blue-900"
             onChange={(e) => setNewMessage(e.target.value)}
             value={newMessage}
+            placeholder="Type your message..."
           />
           <button
             onClick={handleSendMessege}
-            className="mt-2 bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none w-[10%] "
+            className=" bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none w-[150px] "
           >
             Send
           </button>

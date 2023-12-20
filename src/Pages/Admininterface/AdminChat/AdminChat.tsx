@@ -3,9 +3,9 @@ import useChat from "./../../../hooks/useChat";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { User, messegeData } from "types/types";
+import './style.css'
 
 function AdminChat() {
-  const customerNames = ["Customer 1", "Customer 2", "Customer 3"]; // Your customer names
   const { sendMessegeToDb, getMessagesFromDb, getUserFromDb } = useChat();
   const Admin = useSelector((state?: any) => state?.admin?.admin[0]);
 
@@ -66,8 +66,8 @@ function AdminChat() {
     <div className="flex h-screen">
       {/* Sidebar */}
       <div className="bg-gray-800 text-white p-4 w-1/4">
-        <h3 className="text-2xl font-semibold mb-4">Customer List</h3>
-        <ul>
+        <h3 className="costumerList text-2xl font-semibold mb-4 text-center font-serif">Customer List</h3>
+        <ul className="font-serif text-center " >
           {user
             .filter((item) => item.email !== Admin.email)
             .map((item) => (
@@ -110,14 +110,14 @@ function AdminChat() {
               (item, index) =>
                 Array.isArray(item.chatRoom.message) &&
                 item.chatRoom.message.map((message, messageIndex) => (
-                  <div key={messageIndex} className="flex items-start mt-2">
+                  <div key={messageIndex} className="flex items-start">
                     <img
                       className="h-10 w-10 rounded-full object-cover"
                       src="https://via.placeholder.com/40"
                       alt="User"
                     />
                     <div
-                      className={`flex items-start mt-2 ${
+                      className={`flex items-start  w-full ${
                         item.senderId === Admin.id
                           ? "bg-blue-200"
                           : "bg-green-200"
@@ -132,7 +132,7 @@ function AdminChat() {
             )}
         </div>
         {/* Input Section */}
-        <div className="mt-4 h-auto flex">
+        <div className="mt-4 h-auto flex gap-2">
           <input
             type="text"
             placeholder="Type your message..."
@@ -142,7 +142,7 @@ function AdminChat() {
           />
           <button
             onClick={handleSendMessege}
-            className="mt-2 bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none w-[10%] "
+            className=" bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none gap-2 w-[120px] "
           >
             Send
           </button>

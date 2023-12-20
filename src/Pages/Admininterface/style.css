@@ -63,3 +63,21 @@
 }
 
 
+
+@media(max-width:590px){
+  .textDashboeard{
+    width: 200px !important;
+  }
+  .dashboard-content{
+    width: 60%;
+  }
+  .headingPoroduct h1{
+    font-size: 14px;
+  }
+}
+
+@media(max-width:372px){
+  .textDashboeard{
+    width: 150px !important;
+  }
+}

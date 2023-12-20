@@ -8,7 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { Modal } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Product } from "types/types";
@@ -17,24 +17,28 @@ import Header from "./../../../Components/Header/Header";
 import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
 import "./../style.css";
+import { setProduct } from "store/slice/productSlice";
 function AdminDashboard() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const product = useSelector((state?: any) => state?.product?.product);
   console.log(product);
   const { getProduct, deleteProduct, updateProduct } = useProduct();
   const { uploadImage } = useAuth();
   const [updateProductName, setUpdateProductName] = useState<string>("");
   const [filteredCategary, setFilteredCategary] = useState<string>(" ");
-  const [updateProductQuantity, setUpdateQuantity] = useState("");
-  const [updatePrice, setUpdatePrice] = useState("");
+  const [updateProductQuantity, setUpdateQuantity] = useState<number | null>(
+    null
+  );
+  const [updatePrice, setUpdatePrice] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
   const [Delete, setDelete] = useState<boolean>(false);
-  const [imageurl, setImageurl] = useState<File | null>();
-  const [updateProductDescription, setUpdateProductDescription] =
-    useState<string>("");
+  const [update, setUpdate] = useState<boolean>(false);
+  const [itemId, setItemId] = useState<string>("");
 
-  const showModal = () => {
+  const showModal = (id: string) => {
     setOpen(true);
+    console.log(id);
+    setItemId(id);
   };
   const handleOk = () => {
     setOpen(false);
@@ -44,95 +48,86 @@ function AdminDashboard() {
     setOpen(false);
   };
 
-  useEffect(() => {
-    const getProductFromDB = async () => {
-      await getProduct();
-      setDelete(false);
-    };
-    getProductFromDB();
-  }, [Delete]);
-
   const deleteItem = async (id: any) => {
     await deleteProduct(id);
     setDelete(true);
   };
+  const updateItem = async () => {
+    // console.log(id);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement> | null) => {
-    if (e && e.target && e.target.files && e.target.files[0]) {
-      const selectedFile = e.target.files[0];
-      setImageurl(selectedFile);
-      console.log(imageurl);
-    }
-  };
-
-  const updateItem = async (id: string) => {
+    if (!itemId) return;
     const productData: Partial<Product> = {
-      //   productName: updateProductName ?? undefined,
-      //   productPrice: updatePrice ?? undefined,
-      //   productQuantaty: updateProductQuantity ?? undefined,
-      //   productDiscription: updateProductDescription ?? undefined,
-      //   id: id,
-      // };
-      // await updateProduct(productData);
+      productName: updateProductName !== "" ? updateProductName : undefined,
+      productPrice: updatePrice !== null ? updatePrice : undefined,
+      productQuantaty:
+        updateProductQuantity !== null ? updateProductQuantity : undefined,
+      id: itemId,
     };
-  };
+    await updateProduct(productData);
+    setUpdate(true);
 
+    setItemId("");
+  };
+  useEffect(() => {
+    const getProductFromDB = async () => {
+      await getProduct();
+      setDelete(false);
+      setUpdate(false);
+    };
+    getProductFromDB();
+  }, [update, Delete]);
   const filteredProducts: Product[] =
     filteredCategary === " "
       ? product
       : product.filter((item: Product) =>
           item.productName.toLowerCase().includes(filteredCategary)
         );
+
   return (
     <>
       <Header />
 
-      <div className="bg-blue-100 min-h-screen w-full flex">
+      <div className="dashboard-container bg-gray-100 min-h-screen w-full flex">
         <div className="menu h-auto w-[250px]">
           <AppMenu />
         </div>
 
-        <div className="w-[80%] h-full ">
-          <div className="flex w-full justify-between p-5 h-[15%]">
-            <div>
-              <TextField
-                placeholder="Product Name"
-                id="outlined-basic-product"
-                label="Product Name"
-                variant="outlined"
-                autoComplete="off"
-                style={{ width: "100%", marginBottom: "10px" }}
-                focused
-                color="secondary"
-                onChange={(e) => setFilteredCategary(e.target.value)}
-              />
-            </div>
-            <div className="flex gap-4">
+        <div className="dashboard-content w-[80%] h-full p-5">
+          <div className="flex justify-between items-center mb-5 ">
+            <TextField
+              placeholder="Search for Product"
+              id="outlined-basic-product"
+              label="Product Name"
+              variant="outlined"
+              autoComplete="off"
+              style={{ width: "300px", backgroundColor: "#fff" }}
+              focused
+              color="secondary"
+              onChange={(e) => setFilteredCategary(e.target.value)}
+              className="textDashboeard"
+            />
+            <div className="flex gap-2">
               <FontAwesomeIcon
-                className="Drawer text-xl "
+                className="Drawer text-xl cursor-pointer block"
                 icon={faCommentDots}
-                style={{ fontSize: "2rem", cursor: "pointer" }}
-                onClick={()=>navigate('/AdminChat')}
-                // Adjust the size as needed
+                onClick={() => navigate("/AdminChat")}
               />
               <FontAwesomeIcon
-                className="Drawer text-xl "
+                className="Drawer text-xl cursor-pointer block"
                 icon={faClipboard}
-                style={{ fontSize: "2rem", cursor: "pointer" }} // Adjust the size as needed
               />
             </div>
           </div>
 
           <div>
-            <div className="w-full pl-7 font-serif font-bold text-xl ">
-              <h1>Product</h1>
+            <div className="headingPoroduct  w-full pl-7 font-serif font-bold text-2xl mb-3">
+              <h1>Product Dashboard</h1>
             </div>
 
-            <div className="flex flex-wrap justify-center mx-auto gap-3 w-full">
+            <div className="flex flex-wrap justify-center gap-4">
               {filteredProducts.map((item: Product) => (
                 <Card
-                  className="border rounded-md w-[300px]"
-                  sx={{ maxWidth: 490, backgroundColor: "#1a202c" }}
+                  className="border rounded-md w-[300px] shadow-md transition duration-300 ease-in-out"
                   key={item.id}
                 >
                   <CardMedia
@@ -162,20 +157,20 @@ function AdminDashboard() {
                       gutterBottom
                       variant="h5"
                       component="div"
-                      className="text-white font-serif"
+                      className="text-black font-serif"
                       fontSize="1rem"
                     >
                       {item.productName}
                     </Typography>
                     <Typography
                       variant="body2"
-                      className="text-white font-serif"
+                      className="text-black font-serif"
                     >
-                      {item.productDiscription}
+                      {item.productQuantaty}
                     </Typography>
                     <Typography
                       variant="h6"
-                      className="text-white font-serif"
+                      className="text-black font-serif"
                       fontSize="1rem"
                     >
                       {` $${item.productPrice}`}{" "}
@@ -185,11 +180,11 @@ function AdminDashboard() {
                   <CardActions>
                     <Button
                       style={{ backgroundColor: "#4CAF50", color: "#ffffff" }}
-                      onClick={showModal}
+                      onClick={() => showModal(item.id as string)}
                     >
                       Update
                     </Button>
-                    {/* //  HERE IS THE MODAL */}
+
                     <Modal
                       open={open}
                       title="Title"
@@ -204,74 +199,54 @@ function AdminDashboard() {
                     >
                       <TextField
                         placeholder="Product Name"
-                        id="outlined-basic-product"
-                        label=" Name"
+                        id="updateProductName"
+                        label="Name"
                         variant="outlined"
                         autoComplete="off"
                         style={{ width: "100%", marginBottom: "10px" }}
-                        onChange={(e) => setUpdateProductName(e.target.value)}
                         focused
-
-                        // onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => setUpdateProductName(e.target.value)}
+                        value={updateProductName}
                       />
                       <TextField
                         placeholder="Product Price"
                         type="number"
-                        id="outlined-basic-product"
-                        label="Product Name"
-                        variant="outlined"
-                        autoComplete="off"
-                        style={{ width: "100%", marginBottom: "10px" }}
-                        focused
-                        onChange={(e) => setUpdatePrice(e.target.value)}
-                      />
-                      <TextField
-                        placeholder="Product Description"
-                        type="number"
-                        id="outlined-basic-product"
-                        label="Product Name"
+                        id="updateProductPrice"
+                        label="Product Price"
                         variant="outlined"
                         autoComplete="off"
                         style={{ width: "100%", marginBottom: "10px" }}
                         focused
                         onChange={(e) =>
-                          setUpdateProductDescription(e.target.value)
+                          setUpdatePrice(parseFloat(e.target.value))
                         }
+                        value={updatePrice}
                       />
-                      <TextField
-                        placeholder="Product Categary"
-                        type="number"
-                        id="outlined-basic-product"
-                        label="Product Name"
-                        variant="outlined"
-                        autoComplete="off"
-                        style={{ width: "100%", marginBottom: "10px" }}
-                        focused
 
-                        // onChange={(e) => setPhoneNumber(e.target.value)}
-                      />
                       <TextField
                         placeholder="Product Quantity"
                         type="number"
-                        id="outlined-basic-product"
-                        label="Product Name"
+                        id="updateProductQuantity"
+                        label="Product Quantity "
                         variant="outlined"
                         autoComplete="off"
                         style={{ width: "100%", marginBottom: "10px" }}
                         focused
-                        onChange={(e) => setUpdateQuantity(e.target.value)}
-                        // onChange={(e) => setPhoneNumber(e.target.value)}
+                        value={updateProductQuantity}
+                        onChange={(e) =>
+                          setUpdateQuantity(e.target.value as any)
+                        }
                       />
 
-                      <input type="file" onChange={handleImageChange} />
                       <button
                         className="bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
                         type="submit"
-                        onClick={() => updateItem(item.id as string)}
+                        onClick={updateItem}
                       >
                         Update Product
                       </button>
                     </Modal>
+
                     <Button
                       style={{ backgroundColor: "#FF5722", color: "#ffffff" }}
                       onClick={() => deleteItem(item.id)}

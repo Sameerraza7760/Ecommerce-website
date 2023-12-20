@@ -21,11 +21,11 @@ padding-top: 1%;
 }
 .sigupformcontainer button{
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.452);
+    /* background-color: rgba(0, 0, 0, 0.452); */
     outline: none;
 }
-.sigupformcontainer button:hover{
-    background-color: black;
+.login:hover{
+    background-color: rgb(80, 77, 77) !important;
 }
 @media(max-width:445px){
     .sigupformcontainer{
@@ -71,12 +71,12 @@ padding-top: 1%;
 }
 .sigupformcontainer button{
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.452);
+    
     outline: none;
 }
-.sigupformcontainer button:hover{
+/* .sigupformcontainer button:hover{
     background-color: black;
-}
+} */
 @media(max-width:445px){
     .sigupformcontainer{
         width:370px;
@@ -88,4 +88,7 @@ padding-top: 1%;
         width:90%;
     }
 
+}
+.regesterbtn:hover{
+    background-color: black !important;
 }

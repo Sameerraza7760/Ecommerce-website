@@ -1,18 +1,10 @@
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setCartItem } from "../../store/slice/CartSlice";
-import { CartItem } from "types/types";
-import { Product } from "types/types";
-import './style.css'
 import { notification } from "antd";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { CartItem, Product } from "types/types";
+import { setCartItem } from "../../store/slice/CartSlice";
+import './style.css';
 
 interface ProductProps {
   items: Product;

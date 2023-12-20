@@ -1,0 +1,9 @@
+
+@media (max-width: 619px) {
+  .orderDetail {
+    font-size: medium !important;
+  }
+  .orderDate {
+    width: 70%;
+  }
+}

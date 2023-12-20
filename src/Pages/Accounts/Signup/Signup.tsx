@@ -78,10 +78,11 @@ const Siginup: React.FC = () => {
           />
           <button
             onClick={handleSignup}
+            className="regesterbtn"
             style={{
               width: "100%",
               height: "60px",
-              backgroundColor: "black",
+              backgroundColor: "rgb(29, 28, 28)",
               color: "white",
               fontWeight: "600",
               fontSize: "18px",
@@ -105,6 +106,7 @@ const Siginup: React.FC = () => {
               letterSpacing: ".1rem",
               border: "none",
             }}
+            className="login"
           >
             Login
           </button>

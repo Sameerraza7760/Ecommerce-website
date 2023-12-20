@@ -135,18 +135,18 @@ function CreateOrder() {
             onChange={(e) => setProductCategory(e.target.value)}
           />
 
-          <input
-            placeholder="Product Image URL"
-            typeof="file"
-            id="outlined-basic-image"
-            autoComplete="off"
-            style={{ width: "100%", marginBottom: "10px" }}
-            type="file"
-            // focused
-            color="secondary"
-            onChange={handleImageChange}
-            className="mb-3"
-          />
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">
+              Product Images (up to 4 images)
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageChange}
+              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            />
+          </div>
 
           <TextField
             placeholder="Product Quantity"

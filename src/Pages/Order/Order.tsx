@@ -4,17 +4,15 @@ import { Modal } from "antd";
 import useProduct from "./../../hooks/useProduct";
 import { userOrder } from "types/types";
 import { useSelector } from "react-redux";
-// import 'antd/dist/antd.css';
+import './style.css'
 function Order() {
   const userId = useSelector((state?: any) => state?.user?.user?.id);
   const [selectedOrder, setSelectedOrder] = useState<any | null>(null);
   const [order, setOrder] = useState<userOrder[]>([]);
   const { getOrder } = useProduct();
-
   const openDetailsModal = (order: any) => {
     setSelectedOrder(order);
   };
-
   const closeDetailsModal = () => {
     setSelectedOrder(null);
   };
@@ -30,7 +28,6 @@ function Order() {
     };
     getOrderOfUser();
   }, []);
-
   return (
     <>
       <Header />
@@ -43,10 +40,10 @@ function Order() {
             className="bg-white p-6 rounded-md shadow-md mb-6 transition transform hover:scale-105"
           >
             <div className="flex justify-between items-center mb-4">
-              <span className="text-xl font-semibold">
+              <span className="orderDetail text-xl font-semibold">
                 Order #{order.userId?.slice(34, 39)}
               </span>
-              <span className="text-gray-500">{order.date}</span>
+              <span className="orderDate text-gray-500">{order.date}</span>
             </div>
             <div className="flex justify-between items-center mb-4">
               <span className="text-gray-600">Total:{order.Total}</span>

@@ -12,14 +12,9 @@ import {
 import "react-toastify/dist/ReactToastify.css";
 import { User, messegeData } from "types/types";
 import { db } from "./../Config/Firebase/firebase";
-
 const useChat = () => {
-  // Implement your functions here
 
-  const logout = () => {
-    // Your logout logic
-  };
-
+  //SEND MESSEGES
   const sendMessegeToDb = async (messageData: messegeData) => {
     const { senderId, receiverId } = messageData;
     const chatId = [receiverId, senderId].sort().join("-");
@@ -32,8 +27,7 @@ const useChat = () => {
     }
   };
 
-  // Assuming db is your Firestore database reference
-
+  //  GET MESSEGES FROM DB
   const getMessagesFromDb = (
     adminId: string,
     userId: string,
@@ -66,26 +60,22 @@ const useChat = () => {
 
     return unsubscribe;
   };
-  
- 
- const getUserFromDb=async()=>{
-  const querySnapshot = await getDocs(collection(db, "users"));
-  const userArray: User[] = [];
-  querySnapshot.forEach((doc: any) => {
-    const { id, ...data } = doc.data() as User;
-    userArray.push({ id: doc.id, ...data });
-  });
-  return userArray
-  //SEND ADMIN DATA IN REDUX
-  // dispatch(setAdmin(adminArray));
- }
 
+  //GET USERS FROM DB AND DISPLAY IN SLIDEBAR
+  const getUserFromDb = async () => {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    const userArray: User[] = [];
+    querySnapshot.forEach((doc: any) => {
+      const { id, ...data } = doc.data() as User;
+      userArray.push({ id: doc.id, ...data });
+    });
+    return userArray;
+  };
 
   return {
-    logout,
     sendMessegeToDb,
     getMessagesFromDb,
-    getUserFromDb
+    getUserFromDb,
   };
 };
 

@@ -1,0 +1,7 @@
+@media (max-width:400px) {
+    .adminNameChat{
+      
+        display: flex;
+        justify-content: center;
+    }
+}

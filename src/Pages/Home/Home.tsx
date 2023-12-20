@@ -1,18 +1,13 @@
 import { SettingOutlined } from "@ant-design/icons";
-import { Input } from "antd";
+import type { CollapseProps } from "antd";
+import { Card, Collapse, Input, Select } from "antd";
 import React, { useState } from "react";
 import Footer from "./../../Components/Footer/Footer";
 import Header from "./../../Components/Header/Header";
 import "./style.css";
 const { TextArea } = Input;
-
-import type { CollapseProps } from "antd";
-import { Card, Collapse, Select } from "antd";
-
 const { Meta } = Card;
-
 const { Option } = Select;
-
 const text = `
   A dog is a type of domesticated animal.
   Known for its loyalty and faithfulness,

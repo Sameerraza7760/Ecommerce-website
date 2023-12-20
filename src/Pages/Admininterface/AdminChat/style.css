@@ -1,0 +1,13 @@
+
+@media (max-width:570px) {
+    .costumerList{
+      font-size: 13px !important;
+    }
+  }
+  
+  @media (max-width:370px) {
+    .costumerList{
+      font-size: 10px !important;
+    }
+  }
+  

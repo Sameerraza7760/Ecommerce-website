@@ -75,7 +75,7 @@ function ProductDetail() {
       <div className="bg-gray-100 min-h-screen">
         <div className="container mx-auto mt-8 p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="mb-8">
+            <div className="">
               <img
                 src={changeImage ? changeImage : detail?.imageUrl?.[0]}
                 alt={detail?.productName}
@@ -97,7 +97,8 @@ function ProductDetail() {
                   {detail?.productDiscription}
                 </p>
                 <p className="text-2xl text-green-600 mb-6">
-                  ${detail?.productPrice?.toFixed(2)}
+                ${Number(detail?.productPrice)?.toFixed(2)}
+
                 </p>
                 <button
                   onClick={() => addToCart(detail as CartItem)}

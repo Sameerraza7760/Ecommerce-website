@@ -119,7 +119,6 @@ const useAuth = () => {
   };
 
   //SEND THE CURRUENT USER IN REDUX
-
   const sendUserInRedux = () => {
     const unsubscribe = auth.onAuthStateChanged((user: any) => {
       if (user) {
@@ -154,7 +153,6 @@ const useAuth = () => {
   }
 
   //GET ADMIN PROFILE
-
   const getAdmin = async () => {
     const querySnapshot = await getDocs(collection(db, "Admin"));
     const adminArray: Adminauth[] = [];

@@ -167,7 +167,16 @@ function Adminprofile() {
                   color="warning"
                   onChange={(e) => setPhoneNumber(e.target.value)}
                 />
-                <input type="file" onChange={handleFileChanged} />
+                {/* <input type="file" onChange={handleFileChanged} /> */}
+                <div className="mb-4">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleFileChanged}
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  />
+                </div>
                 <button
                   onClick={handleUpdateProfile}
                   className="bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
@@ -175,11 +184,6 @@ function Adminprofile() {
                 >
                   Update Profile
                 </button>
-                <div className="flex flex-col items-center">
-                  <Button type="primary" onClick={handleOk}>
-                    Save
-                  </Button>
-                </div>
               </Modal>
             </div>
             <div className="flex justify-center space-x-4">

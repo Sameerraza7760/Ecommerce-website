@@ -81,12 +81,14 @@ const Signin: React.FC = () => {
               border: "none",
             }}
             onClick={handleLogin}
+            className="login"
           >
             Login
           </button>
           <p>New to website ?</p>
           <button
             onClick={() => navigate("/")}
+            className="regesterbtn"
             style={{
               width: "100%",
               height: "60px",

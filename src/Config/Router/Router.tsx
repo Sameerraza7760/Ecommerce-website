@@ -1,7 +1,6 @@
 // Router.tsx
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Account from "../../Pages/Account/Account";
 import Signin from "../../Pages/Accounts/Signin/Signin";
 import Signup from "../../Pages/Accounts/Signup/Signup";
 import Home from "../../Pages/Home/Home";
@@ -28,7 +27,6 @@ const AppRouter: React.FC = () => {
       <Route path="/Home" element={<Home />} />
       <Route path="/Shop" element={<Shop />} />
       <Route path="/Profile" element={<Profile />} />
-      <Route path="/Account" element={<Account />}></Route>
       <Route path="/Setting" element={<Setting />}></Route>
       <Route path="/Notification" element={<Notification />}></Route>
       <Route path="/Order" element={<Order />}></Route>

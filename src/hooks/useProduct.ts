@@ -171,34 +171,32 @@ const useProduct = () => {
 
   //UPLOAD PRODUCT IN DATABASE
   const updateProduct = async (item: any) => {
-    // const {
-    //   productPrice,
-    //   productName,
-    //   id,
-    //   productDiscription,
-    //   productQuantaty,
-    // } = item;
-    // try {
-    //   const productDocref = doc(collection(db, "PRODUCT"), id);
-    //   const updateData: Partial<Product> = {};
-    //   if (productName !== undefined) {
-    //     updateData.productName = productName;
-    //   }
-    //   if (productPrice !== undefined) {
-    //     updateData.productPrice = productPrice;
-    //   }
-    //   if (productDiscription !== undefined) {
-    //     updateData.productPrice = productPrice;
-    //   }
-    //   if (productQuantaty !== undefined) {
-    //     updateData.productPrice = productPrice;
-    //   }
-    //   await updateDoc(productDocref, updateData);
-    //   message.success(" Update Product successfully!");
-    //   // console.log("User updated successfully");
-    // } catch (error: any) {
-    //   message.error(error.message);
-    // }
+    const {
+      productPrice,
+      productName,
+      id,
+
+      productQuantaty,
+    } = item;
+    try {
+      const productDocref = doc(collection(db, "PRODUCT"), id);
+      const updateData: Partial<Product> = {};
+      if (productName !== undefined) {
+        updateData.productName = productName;
+      }
+      if (productPrice !== undefined) {
+        updateData.productPrice = productPrice;
+      }
+   
+      if (productQuantaty !== undefined) {
+        updateData.productQuantaty = productQuantaty;
+      }
+      await updateDoc(productDocref, updateData);
+      message.success(" Update Product successfully!");
+      // console.log("User updated successfully");
+    } catch (error: any) {
+      message.error(error.message);
+    }
   };
   return {
     addProduct,
