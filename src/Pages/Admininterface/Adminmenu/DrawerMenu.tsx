@@ -1,45 +1,50 @@
-// eslint-disable-next-line
-import {
-  AppstoreOutlined,
-  LogoutOutlined,
-  ShopOutlined,
-} from "@ant-design/icons";
-import { Menu } from "antd";
+import { Drawer, Menu } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
+
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import useAuth from "./../../../hooks/useAuth";
-import "./../style.css";
+import './style.css'
+import { useNavigate } from "react-router-dom";
+import {
+    AppstoreOutlined,
+    LogoutOutlined,
+    ShopOutlined,
+  } from "@ant-design/icons";
+interface DrawerMenuProps {
+  visible: boolean;
+  onClose: () => void;
+}
 
-const AppMenu: React.FC = () => {
-  const { logout } = useAuth();
-  const navigate = useNavigate();
-
-  const { SubMenu } = Menu;
-
-  const [collapsed, setCollapsed] = useState(false);
-  const [defaultSelectedKey, setDefaultSelectedKey] = useState<string | null>(
-    null
-  );
-
-  const Route = (key: string) => {
-    setDefaultSelectedKey(key);
-    navigate(`/${key}`);
-  };
-
-
-  const handleLogout = async () => {
-    try {
-      toast.success("Logout successful!");
-      setTimeout(() => logout(), 2000);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  
+const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+  
+    const { SubMenu } = Menu;
+  
+    const [collapsed, setCollapsed] = useState(false);
+    const [defaultSelectedKey, setDefaultSelectedKey] = useState<string | null>(
+      null
+    );
+  
+    const Route = (key: string) => {
+      setDefaultSelectedKey(key);
+      navigate(`/${key}`);
+    };
+  
+  
+    const handleLogout = async () => {
+      try {
+        toast.success("Logout successful!");
+        setTimeout(() => logout(), 2000);
+      } catch (error) {
+        console.log(error);
+      }
+    };
   return (
-    <Menu
+    <Drawer title="Menu" placement="left" onClose={onClose} className="custom-drawer" visible={visible}>
+      <Menu
       selectedKeys={defaultSelectedKey ? [defaultSelectedKey] : []}
       defaultOpenKeys={defaultSelectedKey ? [defaultSelectedKey] : []}
       mode="inline"
@@ -80,7 +85,8 @@ const AppMenu: React.FC = () => {
         Logout
       </Menu.Item>
     </Menu>
+    </Drawer>
   );
 };
 
-export default AppMenu;
+export default DrawerMenu;

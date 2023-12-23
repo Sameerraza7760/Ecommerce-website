@@ -46,13 +46,14 @@
 
 @media (max-width: 580px) {
   .menu {
-    width: 46% !important;
+    width: 30% !important;
   }
 }
 
 @media (max-width: 522px) {
   .menu {
     width: 26% !important;
+    /* display: none; */
   }
 }
 
@@ -62,22 +63,29 @@
   }
 }
 
-
-
-@media(max-width:590px){
-  .textDashboeard{
+@media (max-width: 590px) {
+  .textDashboeard {
     width: 200px !important;
   }
-  .dashboard-content{
+  .dashboard-content {
     width: 60%;
   }
-  .headingPoroduct h1{
+  .headingPoroduct h1 {
     font-size: 14px;
   }
 }
 
-@media(max-width:372px){
-  .textDashboeard{
+@media (max-width: 372px) {
+  .textDashboeard {
     width: 150px !important;
   }
+}
+
+@media (max-width: 700px) {
+  .menu {
+    display: none;
+  }
+  .ModalMenu {
+    display: block !important;
+  } 
 }

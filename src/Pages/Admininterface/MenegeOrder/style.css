@@ -2,13 +2,21 @@
   .menu {
     width: 10% !important;
   }
-  .orderForm {
-    width: 83% !important;
+}
+
+
+@media (max-width: 730px) {
+.orderContainer{
+  width: 90% !important;
+}
+}
+
+
+@media (max-width: 700px) {
+  .menu {
+    display: none;
   }
-  .orderContainer{
-    width: 80% !important;
-  }
-  .here{
-    width: 90% !important;
+  .ModalMenu {
+    display: block !important;
   }
 }

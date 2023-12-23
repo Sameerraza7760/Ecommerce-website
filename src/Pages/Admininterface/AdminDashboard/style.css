@@ -1,0 +1,27 @@
+@media (max-width:610px) {
+    .textDashboeard{
+        width: 200px !important;
+    }
+}
+@media (max-width:424px) {
+    /* .productDisplayDashboead{
+        justify-content: center !important;
+        display: flex !important;
+        margin: auto !important;
+        align-items: center !important;
+    } */
+    .dashboard-content{
+        width: 80% !important;
+    }
+    .textDashboeard{
+        width: 160px !important;
+    }
+}
+
+@media (max-width:7320px) {
+ 
+    .dashboard-content{
+        width: 100% !important;
+    }
+  
+}

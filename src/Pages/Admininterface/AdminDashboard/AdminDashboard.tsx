@@ -16,8 +16,11 @@ import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
 import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
-import "./../style.css";
 import { setProduct } from "store/slice/productSlice";
+import './style.css'
+import DrawerMenu from "../Adminmenu/DrawerMenu";
+import { MenuOutlined } from "@mui/icons-material";
+
 function AdminDashboard() {
   const navigate = useNavigate();
   const product = useSelector((state?: any) => state?.product?.product);
@@ -35,6 +38,15 @@ function AdminDashboard() {
   const [update, setUpdate] = useState<boolean>(false);
   const [itemId, setItemId] = useState<string>("");
 
+  const [drawerVisible, setDrawerVisible] = useState(false);
+
+  const showDrawer = () => {
+    setDrawerVisible(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerVisible(false);
+  };
   const showModal = (id: string) => {
     setOpen(true);
     console.log(id);
@@ -91,9 +103,14 @@ function AdminDashboard() {
         <div className="menu h-auto w-[250px]">
           <AppMenu />
         </div>
-
-        <div className="dashboard-content w-[80%] h-full p-5">
+       
+        <div className="dashboard-content w-[74%] h-full p-5">
           <div className="flex justify-between items-center mb-5 ">
+          <div className="ModalMenu hidden h-auto" >
+          <button onClick={showDrawer}>{<MenuOutlined />}</button>
+      <DrawerMenu visible={drawerVisible} onClose={closeDrawer} />
+
+        </div>
             <TextField
               placeholder="Search for Product"
               id="outlined-basic-product"
@@ -124,7 +141,7 @@ function AdminDashboard() {
               <h1>Product Dashboard</h1>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="productDisplayDashboead flex flex-wrap justify-center gap-4">
               {filteredProducts.map((item: Product) => (
                 <Card
                   className="border rounded-md w-[300px] shadow-md transition duration-300 ease-in-out"

@@ -7,7 +7,11 @@ import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
 import useAuth from "./../../../hooks/useAuth";
 import { UserProfile } from "./../../../types/types";
-import "./../style.css";
+import { MenuOutlined } from "@ant-design/icons";
+
+
+import "./style.css";
+import DrawerMenu from "../Adminmenu/DrawerMenu";
 
 function Adminprofile() {
   const { uploadImage, updateAdminProfile, getAdmin } = useAuth();
@@ -19,6 +23,17 @@ function Adminprofile() {
   const adminData = useSelector((state?: any) => state?.admin?.admin[0]);
   console.log(adminData);
 
+
+  
+  const [drawerVisible, setDrawerVisible] = useState(false);
+
+  const showDrawer = () => {
+    setDrawerVisible(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerVisible(false);
+  };
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -78,12 +93,20 @@ function Adminprofile() {
   return (
     <>
       <Header />
-      <div className="bg-gray-800 min-h-screen flex flex-col md:flex-row">
-        <div className="Adminmenu h-auto w-full md:w-1/5">
+    <div className="bg-gray-800 min-h-screen w-[100%] flex" >
+    <div className=" w-[100%] flex" >
+        <div className="Adminmenu h-auto w-[200px]">
           <AppMenu />
         </div>
+     
         <div className="flex-1 flex items-center justify-center w-full">
-          <div className="bg-gray-900 text-white p-8 rounded-lg shadow-md w-full md:max-w-md space-y-6">
+     
+          <div className="profileDiv bg-gray-900 text-white p-8 rounded-lg shadow-md w-[70%] h-[600px]  space-y-6">
+          <div className="ModalMenu hidden h-auto" >
+        <button onClick={showDrawer}>{<MenuOutlined />}</button>
+      <DrawerMenu visible={drawerVisible} onClose={closeDrawer} />
+
+        </div>
             <div className="relative w-40 h-40 overflow-hidden rounded-full mx-auto border-4 border-blue-500 transform hover:rotate-6 hover:scale-110 transition-transform duration-300">
               <img
                 src="https://via.placeholder.com/150"
@@ -215,6 +238,7 @@ function Adminprofile() {
           </div>
         </div>
       </div>
+    </div>
     </>
   );
 }

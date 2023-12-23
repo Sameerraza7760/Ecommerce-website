@@ -17,13 +17,27 @@ import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
 import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
-import './../style.css';
+import './style.css';
+import DrawerMenu from "../Adminmenu/DrawerMenu";
+import { MenuOutlined } from "@mui/icons-material";
+
 
 function ManegeOrder() {
   const { logout } = useAuth();
   const { getOrder, changeOrderStatus } = useProduct();
   const [value, setValue] = React.useState("1");
   const [order, setOrder] = React.useState<userOrder[]>([]);
+  
+  const [drawerVisible, setDrawerVisible] = React.useState(false);
+
+  const showDrawer = () => {
+    setDrawerVisible(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerVisible(false);
+  };
+
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -58,10 +72,18 @@ function ManegeOrder() {
         <div className="menu h-auto w-[200px]">
           <AppMenu />
         </div>
+        <div  style={{display:'none'}} className="ModalMenu" >
+      
+        </div>
 
         <div className="orderContainer w-[70%] p-5 mt-3 h-auto bg-slate-300 mx-auto rounded-md ">
           <div className="w-full h-auto flex justify-between">
             <div className="w-full font-serif font-bold cursor-pointer">
+            <div className="ModalMenu hidden h-auto" >
+            <button onClick={showDrawer}>{<MenuOutlined />}</button>
+      <DrawerMenu visible={drawerVisible} onClose={closeDrawer} />
+
+        </div>
               <h1>Order</h1>{" "}
               <p>
                 <span className="text-gray-400 text-xs ">5 order found</span>

@@ -8,8 +8,6 @@ import './style.css'
 function AdminChat() {
   const { sendMessegeToDb, getMessagesFromDb, getUserFromDb } = useChat();
   const Admin = useSelector((state?: any) => state?.admin?.admin[0]);
-
-  console.log("hu==>", Admin);
   const [newMessage, setNewMessage] = useState<string>("");
   const [messages, setMessages] = useState<messegeData[]>([]);
   const [getMessege, setGetMessege] = useState<boolean>(false);

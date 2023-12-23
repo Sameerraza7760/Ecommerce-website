@@ -6,6 +6,10 @@ import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
 import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
+import './style.css'
+import DrawerMenu from "../Adminmenu/DrawerMenu";
+import { MenuOutlined } from "@mui/icons-material";
+
 function CreateOrder() {
   const { addProduct, uploadImage } = useProduct();
   const [messageApi, contextHolder] = message.useMessage();
@@ -58,6 +62,17 @@ function CreateOrder() {
     }
   };
 
+  
+  const [drawerVisible, setDrawerVisible] = useState(false);
+
+  const showDrawer = () => {
+    setDrawerVisible(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerVisible(false);
+  };
+
   const handlePrice = (e: any) => {
     const value = parseFloat(e.target.value);
     setProductPrice(isNaN(value) ? null : value);
@@ -69,11 +84,18 @@ function CreateOrder() {
   return (
     <>
       <Header />
-      <div className="min-h-screen w-full flex bg-gradient-to-r from-blue-500 to-purple-500 ">
+      <div className="bg-gradient-to-r from-blue-500 to-purple-500" >
+      <div className="min-h-screen w-[100%] flex">
         <div className="menu h-auto w-[200px]">
           <AppMenu />
         </div>
-        <div className="orderForm bg-white shadow-md rounded-lg p-8 m-4 w-[60%] mx-auto h-auto ">
+    
+        <div className="orderForm bg-white shadow-md rounded-lg p-8 m-4 sm:w-[70%] md:w-[70%] lg:w-[60%] mx-auto h-auto">
+        <div className="ModalMenu hidden h-auto" >
+        <button onClick={showDrawer}>{<MenuOutlined />}</button>
+      <DrawerMenu visible={drawerVisible} onClose={closeDrawer} />
+
+        </div>
           <h2 className="text-3xl mb-6 text-center text-gray-800 font-semibold font-serif">
             Add Product
           </h2>
@@ -182,6 +204,7 @@ function CreateOrder() {
             Add Product
           </button>
         </div>
+      </div>
       </div>
     </>
   );
