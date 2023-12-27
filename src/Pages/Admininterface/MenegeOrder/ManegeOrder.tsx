@@ -17,17 +17,16 @@ import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
 import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
-import './style.css';
+import "./style.css";
 import DrawerMenu from "../Adminmenu/DrawerMenu";
 import { MenuOutlined } from "@mui/icons-material";
-
 
 function ManegeOrder() {
   const { logout } = useAuth();
   const { getOrder, changeOrderStatus } = useProduct();
   const [value, setValue] = React.useState("1");
   const [order, setOrder] = React.useState<userOrder[]>([]);
-  
+
   const [drawerVisible, setDrawerVisible] = React.useState(false);
 
   const showDrawer = () => {
@@ -72,21 +71,20 @@ function ManegeOrder() {
         <div className="menu h-auto w-[200px]">
           <AppMenu />
         </div>
-        <div  style={{display:'none'}} className="ModalMenu" >
-      
-        </div>
+        <div style={{ display: "none" }} className="ModalMenu"></div>
 
         <div className="orderContainer w-[70%] p-5 mt-3 h-auto bg-slate-300 mx-auto rounded-md ">
           <div className="w-full h-auto flex justify-between">
             <div className="w-full font-serif font-bold cursor-pointer">
-            <div className="ModalMenu hidden h-auto" >
-            <button onClick={showDrawer}>{<MenuOutlined />}</button>
-      <DrawerMenu visible={drawerVisible} onClose={closeDrawer} />
-
-        </div>
+              <div className="ModalMenu hidden h-auto">
+                <button onClick={showDrawer}>{<MenuOutlined />}</button>
+                <DrawerMenu visible={drawerVisible} onClose={closeDrawer} />
+              </div>
               <h1>Order</h1>{" "}
               <p>
-                <span className="text-gray-400 text-xs ">5 order found</span>
+                <span className="text-gray-400 text-xs ">
+                  {order.length} order found
+                </span>
               </p>{" "}
             </div>
             <div>
@@ -203,6 +201,21 @@ function ManegeOrder() {
                                 Accsepted
                               </span>
                             </div>
+                            <div>
+                              <FontAwesomeIcon
+                                icon={faTimesCircle}
+                                className="text-red-500 mr-2"
+                              />
+
+                              <span
+                                onClick={() =>
+                                  changeStatus(item.userId, "Cancelled")
+                                }
+                                className="text-red-500 font-semibold cursor-pointer"
+                              >
+                                Cancelled
+                              </span>
+                            </div>
                           </div>
                         </div>
                       ) : null
@@ -251,25 +264,46 @@ function ManegeOrder() {
                     )}
                 </TabPanel>
                 <TabPanel value="4">
-                  <div className="displayOrder w-full mx-auto bg-white rounded-md h-auto">
-                    <div className="w-full flex items-center gap-9 p-4 bg-gray-100 rounded-md">
-                      <div className="flex-none text-xl font-bold">1</div>
-                      <div className="flex-grow text-lg">Smart Watch</div>
-                      <div className="flex-grow text-lg">Karachi, Malir</div>
-                      <div className="flex-grow text-lg">18/Jan/2020</div>
-                      <div className="flex-grow text-lg">1200</div>
-                      <div className="flex items-center">
-                        <FontAwesomeIcon
-                          icon={faTimesCircle}
-                          className="text-red-500 mr-2"
-                        />
-
-                        <span className="text-red-500 font-semibold">
-                          Cancelled
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                {order.length !== 0 &&
+                    order.map((item) =>
+                      item.status === "Cancelled" ? (
+                        <div
+                          key={item.userId}
+                          className="displayOrder w-full mx-auto bg-white rounded-md h-auto mb-2"
+                        >
+                          <div className="w-full flex items-center gap-9 p-4 bg-gray-100 rounded-md">
+                            {/* <div className="flex-none text-xl font-bold">{index + 1}</div> */}
+                            <div className="flex-grow text-lg">
+                              {item.usershopping[0].productName}
+                            </div>
+                            <div className="flex-grow text-lg">{item.city}</div>
+                            <div className="flex-grow text-lg">
+                              {" "}
+                              {new Date(Date.now()).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                }
+                              )}
+                            </div>
+                            <div className="flex-grow text-lg">
+                              {item.usershopping[0].productPrice}
+                            </div>
+                            <div className="flex items-center">
+                              <FontAwesomeIcon
+                                icon={faTimesCircle}
+                                className="text-red-500 mr-2"
+                              />
+                              <span className="text-red-500 font-semibold cursor-pointer">
+                                {item.status}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      ) : null
+                    )}
                 </TabPanel>
               </TabContext>
             </Box>

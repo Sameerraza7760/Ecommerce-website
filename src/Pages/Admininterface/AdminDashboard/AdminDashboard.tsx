@@ -108,8 +108,7 @@ function AdminDashboard() {
           <div className="flex justify-between items-center mb-5 ">
           <div className="ModalMenu hidden h-auto" >
           <button onClick={showDrawer}>{<MenuOutlined />}</button>
-      <DrawerMenu visible={drawerVisible} onClose={closeDrawer} />
-
+      <DrawerMenu visible={drawerVisible} onClose={closeDrawer}/>
         </div>
             <TextField
               placeholder="Search for Product"

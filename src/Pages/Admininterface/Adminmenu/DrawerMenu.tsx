@@ -43,7 +43,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
       }
     };
   return (
-    <Drawer title="Menu" placement="left" onClose={onClose} className="custom-drawer" visible={visible}>
+    <Drawer title="Menu" placement="top" onClose={onClose}  className="custom-drawer" visible={visible}>
       <Menu
       selectedKeys={defaultSelectedKey ? [defaultSelectedKey] : []}
       defaultOpenKeys={defaultSelectedKey ? [defaultSelectedKey] : []}
@@ -56,6 +56,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
         key="AdminDashboard"
         onClick={() => Route("AdminDashboard")}
         icon={<AppstoreOutlined />}
+        style={{fontSize:'20px'}}
       >
         DashBoard
       </Menu.Item>
@@ -63,6 +64,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
         key="CreateOrder"
         onClick={() => Route("CreateOrder")}
         icon={<ShopOutlined />}
+        style={{fontSize:'20px'}}
       >
         Create Product
       </Menu.Item>
@@ -70,6 +72,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
         key="ManegeOrder"
         onClick={() => Route("ManegeOrder")}
         icon={<AppstoreOutlined />}
+        style={{fontSize:'20px'}}
       >
         Manage Order
       </Menu.Item>
@@ -77,11 +80,13 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
         key="AdminProfile"
         onClick={() => Route("AdminProfile")}
         icon={<AppstoreOutlined />}
+        style={{fontSize:'20px'}}
       >
         Setting
       </Menu.Item>
 
-      <Menu.Item key="6" onClick={handleLogout} icon={<LogoutOutlined />}>
+      <Menu.Item key="6" onClick={handleLogout} icon={<LogoutOutlined />}
+             style={{fontSize:'20px'}}>
         Logout
       </Menu.Item>
     </Menu>

@@ -150,7 +150,7 @@ function Adminprofile() {
               </div>
             </div>
             <div>
-              <p className="text-gray-900 font-sans ">Bio:</p>
+              <p className="text-gray-600 font-sans ">Bio:</p>
               <p className="text-sm leading-relaxed">{adminData?.Bio}</p>
             </div>
             <div className="flex justify-center">

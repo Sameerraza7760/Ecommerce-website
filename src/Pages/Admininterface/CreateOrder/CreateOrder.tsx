@@ -6,9 +6,10 @@ import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
 import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
-import './style.css'
+import "./style.css";
 import DrawerMenu from "../Adminmenu/DrawerMenu";
 import { MenuOutlined } from "@mui/icons-material";
+import { notification } from "antd";
 
 function CreateOrder() {
   const { addProduct, uploadImage } = useProduct();
@@ -50,7 +51,12 @@ function CreateOrder() {
     }
     try {
       await addProduct(productArray);
-      message.success("Order created successfully!");
+      notification.success({
+        message: `${productName} Added In Your Store.`,
+        description: `${productName} Added In Your Store.`,
+        placement: "topRight",
+      });
+
       setProductName(" ");
       setProductCategory(" ");
       setProductPrice(null);
@@ -62,7 +68,6 @@ function CreateOrder() {
     }
   };
 
-  
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   const showDrawer = () => {
@@ -84,127 +89,126 @@ function CreateOrder() {
   return (
     <>
       <Header />
-      <div className="bg-gradient-to-r from-blue-500 to-purple-500" >
-      <div className="min-h-screen w-[100%] flex">
-        <div className="menu h-auto w-[200px]">
-          <AppMenu />
-        </div>
-    
-        <div className="orderForm bg-white shadow-md rounded-lg p-8 m-4 sm:w-[70%] md:w-[70%] lg:w-[60%] mx-auto h-auto">
-        <div className="ModalMenu hidden h-auto" >
-        <button onClick={showDrawer}>{<MenuOutlined />}</button>
-      <DrawerMenu visible={drawerVisible} onClose={closeDrawer} />
-
-        </div>
-          <h2 className="text-3xl mb-6 text-center text-gray-800 font-semibold font-serif">
-            Add Product
-          </h2>
-          <TextField
-            placeholder="Product Name"
-            id="outlined-basic-product"
-            label="Product Name"
-            variant="outlined"
-            autoComplete="off"
-            style={{ width: "100%", marginBottom: "10px" }}
-            value={productName}
-            focused
-            color="secondary"
-            onChange={(e) => setProductName(e.target.value)}
-          />
-
-          <TextField
-            placeholder="Product Price"
-            id="outlined-basic-price"
-            label="Product Price"
-            variant="outlined"
-            autoComplete="off"
-            style={{ width: "100%", marginBottom: "10px" }}
-            type="number"
-            focused
-            color="secondary"
-            value={productPrice !== null ? productPrice.toString() : ""}
-            onChange={handlePrice}
-
-            // min="0"
-            // step="0.01"
-          />
-
-          <TextField
-            placeholder="Product Description"
-            id="outlined-basic-description"
-            label="Product Description"
-            variant="outlined"
-            autoComplete="off"
-            style={{ width: "100%", marginBottom: "10px" }}
-            value={productDiscription}
-            multiline
-            rows={2}
-            focused
-            color="secondary"
-            onChange={(e) => setProductDiscription(e.target.value)}
-          />
-
-          <TextField
-            placeholder="Product Category"
-            id="outlined-basic-category"
-            label="Product Category"
-            variant="outlined"
-            autoComplete="off"
-            style={{ width: "100%", marginBottom: "10px" }}
-            value={productCategory}
-            focused
-            color="secondary"
-            onChange={(e) => setProductCategory(e.target.value)}
-          />
-
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">
-              Product Images (up to 4 images)
-            </label>
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleImageChange}
-              className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            />
+      <div className="bg-gradient-to-r from-blue-500 to-purple-500">
+        <div className="min-h-screen w-[100%] flex">
+          <div className="menu h-auto w-[200px]">
+            <AppMenu />
           </div>
 
-          <TextField
-            placeholder="Product Quantity"
-            id="outlined-basic-quantity"
-            label="Product Quantity"
-            variant="outlined"
-            autoComplete="off"
-            style={{ width: "100%", marginBottom: "10px" }}
-            type="number"
-            focused
-            color="secondary"
-            onChange={handleQuantity}
-            value={productQuantaty}
-          />
+          <div className="orderForm bg-white shadow-md rounded-lg p-8 m-4 sm:w-[70%] md:w-[70%] lg:w-[60%] mx-auto h-auto">
+            <div className="ModalMenu hidden h-auto">
+              <button onClick={showDrawer}>{<MenuOutlined />}</button>
+              <DrawerMenu visible={drawerVisible} onClose={closeDrawer} />
+            </div>
+            <h2 className="text-3xl mb-6 text-center text-gray-800 font-semibold font-serif">
+              Add Product
+            </h2>
+            <TextField
+              placeholder="Product Name"
+              id="outlined-basic-product"
+              label="Product Name"
+              variant="outlined"
+              autoComplete="off"
+              style={{ width: "100%", marginBottom: "10px" }}
+              value={productName}
+              focused
+              color="secondary"
+              onChange={(e) => setProductName(e.target.value)}
+            />
 
-          <TextField
-            placeholder="Your Email"
-            id="outlined-basic-email"
-            label="Customer Email"
-            variant="outlined"
-            autoComplete="off"
-            style={{ width: "100%", marginBottom: "10px" }}
-            type="email"
-            focused
-            value={email}
-            color="secondary"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-            onClick={product}
-          >
-            Add Product
-          </button>
+            <TextField
+              placeholder="Product Price"
+              id="outlined-basic-price"
+              label="Product Price"
+              variant="outlined"
+              autoComplete="off"
+              style={{ width: "100%", marginBottom: "10px" }}
+              type="number"
+              focused
+              color="secondary"
+              value={productPrice !== null ? productPrice.toString() : ""}
+              onChange={handlePrice}
+
+              // min="0"
+              // step="0.01"
+            />
+
+            <TextField
+              placeholder="Product Description"
+              id="outlined-basic-description"
+              label="Product Description"
+              variant="outlined"
+              autoComplete="off"
+              style={{ width: "100%", marginBottom: "10px" }}
+              value={productDiscription}
+              multiline
+              rows={2}
+              focused
+              color="secondary"
+              onChange={(e) => setProductDiscription(e.target.value)}
+            />
+
+            <TextField
+              placeholder="Product Category"
+              id="outlined-basic-category"
+              label="Product Category"
+              variant="outlined"
+              autoComplete="off"
+              style={{ width: "100%", marginBottom: "10px" }}
+              value={productCategory}
+              focused
+              color="secondary"
+              onChange={(e) => setProductCategory(e.target.value)}
+            />
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700">
+                Product Images (up to 4 images)
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImageChange}
+                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
+
+            <TextField
+              placeholder="Product Quantity"
+              id="outlined-basic-quantity"
+              label="Product Quantity"
+              variant="outlined"
+              autoComplete="off"
+              style={{ width: "100%", marginBottom: "10px" }}
+              type="number"
+              focused
+              color="secondary"
+              onChange={handleQuantity}
+              value={productQuantaty}
+            />
+
+            <TextField
+              placeholder="Your Email"
+              id="outlined-basic-email"
+              label="Customer Email"
+              variant="outlined"
+              autoComplete="off"
+              style={{ width: "100%", marginBottom: "10px" }}
+              type="email"
+              focused
+              value={email}
+              color="secondary"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+              onClick={product}
+            >
+              Add Product
+            </button>
+          </div>
         </div>
-      </div>
       </div>
     </>
   );

@@ -33,7 +33,7 @@ const Signin: React.FC = () => {
       setTimeout(() => {
         navigate(whereToNavigate);
       }, 2000);
-      return
+      return;
     }
     if (error) {
       toast.warning(error);
@@ -44,7 +44,7 @@ const Signin: React.FC = () => {
       <Header />
       <div className="sigupformcontainer">
         <div className="mx-auto text-center font-serif text-xl mb-2 pt-4 bold font-bold">
-          <h1>Login</h1>
+          <h1 style={{ fontSize: "25px" }}>Login</h1>
         </div>
 
         <div className="inputDiv">

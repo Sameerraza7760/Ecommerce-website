@@ -97,7 +97,7 @@ function ProductDetail() {
                   {detail?.productDiscription}
                 </p>
                 <p className="text-2xl text-green-600 mb-6">
-                ${Number(detail?.productPrice)?.toFixed(2)}
+                ${(detail?.productPrice)?.toFixed(2)}
 
                 </p>
                 <button

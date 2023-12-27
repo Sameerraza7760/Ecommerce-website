@@ -2,10 +2,12 @@ import { arrayUnion, serverTimestamp } from "firebase/firestore";
 import useChat from "./../../../hooks/useChat";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { User, messegeData } from "types/types";
 import './style.css'
 
 function AdminChat() {
+  const navigate=useNavigate()
   const { sendMessegeToDb, getMessagesFromDb, getUserFromDb } = useChat();
   const Admin = useSelector((state?: any) => state?.admin?.admin[0]);
   const [newMessage, setNewMessage] = useState<string>("");
@@ -83,7 +85,7 @@ function AdminChat() {
       <div className="bg-white p-4 shadow-md rounded-tl-md w-full h-[100vh] flex flex-col">
         <div className="flex items-center justify-between mb-4 h-auto">
           <h3 className="text-xl font-semibold text-gray-800">Live Chat</h3>
-          <button className="text-gray-500 hover:text-gray-700">
+          <button className="text-gray-500 hover:text-gray-700" onClick={()=>navigate('/AdminDashboard')} >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
