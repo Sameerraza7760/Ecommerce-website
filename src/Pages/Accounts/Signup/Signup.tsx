@@ -15,7 +15,6 @@ const Siginup: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { signup, successMessage, error } = useAuth();
-
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [username, setUserName] = useState("");

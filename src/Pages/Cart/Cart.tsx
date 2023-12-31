@@ -75,7 +75,7 @@ function Cart() {
                     className="flex items-center border-b border-gray-200 py-4"
                   >
                     <img
-                      src={item.imageUrl as string}
+                      src={item.imageurl as string}
                       alt={item.productName}
                       className="w-16 h-16 object-cover rounded-md mr-4 shadow-md"
                     />
@@ -85,7 +85,7 @@ function Cart() {
                           {item.productName}
                         </h3>
                         <p className="text-gray-600 font-serif ">
-                         ${Number(item?.productPrice)?.toFixed(2)}
+                          ${Number(item?.productPrice)?.toFixed(2)}
                         </p>
                         <p className="text-gray-600 font-serif">
                           Quantity: {item.quantity}
@@ -108,7 +108,7 @@ function Cart() {
 
               <div className="mt-4 flex justify-between items-center">
                 <p className="text-xl font-semibold text-gray-800 font-sans ">
-                  Total: ${(totalPrice).toFixed(2)}
+                  Total: ${totalPrice.toFixed(2)}
                 </p>
                 <Space>
                   <Button

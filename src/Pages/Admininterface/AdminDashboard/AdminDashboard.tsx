@@ -151,8 +151,8 @@ function AdminDashboard() {
                     alt="Product Image"
                     height="220"
                     src={
-                      typeof item?.imageUrl?.[0] === "string"
-                        ? item.imageUrl[0]
+                      typeof item?.imageurl?.[0] === "string"
+                        ? item.imageurl[0]
                         : undefined
                     }
                     id="Cardimg"

@@ -1,46 +1,40 @@
+import { MenuOutlined } from "@mui/icons-material";
 import TextField from "@mui/material/TextField";
-import { message } from "antd";
-import React, { useState } from "react";
+import { message, notification } from "antd";
+import React, { useReducer, useState } from "react";
 import { Product } from "types/types";
+import DrawerMenu from "../Adminmenu/DrawerMenu";
 import AppMenu from "../Adminmenu/Menu";
 import Header from "./../../../Components/Header/Header";
-import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
+import { reducer, initialState } from "./OrderReducer";
 import "./style.css";
-import DrawerMenu from "../Adminmenu/DrawerMenu";
-import { MenuOutlined } from "@mui/icons-material";
-import { notification } from "antd";
 
 function CreateOrder() {
   const { addProduct, uploadImage } = useProduct();
-  const [messageApi, contextHolder] = message.useMessage();
-  const [productName, setProductName] = useState<string>("");
-  const [productPrice, setProductPrice] = useState<number | null>(null);
-  const [productDiscription, setProductDiscription] = useState<string>("");
-  const [productCategory, setProductCategory] = useState<string>("");
-  const [productQuantaty, setProductQuantaty] = useState<number | null>(null);
-  const [imageurl, setImageurl] = useState<File[]>([]);
-  const [email, setEmail] = useState<string>("");
-
+  const [form, dispatch] = useReducer(reducer, initialState);
+  const [drawerVisible, setDrawerVisible] = useState(false);
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement> | null) => {
-    if (e && e.target && e.target.files && e.target.files[0]) {
-      const selectedFile = Array.from(e.target.files);
-      setImageurl((preImage) => [...preImage, ...selectedFile]);
-      console.log(imageurl);
+    if (e && e.target && e.target.files && e.target.files.length > 0) {
+      const selectedFiles = Array.from(e.target.files);
+      console.log("Selected Files:", selectedFiles);
+      dispatch({
+        type: "ADD_IMAGES",
+        payload: selectedFiles,
+      });
     }
   };
-
   const product = async () => {
-    let imageUrl = await uploadImage(imageurl);
+    let imageurl = await uploadImage(form.imageurl);
 
     const productArray: Product = {
-      productName,
-      productPrice,
-      productDiscription,
-      productCategory,
-      productQuantaty,
-      imageUrl,
-      email,
+      productName: form.productName,
+      productPrice: form.productPrice,
+      productDiscription: form.productDiscription,
+      productCategory: form.productCategory,
+      productQuantaty: form.productQuantaty,
+      imageurl,
+      email: form.email,
     };
 
     for (let key in productArray) {
@@ -52,23 +46,16 @@ function CreateOrder() {
     try {
       await addProduct(productArray);
       notification.success({
-        message: `${productName} Added In Your Store.`,
-        description: `${productName} Added In Your Store.`,
+        message: `${form.productName} Added In Your Store.`,
+        description: `${form.productName} Added In Your Store.`,
         placement: "topRight",
       });
 
-      setProductName(" ");
-      setProductCategory(" ");
-      setProductPrice(null);
-      setProductDiscription(" ");
-      setEmail(" ");
-      setProductQuantaty(null);
+      dispatch({ type: "RESET_FORM" });
     } catch (error: any) {
       message.error(error.message);
     }
   };
-
-  const [drawerVisible, setDrawerVisible] = useState(false);
 
   const showDrawer = () => {
     setDrawerVisible(true);
@@ -78,13 +65,18 @@ function CreateOrder() {
     setDrawerVisible(false);
   };
 
-  const handlePrice = (e: any) => {
+  const handlePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
-    setProductPrice(isNaN(value) ? null : value);
+
+    if (!isNaN(value)) {
+      dispatch({ type: "productPrice", payload: value });
+    }
   };
-  const handleQuantity = (e: any) => {
+  const handleQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
-    setProductQuantaty(isNaN(value) ? null : value);
+    if (!isNaN(value)) {
+      dispatch({ type: "productQuantaty", payload: value });
+    }
   };
   return (
     <>
@@ -110,10 +102,12 @@ function CreateOrder() {
               variant="outlined"
               autoComplete="off"
               style={{ width: "100%", marginBottom: "10px" }}
-              value={productName}
+              value={form.productName}
               focused
               color="secondary"
-              onChange={(e) => setProductName(e.target.value)}
+              onChange={(e) =>
+                dispatch({ type: "productName", payload: e.target.value })
+              }
             />
 
             <TextField
@@ -126,7 +120,9 @@ function CreateOrder() {
               type="number"
               focused
               color="secondary"
-              value={productPrice !== null ? productPrice.toString() : ""}
+              value={
+                form.productPrice !== null ? form.productPrice.toString() : ""
+              }
               onChange={handlePrice}
 
               // min="0"
@@ -140,12 +136,17 @@ function CreateOrder() {
               variant="outlined"
               autoComplete="off"
               style={{ width: "100%", marginBottom: "10px" }}
-              value={productDiscription}
+              value={form.productDiscription}
               multiline
               rows={2}
               focused
               color="secondary"
-              onChange={(e) => setProductDiscription(e.target.value)}
+              onChange={(e) =>
+                dispatch({
+                  type: "productDiscription",
+                  payload: e.target.value,
+                })
+              }
             />
 
             <TextField
@@ -155,10 +156,12 @@ function CreateOrder() {
               variant="outlined"
               autoComplete="off"
               style={{ width: "100%", marginBottom: "10px" }}
-              value={productCategory}
+              value={form.productCategory}
               focused
               color="secondary"
-              onChange={(e) => setProductCategory(e.target.value)}
+              onChange={(e) =>
+                dispatch({ type: "productCategory", payload: e.target.value })
+              }
             />
 
             <div className="mb-4">
@@ -185,7 +188,11 @@ function CreateOrder() {
               focused
               color="secondary"
               onChange={handleQuantity}
-              value={productQuantaty}
+              value={
+                form.productQuantaty !== null
+                  ? form.productQuantaty.toString()
+                  : ""
+              }
             />
 
             <TextField
@@ -197,9 +204,11 @@ function CreateOrder() {
               style={{ width: "100%", marginBottom: "10px" }}
               type="email"
               focused
-              value={email}
+              value={form.email}
               color="secondary"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) =>
+                dispatch({ type: "email", payload: e.target.value })
+              }
             />
             <button
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"

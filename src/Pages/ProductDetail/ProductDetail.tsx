@@ -77,7 +77,7 @@ function ProductDetail() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="">
               <img
-                src={changeImage ? changeImage : detail?.imageUrl?.[0]}
+                src={changeImage ? changeImage : detail?.imageurl?.[0]}
                 alt={detail?.productName}
                 className="w-full h-auto rounded-lg shadow-lg"
               />
@@ -140,7 +140,7 @@ function ProductDetail() {
           <div className="mt-8">
             <h3 className="text-2xl font-bold mb-4">Product Gallery</h3>
             <div className="flex space-x-4 overflow-x-auto">
-              {detail?.imageUrl?.map((image, index) => (
+              {detail?.imageurl?.map((image, index) => (
                 <img
                   key={index}
                   src={image}

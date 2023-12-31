@@ -32,7 +32,7 @@ export interface Product {
   productDiscription: string;
   productCategory: string;
   productQuantaty: number | null;
-  imageUrl: undefined | string[];
+  imageurl: undefined | string[];
   email: string;
   id?: string;
   rewiew?: [{ author: string; content: string }];
@@ -44,7 +44,7 @@ export interface CartItem {
   productDiscription: string;
   productCategory: string;
   productQuantaty: number | null;
-  imageUrl: File | undefined | string;
+  imageurl: File | undefined | string;
   email: string;
   id: string;
   quantity?: number;
