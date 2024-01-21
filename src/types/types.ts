@@ -82,3 +82,9 @@ export interface messegeData {
   };
   chatRoom: ChatRoomItem;
 }
+
+
+export  interface Orderstatus {
+  id: string | undefined;
+  status: string | undefined;
+}

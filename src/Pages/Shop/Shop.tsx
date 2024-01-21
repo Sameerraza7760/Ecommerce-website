@@ -1,15 +1,12 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Header from "./../../Components/Header/Header";
-import UserCard from "./../Card/UserCard";
-import { useEffect, useState } from "react";
-import useProduct from "./../../hooks/useProduct";
-import { Product } from "types/types";
-import TextField from "@mui/material/TextField";
+import { faCommentDots, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { faClipboard, faCommentDots } from "@fortawesome/free-solid-svg-icons";
+import { Product } from "types/types";
+import Header from "./../../Components/Header/Header";
+import useProduct from "./../../hooks/useProduct";
+import UserCard from "./../Card/UserCard";
 
 function Shop() {
   const navigate = useNavigate();
@@ -87,7 +84,7 @@ function Shop() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 w-[87%] md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {filteredProducts.map((item: Product, index: number) => (
+          {filteredProducts?.map((item: Product, index: number) => (
             <UserCard key={index} items={item} />
           ))}
         </div>

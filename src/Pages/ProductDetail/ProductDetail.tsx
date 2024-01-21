@@ -42,7 +42,7 @@ function ProductDetail() {
     const getDetail = async () => {
       const ProductData = await getProductDetail(id as string);
       if (ProductData) {
-        setDetail(ProductData);
+        setDetail(ProductData as Product);
         return;
       }
       setRewiew(false);
@@ -79,7 +79,7 @@ function ProductDetail() {
               <img
                 src={changeImage ? changeImage : detail?.imageurl?.[0]}
                 alt={detail?.productName}
-                className="w-full h-auto rounded-lg shadow-lg"
+                className="w-full h-[500px] object-cover object-center rounded-lg shadow-lg"
               />
             </div>
             <div className="flex flex-col justify-between">
@@ -97,8 +97,7 @@ function ProductDetail() {
                   {detail?.productDiscription}
                 </p>
                 <p className="text-2xl text-green-600 mb-6">
-                ${(detail?.productPrice)?.toFixed(2)}
-
+                  ${detail?.productPrice?.toFixed(2)}
                 </p>
                 <button
                   onClick={() => addToCart(detail as CartItem)}

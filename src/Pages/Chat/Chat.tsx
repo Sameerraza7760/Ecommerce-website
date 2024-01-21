@@ -7,7 +7,7 @@ import useChat from "./../../hooks/useChat";
 import './style.css';
 function Chat() {
   const { sendMessegeToDb, getMessagesFromDb } = useChat();
-  const Admin = useSelector((state?: any) => state?.admin?.admin[0]);
+  const Admin = useSelector((state?: any) => state?.admin?.admin);
   const User = useSelector((state?: any) => state?.user?.user);
   const [newMessage, setNewMessage] = useState<string>("");
   const [messages, setMessages] = useState<messegeData[]>([]);

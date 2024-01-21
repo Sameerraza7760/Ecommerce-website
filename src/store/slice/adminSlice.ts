@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Adminauth } from "../../types/types";
 
 export interface AdminState {
-  admin: Adminauth[] | null;
+  admin: Adminauth | null;
 }
 
 const initialState: AdminState = {
@@ -13,7 +13,7 @@ const adminSlice = createSlice({
   name: "admin",
   initialState,
   reducers: {
-    setAdmin: (state, action: PayloadAction<Adminauth[] | null>) => {
+    setAdmin: (state, action: PayloadAction<Adminauth | null>) => {
       state.admin = action.payload;
     },
   },

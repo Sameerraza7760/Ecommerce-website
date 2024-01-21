@@ -11,9 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Signin: React.FC = () => {
   const navigate = useNavigate();
-  const AdminEmail = useSelector(
-    (state?: any) => state?.admin?.admin[0]?.email
-  );
+  const AdminEmail = useSelector((state?: any) => state?.admin?.admin.email);
+  console.log(AdminEmail);
+
   const { signin, successMessage, error } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setpassword] = useState<string>("");

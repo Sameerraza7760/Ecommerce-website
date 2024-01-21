@@ -24,8 +24,7 @@ const reducer = (state: any, action: any) => {
       return { ...state, productCategory: payload };
     case "productQuantaty":
       return { ...state, productQuantaty: payload };
-    case "productName":
-      return { ...state, productName: payload };
+
     case "email":
       return { ...state, email: payload };
     case "ADD_IMAGES":

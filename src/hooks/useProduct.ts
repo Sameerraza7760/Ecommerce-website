@@ -1,5 +1,6 @@
 import { message } from "antd";
 import {
+  DocumentData,
   arrayUnion,
   collection,
   deleteDoc,
@@ -14,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { Product, userOrder } from "types/types";
 import { setProduct } from "../store/slice/productSlice";
 import { auth, db, storage } from "./../Config/Firebase/firebase";
+import { Orderstatus } from "types/types";
 
 const useProduct = () => {
   const dispatch = useDispatch();
@@ -53,17 +55,18 @@ const useProduct = () => {
   const getProduct = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, "PRODUCT"));
-      const productArray: Product[] = [];
+      let productArray: Product[] = [];
       querySnapshot.forEach((doc: any) => {
         productArray.push({ id: doc.id, ...doc.data() });
       });
       //SEND THE DATA IN REDUX
       dispatch(setProduct(productArray));
+      return productArray
     } catch (e) {
       console.error("Error fetching Products:", e);
     }
   };
-  type GetProductDetailFunction = (id: string) => Promise<Product>;
+  type GetProductDetailFunction = (id: string) => Promise<DocumentData | null>;
 
   //GET THE PRODUCT DETAIL
   const getProductDetail: GetProductDetailFunction = async (id: string) => {
@@ -122,11 +125,8 @@ const useProduct = () => {
     }
   };
   //  CHANGE STATUS OF ORDER AFTER ADMMIN MANEGE
-  interface Orderstatus {
-    id: string | undefined;
-    status: string | undefined;
-  }
-  const changeOrderStatus = async (statusData: Orderstatus) => {
+ 
+  const changeOrderStatus = async (statusData:any) => {
     const { status, id } = statusData;
 
     console.log(status);
@@ -187,7 +187,7 @@ const useProduct = () => {
       if (productPrice !== undefined) {
         updateData.productPrice = productPrice;
       }
-   
+
       if (productQuantaty !== undefined) {
         updateData.productQuantaty = productQuantaty;
       }

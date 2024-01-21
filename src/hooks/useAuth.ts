@@ -31,7 +31,7 @@ const useAuth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //SIGNUP THE USER
+  //SIGNUP USER
   const signup = async (userinfo: Iauth) => {
     const { email, password } = userinfo;
     try {
@@ -155,15 +155,21 @@ const useAuth = () => {
   //GET ADMIN PROFILE
   const getAdmin = async () => {
     const querySnapshot = await getDocs(collection(db, "Admin"));
-    const adminArray: Adminauth[] = [];
+
+    let adminData;
     querySnapshot.forEach((doc: any) => {
       const { id, ...data } = doc.data() as Adminauth;
-      adminArray.push({ id: doc.id, ...data });
+      adminData = { id: doc.id, ...data };
     });
-    //SEND ADMIN DATA IN REDUX
-    dispatch(setAdmin(adminArray));
+
+    console.log("hi", adminData);
+
+    if (adminData) {
+      dispatch(setAdmin(adminData));
+    }
   };
 
+  
   //UPDATE THE ADMIN PROFILE
   const updateAdminProfile = async (userInfo: UserProfile) => {
     const { id, userName, photurl, phonenumber } = userInfo;
