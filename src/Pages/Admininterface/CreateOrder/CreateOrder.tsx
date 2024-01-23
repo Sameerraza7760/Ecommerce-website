@@ -5,7 +5,7 @@ import React, { useReducer, useState } from "react";
 import { Product } from "types/types";
 import DrawerMenu from "../Adminmenu/DrawerMenu";
 import AppMenu from "../Adminmenu/Menu";
-import Header from "./../../../Components/Header/Header";
+import AdminHeader from "./../../../Components/Header/AdminHeader";
 import useProduct from "./../../../hooks/useProduct";
 import { reducer, initialState } from "./OrderReducer";
 import "./style.css";
@@ -80,7 +80,7 @@ function CreateOrder() {
   };
   return (
     <>
-      <Header />
+      <AdminHeader />
       <div className="bg-gradient-to-r from-blue-500 to-purple-500">
         <div className="min-h-screen w-[100%] flex">
           <div className="menu h-auto w-[200px]">

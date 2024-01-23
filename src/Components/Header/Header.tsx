@@ -14,21 +14,22 @@ import * as React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import useAuth from "./../../hooks/useAuth";
 
 import "./style.css";
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { setUser } from "./../../store/slice/userSlice";
 
 function ResponsiveAppBar() {
+  const dispatch = useDispatch();
   const { logout } = useAuth();
   const email = useSelector((state?: any) => state?.user?.user?.email);
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -46,7 +47,11 @@ function ResponsiveAppBar() {
   const handleLogout = async () => {
     try {
       toast.success("Logout successful!");
-      setTimeout(() => logout(), 2000);
+
+      setTimeout(() => {
+        dispatch(setUser(null));
+        logout();
+      }, 2000);
     } catch (error) {
       console.log(error);
     }
@@ -121,7 +126,7 @@ function ResponsiveAppBar() {
               }}
             >
               <Button
-                onClick={() => navigate(email ? "/Home" : "/")}
+                onClick={() => navigate("/Home")}
                 sx={{
                   my: 2,
                   color: "black",
@@ -134,7 +139,7 @@ function ResponsiveAppBar() {
               </Button>
 
               <Button
-                onClick={() => navigate(email ? "/Shop" : "/")}
+                onClick={() => navigate("/Shop")}
                 sx={{
                   my: 2,
                   color: "black",
@@ -207,7 +212,7 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
-              onClick={() => navigate(email ? "/Home" : "/")}
+              onClick={() => navigate("/Home")}
               sx={{
                 my: 2,
                 color: "black",
@@ -219,7 +224,7 @@ function ResponsiveAppBar() {
               Home
             </Button>
             <Button
-              onClick={() => navigate(email ? "/Shop" : "/")}
+              onClick={() => navigate("/Shop")}
               sx={{
                 my: 2,
                 color: "black",

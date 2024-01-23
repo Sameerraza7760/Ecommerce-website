@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import AppMenu from "../Adminmenu/Menu";
-import Header from "./../../../Components/Header/Header";
+import AdminHeader from './../../../Components/Header/AdminHeader'
 import useAuth from "./../../../hooks/useAuth";
 import { UserProfile } from "./../../../types/types";
 import { MenuOutlined } from "@ant-design/icons";
@@ -19,7 +19,8 @@ function Adminprofile() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [photoImage, setPhotoImage] = useState<File | null>(null);
   const adminData = useSelector((state?: any) => state?.admin?.admin);
-
+   console.log(adminData);
+   
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   const showDrawer = () => {
@@ -80,7 +81,7 @@ function Adminprofile() {
 
   return (
     <>
-      <Header />
+        <AdminHeader />
       <div className="bg-gray-800 min-h-screen w-[100%] flex">
         <div className=" w-[100%] flex">
           <div className="Adminmenu h-auto w-[200px]">

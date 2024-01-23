@@ -24,7 +24,7 @@ const Siginup: React.FC = () => {
   };
   useEffect(() => {
     if (successMessage) {
-      toast.success("Signin successful!");
+      toast.success("Signup successful!");
 
       setTimeout(() => {
         navigate("/Signin");

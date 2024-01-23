@@ -14,7 +14,7 @@ import "./style.css";
 
 function ProductDetail() {
   const navigate = useNavigate();
-  const userId = useSelector((state: any) => state?.user?.user?.id);
+  const userId = useSelector((state: any) => state?.user?.user?.uid);
   const [changeImage, setChangeImage] = useState<string | null>(null);
   const [newReview, setNewRewiew] = useState({
     author: "",

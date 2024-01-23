@@ -18,7 +18,9 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 function Cart() {
   const cartItems = useSelector((state?: any) => state?.cart?.cart);
-  const userId = useSelector((state?: any) => state?.user?.user?.id);
+ 
+  
+  const userId = useSelector((state?: any) => state?.user?.user?.uid);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState<DrawerProps["size"]>();

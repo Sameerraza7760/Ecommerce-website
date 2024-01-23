@@ -14,7 +14,7 @@ import Footer from "./../../Components/Footer/Footer";
 import Header from "./../../Components/Header/Header";
 
 function Notification() {
-  const id = useSelector((state: any) => state?.user?.user?.id);
+  const id = useSelector((state: any) => state?.user?.user?.uid);
   console.log(id);
 
   const { getOrder } = useProduct();

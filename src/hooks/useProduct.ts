@@ -15,14 +15,21 @@ import { useDispatch } from "react-redux";
 import { Product, userOrder } from "types/types";
 import { setProduct } from "../store/slice/productSlice";
 import { auth, db, storage } from "./../Config/Firebase/firebase";
+import { useSelector } from "react-redux";
 import { Orderstatus } from "types/types";
 
 const useProduct = () => {
+  const adminData = useSelector((state: any) => state?.admin?.admin);
+  const userData=useSelector((state:any)=>state.user.user)
+  console.log(userData);
+  
+  
+
   const dispatch = useDispatch();
 
   // ADD PRODUCT IN DATABASE
   const addProduct = async (newProductData: Product) => {
-    const productId = auth.currentUser.uid + Date.now();
+    const productId = adminData?.id + Date.now();
     try {
       const productDocRef = doc(db, "PRODUCT", productId);
 
@@ -61,7 +68,7 @@ const useProduct = () => {
       });
       //SEND THE DATA IN REDUX
       dispatch(setProduct(productArray));
-      return productArray
+      return productArray;
     } catch (e) {
       console.error("Error fetching Products:", e);
     }
@@ -88,14 +95,21 @@ const useProduct = () => {
 
   // ORDER PLACED IN DATABASE
   const orderPlaced = async (order: userOrder) => {
+    console.log(order);
+    
     try {
-      const userId = auth.currentUser.uid + Date.now();
+      const userId = userData?.uid + Date.now();
+      console.log(userId);
+
+      console.log(order);
+
       const orderRef = doc(collection(db, "order"), userId);
 
       const orderData = {
         ...order,
         userId,
       };
+      console.log(orderData);
 
       await setDoc(orderRef, orderData);
       message.success("Order placed successfully!");
@@ -125,8 +139,8 @@ const useProduct = () => {
     }
   };
   //  CHANGE STATUS OF ORDER AFTER ADMMIN MANEGE
- 
-  const changeOrderStatus = async (statusData:any) => {
+
+  const changeOrderStatus = async (statusData: any) => {
     const { status, id } = statusData;
 
     console.log(status);

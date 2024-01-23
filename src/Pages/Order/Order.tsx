@@ -6,7 +6,9 @@ import { userOrder } from "types/types";
 import { useSelector } from "react-redux";
 import './style.css'
 function Order() {
-  const userId = useSelector((state?: any) => state?.user?.user?.id);
+  const userId = useSelector((state?: any) => state?.user?.user?.uid);
+  console.log(userId);
+  
   const [selectedOrder, setSelectedOrder] = useState<any | null>(null);
   const [order, setOrder] = useState<userOrder[]>([]);
   const { getOrder } = useProduct();
@@ -22,6 +24,10 @@ function Order() {
       const filterOrder = order.filter(
         (item: userOrder) => item.userId?.slice(0,28) === userId
       );
+      console.log(order[0].userId);
+      
+      console.log(filterOrder);
+      
       if (filterOrder) {
         setOrder(filterOrder);
       }

@@ -17,12 +17,12 @@ function Chat() {
     const messageData: messegeData = {
       message: newMessage,
       email: User?.email,
-      senderId: User.id,
+      senderId: User.uid,
       receiverId: Admin.id,
       timestamp: serverTimestamp(),
       chatRoomId: {
         [Admin.id]: true,
-        [User.id]: true,
+        [User.uid]: true,
       },
       chatRoom: {
         message: [newMessage],
@@ -35,7 +35,7 @@ function Chat() {
     setNewMessage(" ");
   };
   const getMesseges = async () => {
-    const unsubscribe = getMessagesFromDb(Admin.id, User.id, (messages) => {
+    const unsubscribe = getMessagesFromDb(Admin.id, User.uid, (messages) => {
       console.log("Filtered Messages:", messages);
       if (messages) {
         setMessages(messages);

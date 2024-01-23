@@ -14,9 +14,13 @@ const firebaseConfig = {
   measurementId: "G-MFYPP36LFS",
 };
 
+
 const app = initializeApp(firebaseConfig);
+
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+
 // console.log("API Key:", process.env.REACT_APP_FIREBASE_API_KEY);

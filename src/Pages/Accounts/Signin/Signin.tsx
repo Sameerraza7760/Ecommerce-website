@@ -5,24 +5,28 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Header from "../../../Components/Header/Header";
 import useAuth from "../../../hooks/useAuth";
+
 import "./../style.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Signin: React.FC = () => {
+  const { getAdmin } = useAuth();
   const navigate = useNavigate();
-  const AdminEmail = useSelector((state?: any) => state?.admin?.admin.email);
-  console.log(AdminEmail);
+  const AdminEmail = useSelector((state?: any) => state?.admin.admin?.email);
+  const userEmail = useSelector((state?: any) => state?.user.user?.email);
 
   const { signin, successMessage, error } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setpassword] = useState<string>("");
   const [whereToNavigate, setWhereToNavigate] = useState<string>("/Home");
-
   const handleLogin = async () => {
+    await getAdmin();
+
     if (email === AdminEmail) {
       setWhereToNavigate("/AdminDashboard");
     }
+
     await signin({ email, password });
   };
 
@@ -39,6 +43,12 @@ const Signin: React.FC = () => {
       toast.warning(error);
     }
   }, [successMessage, whereToNavigate, error]);
+
+  useEffect(() => {
+    if (userEmail) {
+      navigate("/Home");
+    }
+  }, []);
   return (
     <>
       <Header />

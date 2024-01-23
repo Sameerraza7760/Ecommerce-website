@@ -24,6 +24,7 @@ import {
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { toast } from "react-toastify";
+import { log } from "console";
 const useAuth = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -58,7 +59,9 @@ const useAuth = () => {
   const signin = async (userinfo: Iauth) => {
     try {
       const { email, password } = userinfo;
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCred = await signInWithEmailAndPassword(auth, email, password);
+      await getUser(userCred.user.uid);
+      console.log(userCred.user.uid)
       setSuccessMessage("Loggedin");
     } catch (e: any) {
       setError(e.message);
@@ -74,14 +77,10 @@ const useAuth = () => {
       if (querySnapshot.exists()) {
         const userData = querySnapshot.data();
         console.log("User Data:", userData);
-
-        const userProfile: UserProfile = {
-          userName: userData.username,
-          email: userData.email,
-          photurl: userData.image,
-        };
-
-        return userProfile;
+        
+        
+        dispatch(setUser(userData));
+        return userData;
       } else {
         console.log("User not found");
         return null;
@@ -91,7 +90,6 @@ const useAuth = () => {
       throw error;
     }
   };
-
   //UPDATE THE PROFILE OF CURRENT USER
   const updateUserName = async (userInfo: UserProfile) => {
     const { id, userName, photurl } = userInfo;
@@ -117,24 +115,6 @@ const useAuth = () => {
       message.error(error.message);
     }
   };
-
-  //SEND THE CURRUENT USER IN REDUX
-  const sendUserInRedux = () => {
-    const unsubscribe = auth.onAuthStateChanged((user: any) => {
-      if (user) {
-        const userObject: User = {
-          email: user.email,
-          id: user.uid,
-        };
-        dispatch(setUser(userObject));
-      } else {
-        dispatch(setUser(null));
-      }
-    });
-
-    return () => unsubscribe();
-  };
-  sendUserInRedux();
 
   //UPLOAD IMAGE AND TAKE URL
   const uploadImage = async (image: File | null) => {
@@ -169,7 +149,6 @@ const useAuth = () => {
     }
   };
 
-  
   //UPDATE THE ADMIN PROFILE
   const updateAdminProfile = async (userInfo: UserProfile) => {
     const { id, userName, photurl, phonenumber } = userInfo;

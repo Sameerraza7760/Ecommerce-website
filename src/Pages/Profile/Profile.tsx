@@ -25,7 +25,9 @@ function Profile() {
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
-  const id = useSelector((state?: any) => state?.user?.user?.id);
+  const id = useSelector((state?: any) => state?.user?.user?.uid);
+  console.log(id);
+  
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -85,9 +87,11 @@ function Profile() {
     const displayCurrentUser = async () => {
       if (id) {
         const Data = await getUser(id);
+        console.log(Data);
+        
         setEmail(Data?.email);
-        setUserName(Data?.userName);
-        setUserPhoto(Data?.photurl);
+        setUserName(Data?.username);
+        setUserPhoto(Data?.image);
         console.log("hy==>", Data);
       }
     };

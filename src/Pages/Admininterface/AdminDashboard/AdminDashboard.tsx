@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Product } from "types/types";
 import AppMenu from "../Adminmenu/Menu";
-import Header from "./../../../Components/Header/Header";
+import AdminHeader from './../../../Components/Header/AdminHeader'
 import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
 import { setProduct } from "store/slice/productSlice";
@@ -24,7 +24,8 @@ import { MenuOutlined } from "@mui/icons-material";
 function AdminDashboard() {
   const navigate = useNavigate();
   const product = useSelector((state?: any) => state?.product?.product);
-  console.log(product);
+  const user = useSelector((state?: any) => state?.user?.user);
+  console.log(user);
   const { getProduct, deleteProduct, updateProduct } = useProduct();
   const { uploadImage } = useAuth();
   const [updateProductName, setUpdateProductName] = useState<string>("");
@@ -97,7 +98,7 @@ function AdminDashboard() {
 
   return (
     <>
-      <Header />
+      <AdminHeader />
 
       <div className="dashboard-container bg-gray-100 min-h-screen w-full flex">
         <div className="menu h-auto w-[250px]">

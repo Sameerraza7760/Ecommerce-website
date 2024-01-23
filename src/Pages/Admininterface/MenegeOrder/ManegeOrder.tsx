@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { userOrder } from "types/types";
 import AppMenu from "../Adminmenu/Menu";
-import Header from "./../../../Components/Header/Header";
+import AdminHeader from "./../../../Components/Header/AdminHeader";
 import useAuth from "./../../../hooks/useAuth";
 import useProduct from "./../../../hooks/useProduct";
 import "./style.css";
@@ -65,7 +65,7 @@ function ManegeOrder() {
 
   return (
     <div>
-      <Header />
+      <AdminHeader />
 
       <div className="bg-slate-400 min-h-screen w-full flex">
         <div className="menu h-auto w-[200px]">

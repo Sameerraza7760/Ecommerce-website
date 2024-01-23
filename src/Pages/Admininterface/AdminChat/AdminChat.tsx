@@ -4,12 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { User, messegeData } from "types/types";
-import './style.css'
+import "./style.css";
 
 function AdminChat() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const { sendMessegeToDb, getMessagesFromDb, getUserFromDb } = useChat();
-  const Admin = useSelector((state?: any) => state?.admin?.admin[0]);
+  const Admin = useSelector((state?: any) => state?.admin?.admin);
   const [newMessage, setNewMessage] = useState<string>("");
   const [messages, setMessages] = useState<messegeData[]>([]);
   const [getMessege, setGetMessege] = useState<boolean>(false);

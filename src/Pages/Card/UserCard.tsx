@@ -12,7 +12,9 @@ interface ProductProps {
 function UserCard({ items }: ProductProps) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userId = useSelector((state?: any) => state?.user?.user?.id);
+  const userId = useSelector((state?: any) => state?.user?.user?.uid);
+  console.log(userId);
+  
   const addToCart = (items: CartItem) => {
     notification.success({
       message: "Item Added to Cart",

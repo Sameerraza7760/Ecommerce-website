@@ -51,6 +51,8 @@ const useChat = () => {
           const messageData = doc.data() as messegeData;
           messages.push(messageData);
         });
+        console.log("hi",messages);
+        
         callback(messages);
       },
       (error) => {
@@ -69,6 +71,8 @@ const useChat = () => {
       const { id, ...data } = doc.data() as User;
       userArray.push({ id: doc.id, ...data });
     });
+    console.log(userArray);
+    
     return userArray;
   };
 
