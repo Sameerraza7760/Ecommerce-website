@@ -50,18 +50,21 @@ function ManegeOrder() {
     }
   };
 
+  useEffect(() => {
+    getUserOrder();
+  }, []);
+
+  const getUserOrder = async () => {
+    const order = await getOrder();
+    if (order) {
+      setOrder(order);
+    }
+  };
+
   const changeStatus = async (id?: string, status?: string) => {
     await changeOrderStatus({ id, status });
-  };
-  useEffect(() => {
-    const getUserOrder = async () => {
-      const order = await getOrder();
-      if (order) {
-        setOrder(order);
-      }
-    };
     getUserOrder();
-  }, [changeStatus]);
+  };
 
   return (
     <div>
@@ -143,10 +146,10 @@ function ManegeOrder() {
                           <div className="flex items-center">
                             <FontAwesomeIcon
                               icon={faHourglassHalf}
-                              className="text-yellow-500 mr-2"
+                              className="text-blue-500 mr-2"
                             />
 
-                            <span className=" text-yellow-500 font-semibold cursor-pointer">
+                            <span className=" text-blue-500 font-semibold cursor-pointer">
                               {item.status}
                             </span>
                           </div>
@@ -264,7 +267,7 @@ function ManegeOrder() {
                     )}
                 </TabPanel>
                 <TabPanel value="4">
-                {order.length !== 0 &&
+                  {order.length !== 0 &&
                     order.map((item) =>
                       item.status === "Cancelled" ? (
                         <div

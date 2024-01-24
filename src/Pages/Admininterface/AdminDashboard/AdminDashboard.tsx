@@ -92,7 +92,7 @@ function AdminDashboard() {
   const filteredProducts: Product[] =
     filteredCategary === " "
       ? product
-      : product.filter((item: Product) =>
+      : product?.filter((item: Product) =>
           item.productName.toLowerCase().includes(filteredCategary)
         );
 
@@ -142,7 +142,7 @@ function AdminDashboard() {
             </div>
 
             <div className="productDisplayDashboead flex flex-wrap justify-center gap-4">
-              {filteredProducts.map((item: Product) => (
+              {filteredProducts?.map((item: Product) => (
                 <Card
                   className="border rounded-md w-[300px] shadow-md transition duration-300 ease-in-out"
                   key={item.id}

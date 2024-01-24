@@ -107,7 +107,12 @@ function Profile() {
         <div className="innerMiniContainer h-[40vh] w-[250px] flex flex-col gap-1">
           <div></div>
           <div className="h-[30%] w-full bg-slate-400 rounded-md shadow-md flex items-center">
-            <img className="profileimage" src={validUserPhoto} alt="" />
+          {validUserPhoto ? (
+  <img className="profileimage2" src={validUserPhoto} alt="" />
+) : (
+  <img className="profileimage"  src="" alt="" />
+)}
+
             <h1 className="profileName">{userName}</h1>
           </div>
           <div className="h-[80%] w-full bg-slate-200 rounded-md shadow-md p-4">
@@ -167,7 +172,11 @@ function Profile() {
               } `}
             >
               <div className="h-[30%] w-full bg-slate-400 rounded-md shadow-md flex items-center">
-                <img className="profileimage" src={validUserPhoto} alt="" />
+              {validUserPhoto ? (
+  <img className="profileimage2" src={validUserPhoto} alt="" />
+) : (
+  <img className="profileimage"  src="" alt="" />
+)}
                 <h1 className="profileName">{userName}</h1>
               </div>
               <div className="h-[80%] w-full bg-slate-200 rounded-md shadow-md p-4">
@@ -210,26 +219,23 @@ function Profile() {
           <div className="costumerDetail pl-[3%] pt-[6%] border-b border-gray-300 flex justify-between h-[60%]">
             <div className="costumerText font-serif cursor-pointer ">
               <h3>
-                First Name <span className="text-black ml-5">{userName} </span>
+                First Name <span className="text-blue-500 ml-5">{userName} </span>
               </h3>
               <h3>
-                Last Name <span className="text-black ml-5"> {userName}</span>
+                Last Name <span className="text-blue-500 ml-5"> {userName}</span>
               </h3>
 
               <h3>
-                Email <span className="text-black  ml-6">{email}</span>
+                Email <span className="text-blue-500 ml-6">{email}</span>
               </h3>
             </div>
             <div className="profileimagediv w-[30%]  border-gray-300 ">
-              <img
-                className="Profileimage w-[60%] cursor-pointer"
-                src={
-                  validUserPhoto
-                    ? `${validUserPhoto}`
-                    : "./../../assets/profile.webp"
-                }
-                alt=""
-              />
+            {validUserPhoto ? (
+  <img className="Profileimage " src={validUserPhoto} alt="" />
+) : (
+  <img className="Profileimage "  src="" alt="" />
+)}
+
             </div>
           </div>
           <div className="flex justify-between p-8">

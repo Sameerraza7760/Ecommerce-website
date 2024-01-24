@@ -43,7 +43,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
       }
     };
   return (
-    <Drawer title="Menu" placement="top" onClose={onClose}  className="custom-drawer" visible={visible}>
+    <Drawer title="Menu" placement="top" onClose={onClose}  className="custom-drawer" open={visible}>
       <Menu
       selectedKeys={defaultSelectedKey ? [defaultSelectedKey] : []}
       defaultOpenKeys={defaultSelectedKey ? [defaultSelectedKey] : []}

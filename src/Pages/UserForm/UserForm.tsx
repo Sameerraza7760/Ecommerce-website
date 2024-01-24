@@ -16,10 +16,9 @@ const UserForm: React.FC<UserFormProps> = ({ Total }) => {
   const dispatch = useDispatch();
   const { orderPlaced } = useProduct();
   const cartItems = useSelector((state?: any) => state?.cart?.cart);
-  console.log("hi",cartItems);
-  
-  const userId = useSelector((state:any) => state?.user?.user?.uid);
+  console.log("hi", cartItems);
 
+  const userId = useSelector((state: any) => state?.user?.user?.uid);
 
   const [username, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -56,7 +55,7 @@ const UserForm: React.FC<UserFormProps> = ({ Total }) => {
       status,
       Total,
       date,
-      userId
+      userId,
     };
 
     for (let key in userItem) {
@@ -125,18 +124,16 @@ const UserForm: React.FC<UserFormProps> = ({ Total }) => {
           </div>
         </Col>
         <Col xs={24} sm={12}>
-          <div>
-            <label>Select City</label>
+          <div className="mt-5">
             <Select
               className="w-full border-b-2 border-gray-300 outline-none focus:border-blue-500"
               onChange={handleCityChange}
-              value={city || "Karachi"}
+              value={city || "Select the City"}
             >
               <Option value="Karachi">Karachi</Option>
               <Option value="Islamabad">Islamabad</Option>
               <Option value="Lahore">Lahore</Option>
               <Option value="Hyderabad">Hyderabad</Option>
-              {/* Add more cities as needed */}
             </Select>
           </div>
         </Col>

@@ -35,7 +35,7 @@ function AdminChat() {
     messageData.chatRoom.message = arrayUnion(newMessage);
     setGetMessege(true);
     await sendMessegeToDb(messageData);
-    setNewMessage(" ")
+    setNewMessage(" ");
   };
   const getMesseges = async () => {
     const unsubscribe = getMessagesFromDb(Admin.id, senderId, (messages) => {
@@ -63,17 +63,20 @@ function AdminChat() {
   }, [senderId]);
 
   return (
-    <div className="flex h-screen">
+    <div className="flex flex-col md:flex-row h-screen">
       {/* Sidebar */}
-      <div className="bg-gray-800 text-white p-4 w-1/4">
-        <h3 className="costumerList text-2xl font-semibold mb-4 text-center font-serif">Customer List</h3>
-        <ul className="font-serif text-center " >
+      <div className="bg-gray-800 text-white p-4 md:w-1/4">
+        <h3 className="costumerList text-2xl font-semibold mb-4 text-center font-serif">
+          Customer List
+        </h3>
+        <ul className="font-serif text-center">
           {user
             .filter((item) => item.email !== Admin.email)
             .map((item) => (
               <li
+                key={item.id}
                 onClick={() => handleSlidebar(item.id)}
-                className="mb-2 cursor-pointer hover:bg-gray-700 px-4 py-2 rounded-md transition duration-300  text-center"
+                className="mb-2 cursor-pointer hover:bg-gray-700 px-4 py-2 rounded-md transition duration-300 text-center"
               >
                 {item.email}
               </li>
@@ -82,10 +85,13 @@ function AdminChat() {
       </div>
 
       {/* Chat Section */}
-      <div className="bg-white p-4 shadow-md rounded-tl-md w-full h-[100vh] flex flex-col">
+      <div className="bg-white p-4 shadow-md rounded-tl-md md:w-full h-full md:h-[100vh] flex flex-col">
         <div className="flex items-center justify-between mb-4 h-auto">
           <h3 className="text-xl font-semibold text-gray-800">Live Chat</h3>
-          <button className="text-gray-500 hover:text-gray-700" onClick={()=>navigate('/AdminDashboard')} >
+          <button
+            className="text-gray-500 hover:text-gray-700"
+            onClick={() => navigate("/AdminDashboard")}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -103,8 +109,7 @@ function AdminChat() {
           </button>
         </div>
         {/* Chat Content */}
-        <div className="flex flex-col space-y-4 h-[95%]">
-   
+        <div className="flex flex-col space-y-4 flex-1 overflow-y-auto">
           {Array.isArray(messages) &&
             messages.map(
               (item, index) =>
@@ -117,7 +122,7 @@ function AdminChat() {
                       alt="User"
                     />
                     <div
-                      className={`flex items-start  w-full ${
+                      className={`flex items-start w-full ${
                         item.senderId === Admin.id
                           ? "bg-blue-200"
                           : "bg-green-200"
@@ -132,17 +137,17 @@ function AdminChat() {
             )}
         </div>
         {/* Input Section */}
-        <div className="mt-4 h-auto flex gap-2">
+        <div className="mt-4 h-auto flex flex-col md:flex-row gap-2">
           <input
             type="text"
             placeholder="Type your message..."
-            className="w-[90%] p-3 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full md:w-[90%] p-3 border rounded-md focus:outline-none focus:border-blue-500"
             onChange={(e) => setNewMessage(e.target.value)}
             value={newMessage}
           />
           <button
             onClick={handleSendMessege}
-            className=" bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none gap-2 w-[120px] "
+            className="bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 focus:outline-none w-full md:w-[120px]"
           >
             Send
           </button>
@@ -151,5 +156,4 @@ function AdminChat() {
     </div>
   );
 }
-
 export default AdminChat;

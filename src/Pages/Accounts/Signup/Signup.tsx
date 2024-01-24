@@ -6,7 +6,7 @@ import Header from "./../../../Components/Header/Header";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,7 +18,7 @@ const Siginup: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [username, setUserName] = useState("");
-
+  const userEmail = useSelector((state?: any) => state?.user.user?.email);
   const handleSignup = async () => {
     await signup({ email, password, username });
   };
@@ -35,6 +35,12 @@ const Siginup: React.FC = () => {
       toast.warning(error);
     }
   }, [successMessage, error]);
+
+  useEffect(() => {
+    if (userEmail) {
+      navigate("/Home");
+    }
+  }, []);
 
   return (
     <>
